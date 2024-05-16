@@ -71,13 +71,13 @@
         .contact-info {
             margin-bottom: 20px;
         }
-        .map {
+        .map-container {
             text-align: center;
             margin-bottom: 20px;
         }
-        .map img {
-            width: 80%;
-            height: auto;
+        .map {
+            width: 100%; /* 讓地圖填滿父容器 */
+            height: 400px; /* 設定地圖高度 */
             border: 2px solid #333;
         }
     </style>
@@ -98,9 +98,10 @@
                 <p>電子郵件：kar5303@gmail.com</p>
                 <p>電話號碼：0975936060</p>
             </div>
-            <div class="map">
+            <div class="map-container">
                 <h3>地圖位置</h3>
-                <img src="map.jpg" alt="地圖位置">
+                <!-- 嵌入式 Google 地圖 -->
+                <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.295732631509!2d121.51444801500618!3d25.039859043101214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ab5d4247f209%3A0x2f871c319ab17597!2z5bCU5LqU5pyD5ZyS5ZKW5YyW!5e0!3m2!1szh-TW!2stw!4v1620050730578!5m2!1szh-TW!2stw" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </section>
     </div>
