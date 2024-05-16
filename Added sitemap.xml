@@ -1,0 +1,3 @@
+git add sitemap.xml
+git commit -m "Added sitemap.xml"
+git push origin master
