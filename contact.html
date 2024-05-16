@@ -67,8 +67,45 @@
             width: 100%;
             bottom: 0;
         }
+        /* 新增樣式 */
+        .contact-info {
+            margin-bottom: 20px;
+        }
+        .map {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .map img {
+            width: 80%;
+            height: auto;
+            border: 2px solid #333;
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="LOGO.png"
+        <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
+    </header>
+    <nav>
+        <a href="index.html">個人簡介</a>
+        <a href="works.html">作品集</a>
+        <a href="contact.html">聯繫方式</a>
+    </nav>
+    <div class="container">
+        <section class="section">
+            <h2>聯繫方式</h2>
+            <div class="contact-info">
+                <p>電子郵件：kar5303@gmail.com</p>
+                <p>電話號碼：0975936060</p>
+            </div>
+            <div class="map">
+                <h3>地圖位置</h3>
+                <img src="map.jpg" alt="地圖位置">
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 Sean</p>
+    </footer>
+</body>
+</html>
