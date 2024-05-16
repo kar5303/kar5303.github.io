@@ -77,11 +77,15 @@
             overflow: hidden; /* 隱藏超出的部分 */
         }
         .map {
-            max-width: 100%; /* 最大寬度為容器的寬度 */
-            max-height: 300px; /* 最大高度，可以根據需求調整 */
             width: 100%; /* 讓地圖填滿父容器 */
-            height: auto; /* 自動調整高度 */
+            height: 400px; /* 設定地圖高度，你可以根據需求調整 */
             border: 2px solid #333;
+        }
+        /* 在手機上調整地圖大小 */
+        @media (max-width: 768px) {
+            .map {
+                height: 250px; /* 調整手機上地圖的高度 */
+            }
         }
     </style>
 </head>
