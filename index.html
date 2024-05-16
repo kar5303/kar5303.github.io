@@ -49,16 +49,14 @@
         .section p {
             line-height: 1.6;
         }
-        .portfolio-item {
+        .profile {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
         }
-        .portfolio-item div {
-            flex: 1 0 21%;
-            margin: 10px;
-            background-color: #f4f4f4;
-            padding: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        .profile img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
         }
         footer {
             background-color: #333;
@@ -74,7 +72,6 @@
 <body>
     <header>
         <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
-
     </header>
     <nav>
         <a href="#about">個人簡介</a>
@@ -84,11 +81,13 @@
     <div class="container">
         <section id="about" class="section">
             <h2>個人簡介</h2>
-            <img src="Sean.jpg" alt="個人照片" style="width:150px;height:auto;display:block;margin:0 auto;">
-            <p>我是一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。我在學
-               術生涯中運用課堂機會設計出有環保相關發展的紙拖鞋。在攻讀研究所期間，
-               我與愛之味和鴻茂熱水器合作，深入了解瓶型碰撞分析、結構設計和流體力學
-               等技術，進一步體現了我對工程和設計的熱情。</p>
+            <div class="profile">
+                <img src="Sean.jpg" alt="個人照片">
+                <p>我是一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。我在學
+                   術生涯中運用課堂機會設計出有環保相關發展的紙拖鞋。在攻讀研究所期間，
+                   我與愛之味和鴻茂熱水器合作，深入了解瓶型碰撞分析、結構設計和流體力學
+                   等技術，進一步體現了我對工程和設計的熱情。</p>
+            </div>
         </section>
         <section id="portfolio" class="section">
             <h2>作品集</h2>
@@ -116,10 +115,11 @@
             <p>您可以通過以下方式聯繫我：</p>
             <p>電子郵件：kar5303@gmail.com</p>
             <p>電話號碼：0975936060</p>
-            
+        </section>
     </div>
     <footer>
         <p>&copy; 2024 Sean</p>
     </footer>
 </body>
 </html>
+
