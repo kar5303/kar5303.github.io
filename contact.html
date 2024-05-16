@@ -3,31 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聯繫方式 - Sean</title>
+    <title>Sean - 聯繫方式</title>
     <style>
-        /* 可以放置聯繫方式專屬的 CSS 樣式 */
+        /* 樣式可以直接從主頁複製 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: #fff;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
-    </header>
-    <nav>
-        <a href="index.html">首頁</a>
-        <a href="about.html">個人簡介</a>
-        <a href="works.html">作品集</a>
-        <a href="contact.html">聯繫方式</a>
-    </nav>
-    <div class="container">
-        <section id="contact" class="section">
-            <h2>聯繫方式</h2>
-            <p>您可以通過以下方式聯繫我：</p>
-            <p>電子郵件：kar5303@gmail.com</p>
-            <p>電話號碼：0975936060</p>
-        </section>
-    </div>
-    <footer>
-        <p>&copy; 2024 Sean</p>
-    </footer>
-</body>
-</html>
+        <img src="LOGO.png"
