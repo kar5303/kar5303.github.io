@@ -77,8 +77,14 @@
         }
         .map {
             width: 100%; /* 讓地圖填滿父容器 */
-            height: 400px; /* 設定地圖高度 */
+            height: 300px; /* 設定地圖高度，你可以根據需求調整 */
             border: 2px solid #333;
+        }
+        /* 在手機上調整地圖大小 */
+        @media (max-width: 768px) {
+            .map {
+                height: 200px; /* 調整手機上地圖的高度 */
+            }
         }
     </style>
 </head>
