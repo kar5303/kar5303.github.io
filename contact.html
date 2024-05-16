@@ -74,17 +74,14 @@
         .map-container {
             text-align: center;
             margin-bottom: 20px;
+            overflow: hidden; /* 隱藏超出的部分 */
         }
         .map {
+            max-width: 100%; /* 最大寬度為容器的寬度 */
+            max-height: 300px; /* 最大高度，可以根據需求調整 */
             width: 100%; /* 讓地圖填滿父容器 */
-            height: 300px; /* 設定地圖高度，你可以根據需求調整 */
+            height: auto; /* 自動調整高度 */
             border: 2px solid #333;
-        }
-        /* 在手機上調整地圖大小 */
-        @media (max-width: 768px) {
-            .map {
-                height: 200px; /* 調整手機上地圖的高度 */
-            }
         }
     </style>
 </head>
@@ -108,7 +105,7 @@
             <div class="map-container">
                 <h3>地圖位置</h3>
                 <!-- 嵌入式 Google 地圖 -->
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d645.8152024363856!2d120.43065738568073!3d23.701604741859082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346eba00c1444b7d%3A0x9cc8fd990373f28e!2z5ZyL56uL6JmO5bC-56eR5oqA5aSn5a24IOe2nOWQiOW3peeoi-mkqOS4gOmkqA!5e0!3m2!1szh-TW!2stw!4v1715847963600!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d645.8152024363856!2d120.43065738568073!3d23.701604741859082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346eba00c1444b7d%3A0x9cc8fd990373f28e!2z5ZyL56uL6JmO5bC-56eR5oqA5aSn5a24IOe2nOWQiOW3peeoi-mkqOS4gOmkqA!5e0!3m2!1szh-TW!2stw!4v1715847963600!5m2!1szh-TW!2stw" class="map" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </section>
     </div>
