@@ -73,6 +73,7 @@
             display: flex;
             align-items: center;
             justify-content: center; /* 將內容置中 */
+            flex-wrap: wrap; /* 讓內容在手機上換行 */
         }
         .contact-info p {
             margin: 0; /* 清除段落的預設邊距 */
@@ -102,6 +103,11 @@
         @media (max-width: 768px) {
             .map {
                 height: 250px; /* 調整手機上地圖的高度 */
+            }
+            .contact-info p {
+                width: 100%; /* 讓段落佔滿行 */
+                justify-content: center; /* 將內容置中 */
+                margin-bottom: 10px; /* 調整段落之間的間距 */
             }
         }
     </style>
