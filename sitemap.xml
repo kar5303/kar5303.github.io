@@ -7,7 +7,19 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://kar5303.github.io/index.html</loc>
+        <loc>https://https://kar5303.github.io/experience.html</loc>
+        <lastmod>2024-05-16</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://kar5303.github.io/works.html</loc>
+        <lastmod>2024-05-16</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://kar5303.github.io/contact.html</loc>
         <lastmod>2024-05-16</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
