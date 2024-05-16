@@ -77,6 +77,9 @@
     </header>
     <nav>
         <a href="#about">個人簡介</a>
+        <h2>個人簡介</h2>
+        <p>這裡是您的個人簡介。您可以介紹自己的背景、經歷和興趣等。</p>
+</section>
         <a href="#portfolio">作品集</a>
         <a href="#contact">聯繫方式</a>
     </nav>
