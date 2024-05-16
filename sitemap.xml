@@ -14,7 +14,3 @@ touch sitemap.xml
         <priority>0.8</priority>
     </url>
     <!-- Add more URLs as needed -->
-</urlset>
-git add sitemap.xml
-git commit -m "Added sitemap.xml"
-git push origin master
