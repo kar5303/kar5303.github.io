@@ -65,11 +65,16 @@
             height: auto;
             margin-right: 15px;
         }
-        .profile p {
-            flex-grow: 1; /* Allow the paragraph to grow and take remaining space */
-            margin: 0; /* Remove default margin */
-            font-size: 18px; /* Adjust font size */
-            line-height: 1.5; /* Adjust line height for better readability */
+        .profile-info {
+            flex-grow: 1;
+        }
+        .profile-info p {
+            font-size: 18px;
+            margin-top: 0;
+        }
+        .profile-description {
+            flex-grow: 1;
+            padding-left: 20px; /* Add padding to separate from image */
         }
         footer {
             background-color: #333;
@@ -79,21 +84,6 @@
             position: fixed;
             width: 100%;
             bottom: 0;
-        }
-        @media (min-width: 600px) {
-            .profile {
-                flex-direction: row; /* 將項目水平排列 */
-                justify-content: space-between; /* 將項目分散對齊 */
-                align-items: center; /* 垂直居中對齊 */
-            }
-            .profile img {
-                width: 50%; /* 讓照片佔一半寬度 */
-                margin-right: 0; /* 移除右邊距 */
-            }
-            .profile p {
-                width: 45%; /* 讓介紹文字佔一半寬度 */
-                text-align: left; /* 將文字左對齊 */
-            }
         }
     </style>
 </head>
@@ -117,8 +107,7 @@
                    <p style="text-align: center;">WANG,QIU-XIONG<br>王秋雄</p> <!-- 在這裡添加你的名字 -->
             </div>
             <div class="profile-description">
-                <p>我是Sean，一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。我在學術生涯中運用課堂機會設計出有環保相關發展的紙拖鞋。在攻讀研究所期間，
-               我與愛之味和鴻茂熱水器合作，深入了解瓶型碰撞分析、結構設計和流體力學等技術，進一步體現了我對工程和設計的熱情。</p>
+                <p>我是Sean，一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。我在學術生涯中運用課堂機會設計出有環保相關發展的紙拖鞋。在攻讀研究所期間，我與愛之味和鴻茂熱水器合作，深入了解瓶型碰撞分析、結構設計和流體力學等技術，進一步體現了我對工程和設計的熱情。</p>
             </div>
             </div>
         </section>
