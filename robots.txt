@@ -1,7 +1,2 @@
 User-agent: *
 Disallow:/
-
-User-agent: Googlebot
-Disallow:
-
-Sitemap: https://kar5303.github.io/sitemap.xml
