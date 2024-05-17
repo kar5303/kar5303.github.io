@@ -82,6 +82,18 @@
             width: 100%;
             bottom: 0;
         }
+        #back-to-top {
+            display: inline-block;
+            background-color: #444;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #back-to-top:hover {
+            background-color: #555;
+        }
         /* 新增的CSS */
         .video-container {
             position: relative;
@@ -192,7 +204,7 @@
         </section>
     </div>
     <footer>
-        <p>&copy; 2024 Sean</p>
+        <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
     </footer>
 </body>
 </html>
