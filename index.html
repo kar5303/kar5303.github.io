@@ -80,6 +80,21 @@
             width: 100%;
             bottom: 0;
         }
+        @media (min-width: 600px) {
+            .profile {
+                flex-direction: row; /* 將項目水平排列 */
+                justify-content: space-between; /* 將項目分散對齊 */
+                align-items: center; /* 垂直居中對齊 */
+            }
+            .profile img {
+                width: 50%; /* 讓照片佔一半寬度 */
+                margin-right: 0; /* 移除右邊距 */
+            }
+            .profile p {
+                width: 45%; /* 讓介紹文字佔一半寬度 */
+                text-align: left; /* 將文字左對齊 */
+            }
+        }
     </style>
 </head>
 <body>
