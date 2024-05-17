@@ -66,11 +66,14 @@
             margin-right: 20px;
         }
         .profile p {
-            flex-grow: 1; /* Allow the paragraph to grow and take remaining space */
-            margin: 0; /* Remove default margin */
-            font-size: 16px; /* Adjust font size */
-            line-height: 1.5; /* Adjust line height for better readability */
+            flex-grow: 1;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.5;
+            word-wrap: break-word; /* 讓文字在需要時自動換行 */
+            max-width: calc(30em * 1ch); /* 控制每行大約有 30 個字 */
         }
+
         footer {
             background-color: #333;
             color: #fff;
