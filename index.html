@@ -66,16 +66,11 @@
             margin-right: 20px;
         }
         .profile p {
-            flex-grow: 1;
-            margin: 0;
-            font-size: 16px;
-            line-height: 1.5;  
+            flex-grow: 1; /* Allow the paragraph to grow and take remaining space */
+            margin: 0; /* Remove default margin */
+            font-size: 20px; /* Adjust font size */
+            line-height: 1.5; /* Adjust line height for better readability */
         }
-        .profile .line-wrapper {
-            display: inline-block;
-            max-width: calc(30em * 1ch); /* 控制每行大約有 30 個字 */
-        }
-
         footer {
             background-color: #333;
             color: #fff;
@@ -103,21 +98,10 @@
             <h2>個人簡介</h2>
             <div class="profile">
                 <img src="Sean.jpg" alt="個人照片">
-                <div class="line-wrapper">
-                    <p>我是一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。我在學
-                    </p>
-                </div>
-                <div class="line-wrapper">
-                    <p>術生涯中運用課堂機會設計出有環保相關發展的紙拖鞋。在攻讀研究所期間，
-                    </p>
-                </div>
-                <div class="line-wrapper">
-                    <p>我與愛之味和鴻茂熱水器合作，深入了解瓶型碰撞分析、結構設計和流體力學
-                    </p>
-                </div>
-                <div class="line-wrapper">
-                    <p>等技術，進一步體現了我對工程和設計的熱情。</p>
-                </div>
+                <p>我是一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。我在學
+                   術生涯中運用課堂機會設計出有環保相關發展的紙拖鞋。在攻讀研究所期間，
+                   我與愛之味和鴻茂熱水器合作，深入了解瓶型碰撞分析、結構設計和流體力學
+                   等技術，進一步體現了我對工程和設計的熱情。</p>
             </div>
         </section>
         <section id="portfolio" class="section">
@@ -170,4 +154,3 @@
     </footer>
 </body>
 </html>
-
