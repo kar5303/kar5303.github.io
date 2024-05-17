@@ -13,14 +13,13 @@
             background-color: #f4f4f4;
             color: #333;
         }
-         header {
+        header {
             background-color: #333;
             color: #fff;
             padding: 8px 0;
             text-align: center;
             font-size: 20px; /* 修改字體大小 */
         }
-        
         @media (max-width: 600px) {
             header {
                 padding: 5px 0; /* 小型螢幕下進一步縮小字體大小 */
@@ -84,15 +83,16 @@
         }
         #back-to-top {
             display: inline-block;
-            background-color: #444;
+            background-color: transparent; /* 設置背景為透明 */
             color: #fff;
             padding: 10px 20px;
             text-decoration: none;
+            border: 2px solid #444; /* 添加邊框 */
             border-radius: 5px;
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #555;
+            background-color: rgba(255, 255, 255, 0.1); /* 添加半透明背景 */
         }
         /* 新增的CSS */
         .video-container {
@@ -170,6 +170,7 @@
                     <div class="video-container">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/nZH2-Y4LfkQ?si=miBhG70UqN14v7qY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
+                </div>
                 <h2>Comsol作品集</h2>
                 <div class="portfolio-item">
                     <div>
@@ -179,38 +180,41 @@
                     <!-- 在這裡放置影片 -->
                     <div class="video-container">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/giY6idrEdYc?si=nHGeVxkpEdo0RUID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
                 <div>
                     <div>
                     <h3>骨頭承受應力之受力狀況</h3>
-                    <!-- 描述作品1的內容，功能和特點。 -->
+                    <!-- 描述作品2的內容，功能和特點。 -->
                     <p>我們使用COMSOL軟體進行受力分析，從而初步了解骨頭承受撞擊時所產生的變形。</p>
                     <!-- 在這裡放置影片 -->
                     <div class="video-container">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/2CnBIgURXqc?si=zaIKCONLVbAz6RtK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
                 <div>
                     <div>
                     <h3>散熱鰭片-散熱情況分析</h3>
-                    <!-- 描述作品1的內容，功能和特點。 -->
-                    <p>我們使用COMSOL軟體進行分析，進一部探討散熱鰭片的溫度變化。</p>
+                    <!-- 描述作品3的內容，功能和特點。 -->
+                    <p>我們使用COMSOL軟體進行分析，進一步探討散熱鰭片的溫度變化。</p>
                     <!-- 在這裡放置影片 -->
                     <div class="video-container">
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/a0CriEHHep0?si=8yzzYM_5UBEJuqbN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
-                <div>
             </div>
-            
         </section>
     </div>
     <footer>
         <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
     </footer>
+
     <script>
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
 </html>
+
 
