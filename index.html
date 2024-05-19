@@ -85,25 +85,16 @@
             text-align: justify; /* 使文本兩端對齊 */
         }
         .portfolio-item {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 增加項目間距 */
         }
-        .portfolio-item div {
-            position: relative;
-            margin-bottom: 10px;
+        .portfolio-item h3 {
+            margin: 0;
+            font-weight: bold;
         }
-        .portfolio-item h3::before {
-            content: '“'; /* 添加左引號 */
-            font-size: 1.2em;
-            position: absolute;
-            left: -20px;
-            top: 0;
-        }
-        .portfolio-item p::before {
-            content: '”'; /* 添加右引號 */
-            font-size: 1.2em;
-            position: absolute;
-            left: -20px;
-            top: 0;
+        .portfolio-item p {
+            margin: 0;
+            font-style: italic;
+            color: #555;
         }
         footer {
             background-color: #333;
@@ -143,18 +134,16 @@
         <section id="portfolio" class="section">
             <h2>研討會經歷</h2>
             <div class="portfolio-item">
-                <div>
-                    <h3>電子烤盤鐵架落摔強度分析</h3>
-                    <p>士盟科技2022SIMULIA</p>
-                </div>
-                <div>
-                    <h3>桁架結構耐震與拓樸設計</h3>
-                    <p>士盟科技2021SIMULIA</p>
-                </div>
-                <div>
-                    <h3>車道偏移警示系統</h3>
-                    <p>成功大學2021CSME</p>
-                </div>
+                <h3>電子烤盤鐵架落摔強度分析</h3>
+                <p>士盟科技2022SIMULIA</p>
+            </div>
+            <div class="portfolio-item">
+                <h3>桁架結構耐震與拓樸設計</h3>
+                <p>士盟科技2021SIMULIA</p>
+            </div>
+            <div class="portfolio-item">
+                <h3>車道偏移警示系統</h3>
+                <p>成功大學2021CSME</p>
             </div>
         </section>
         <section id="education" class="section">
