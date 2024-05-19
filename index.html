@@ -11,19 +11,18 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
-            overflow-x: hidden; /* 防止水平滾動條 */
         }
         header {
             background-color: #333;
             color: #fff;
             padding: 8px 0;
             text-align: center;
-            font-size: 20px;
+            font-size: 20px; /* 修改字體大小 */
         }
         @media (max-width: 600px) {
             header {
-                padding: 5px 0;
-                font-size: 16px;
+                padding: 5px 0; /* 小型螢幕下進一步縮小字體大小 */
+                font-size: 16px; /* 在小型螢幕下減小字體大小 */
             }
         }
         nav {
@@ -33,22 +32,21 @@
         }
         nav a {
             color: #fff;
-            padding: 14px 10px;
+            padding: 14px 10px; /* Adjusted padding*/
             text-decoration: none;
             text-align: center;
-            white-space: nowrap;
+            white-space: nowrap; /* Ensures the text does not wrap */
         }
         nav a:hover {
             background-color: #555;
         }
         .container {
-            width: 100%;
-            max-width: 800px; /* 限制最大寬度 */
+            width: 80%;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: 100px;
+            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
         }
         .section {
             margin-bottom: 20px;
@@ -59,22 +57,27 @@
         }
         .profile {
             display: flex;
-            flex-direction: column; /* 讓內容垂直排列 */
-            align-items: center; /* 讓內容水平置中 */
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 20px;
         }
         .profile img {
             width: 160px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         .profile-info {
             text-align: center;
-            font-size: 16px; /* 調整名字的字體大小 */
+            margin-bottom: 15px;
+        }
+        .profile-info p {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 0;
         }
         .profile-description {
-            text-align: center;
-            padding: 20px;
+            text-align: left;
+            padding: 0 20px;
         }
         footer {
             background-color: #333;
@@ -96,6 +99,7 @@
         <a href="experience.html">合作經歷</a>
         <a href="works.html">作品集</a>
         <a href="contact.html">聯繫方式</a>
+        <!-- 根據需要添加更多頁面的連結 -->
     </nav>
     <div class="container">
         <section id="about" class="section">
@@ -103,10 +107,11 @@
             <div class="profile">
                 <img src="Sean.jpg" alt="個人照片">
                 <div class="profile-info">
-                    <p>Sean王秋雄</p>
+                    <p>Sean<br>王秋雄</p>
                 </div>
                 <div class="profile-description">
-                    <p>我是Sean，一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出有環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流體力學等技術，進一步體現了對工程和設計的熱忱。</p>
+                    <p>我是Sean，一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出有環保相關發展的紙拖鞋。</p>
+                    <p>並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流體力學等技術，進一步體現了對工程和設計的熱忱。</p>
                 </div>
             </div>
         </section>
@@ -134,6 +139,7 @@
                 <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
                 <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
             </ul>
+            <!-- 根據需要添加更多學歷資訊 -->
         </section>
         <section id="skills" class="section">
             <h2>技能</h2>
@@ -149,6 +155,7 @@
             <ul>
                 <li>CAD電腦輔助機械設計製圖丙級</li>
                 <li>3D電腦輔助機械製圖丙級</li>
+                <!-- 根據需要添加更多證照 -->
             </ul>
         </section>
     </div>
