@@ -84,6 +84,27 @@
             margin: 0 0 10px; /* 增加段落間距 */
             text-align: justify; /* 使文本兩端對齊 */
         }
+        .portfolio-item {
+            margin-bottom: 10px;
+        }
+        .portfolio-item div {
+            position: relative;
+            margin-bottom: 10px;
+        }
+        .portfolio-item h3::before {
+            content: '“'; /* 添加左引號 */
+            font-size: 1.2em;
+            position: absolute;
+            left: -20px;
+            top: 0;
+        }
+        .portfolio-item p::before {
+            content: '”'; /* 添加右引號 */
+            font-size: 1.2em;
+            position: absolute;
+            left: -20px;
+            top: 0;
+        }
         footer {
             background-color: #333;
             color: #fff;
