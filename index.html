@@ -32,10 +32,10 @@
         }
         nav a {
             color: #fff;
-            padding: 14px 10px; /* Adjusted padding*/
+            padding: 14px 10px; /* 調整填充 */
             text-decoration: none;
             text-align: center;
-            white-space: nowrap; /* Ensures the text does not wrap */
+            white-space: nowrap; /* 確保文本不換行 */
         }
         nav a:hover {
             background-color: #555;
@@ -105,6 +105,13 @@
             width: 100%;
             bottom: 0;
         }
+        .portfolio-item a {
+            text-decoration: none; /* 移除超連結的默認下劃線 */
+            color: inherit; /* 繼承父元素的顏色 */
+        }
+        .portfolio-item a:hover {
+            text-decoration: underline; /* 懸停時顯示下劃線 */
+        }
     </style>
 </head>
 <body>
@@ -134,15 +141,15 @@
         <section id="portfolio" class="section">
             <h2>研討會經歷</h2>
             <div class="portfolio-item">
-                <h3>電子烤盤鐵架落摔強度分析</h3>
+                <h3><a href="path/to/電子烤盤鐵架落摔強度分析.pdf" target="_blank">電子烤盤鐵架落摔強度分析</a></h3>
                 <p>士盟科技2022SIMULIA</p>
             </div>
             <div class="portfolio-item">
-                <h3>桁架結構耐震與拓樸設計</h3>
+                <h3><a href="path/to/桁架結構耐震與拓樸設計.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
                 <p>士盟科技2021SIMULIA</p>
             </div>
             <div class="portfolio-item">
-                <h3>車道偏移警示系統</h3>
+                <h3><a href="path/to/車道偏移警示系統.pdf" target="_blank">車道偏移警示系統</a></h3>
                 <p>成功大學2021CSME</p>
             </div>
         </section>
