@@ -17,12 +17,12 @@
             color: #fff;
             padding: 8px 0;
             text-align: center;
-            font-size: 20px; /* 修改字體大小 */
+            font-size: 20px;
         }
         @media (max-width: 600px) {
             header {
-                padding: 5px 0; /* 小型螢幕下進一步縮小字體大小 */
-                font-size: 16px; /* 在小型螢幕下減小字體大小 */
+                padding: 5px 0;
+                font-size: 16px;
             }
         }
         nav {
@@ -32,21 +32,22 @@
         }
         nav a {
             color: #fff;
-            padding: 14px 10px; /* Adjusted padding*/
+            padding: 14px 10px;
             text-decoration: none;
             text-align: center;
-            white-space: nowrap; /* Ensures the text does not wrap */
+            white-space: nowrap;
         }
         nav a:hover {
             background-color: #555;
         }
         .container {
-            width: 80%;
+            width: 100%;
+            max-width: 800px; /* 限制最大寬度 */
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
+            padding-bottom: 100px;
         }
         .section {
             margin-bottom: 20px;
@@ -58,24 +59,21 @@
         .profile {
             display: flex;
             align-items: center;
+            flex-wrap: wrap; /* 確保在小螢幕上也能正常顯示 */
             margin-bottom: 20px;
         }
         .profile img {
             width: 160px;
             height: auto;
-            margin-right: 15px;
-            margin-left: 10px; /* 新增左邊間距 */
+            margin: 10px;
         }
         .profile-info {
             flex-grow: 1;
-        }
-        .profile-info p {
-            font-size: 18px;
-            margin-top: 0;
+            text-align: center; /* 確保名字居中 */
         }
         .profile-description {
-            flex-grow: 1;
-            padding-left: 20px; /* Add padding to separate from image */
+            flex-basis: 100%;
+            padding: 20px;
         }
         footer {
             background-color: #333;
@@ -97,17 +95,16 @@
         <a href="experience.html">合作經歷</a>
         <a href="works.html">作品集</a>
         <a href="contact.html">聯繫方式</a>
-        <!-- 根據需要添加更多頁面的連結 -->
     </nav>
     <div class="container">
         <section id="about" class="section">
             <h2>個人簡介</h2>
             <div class="profile">
+                <img src="Sean.jpg" alt="個人照片">
                 <div class="profile-info">
-                    <img src="Sean.jpg" alt="個人照片">
-                   <p style="text-align: center;">Sean<br>王秋雄</p> <!-- 在這裡添加你的名字 -->
-            </div>
-            <div class="profile-description">
+                    <p>Sean<br>王秋雄</p>
+                </div>
+                <div class="profile-description">
                 <p>我是Sean，一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出有環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流體力學等技術，進一步體現了對工程和設計的熱忱。</p>
             </div>
             </div>
