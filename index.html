@@ -58,21 +58,21 @@
         }
         .profile {
             display: flex;
-            align-items: center;
-            flex-wrap: wrap; /* 確保在小螢幕上也能正常顯示 */
+            flex-direction: column; /* 讓內容垂直排列 */
+            align-items: center; /* 讓內容水平置中 */
             margin-bottom: 20px;
         }
         .profile img {
             width: 160px;
             height: auto;
-            margin: 10px;
+            margin-bottom: 10px;
         }
         .profile-info {
-            flex-grow: 1;
-            text-align: center; /* 確保名字居中 */
+            text-align: center;
+            font-size: 16px; /* 調整名字的字體大小 */
         }
         .profile-description {
-            flex-basis: 100%;
+            text-align: center;
             padding: 20px;
         }
         footer {
@@ -102,11 +102,11 @@
             <div class="profile">
                 <img src="Sean.jpg" alt="個人照片">
                 <div class="profile-info">
-                    <p>Sean<br>王秋雄</p>
+                    <p>Sean王秋雄</p>
                 </div>
                 <div class="profile-description">
-                <p>我是Sean，一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出有環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流體力學等技術，進一步體現了對工程和設計的熱忱。</p>
-            </div>
+                    <p>我是Sean，一位熱愛設計和工程的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出有環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流體力學等技術，進一步體現了對工程和設計的熱忱。</p>
+                </div>
             </div>
         </section>
         <section id="portfolio" class="section">
@@ -129,11 +129,10 @@
         <section id="education" class="section">
             <h2>學歷</h2>
             <ul>
-            <li>碩士學歷-國立虎尾科技大學 機械設計工程系，2021年 - 2023年</li>
-            <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
-            <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
+                <li>碩士學歷-國立虎尾科技大學 機械設計工程系，2021年 - 2023年</li>
+                <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
+                <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
             </ul>
-            <!-- 根據需要添加更多學歷資訊 -->
         </section>
         <section id="skills" class="section">
             <h2>技能</h2>
@@ -149,13 +148,11 @@
             <ul>
                 <li>CAD電腦輔助機械設計製圖丙級</li>
                 <li>3D電腦輔助機械製圖丙級</li>
-                <!-- 根據需要添加更多證照 -->
             </ul>
         </section>
     </div>
     <footer>
        
     </footer>
-    
 </body>
 </html>
