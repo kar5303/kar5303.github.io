@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
@@ -38,8 +38,7 @@
             text-decoration: none;
             text-align: center;
             white-space: nowrap; 
-            position: relative; 
-            cursor: pointer; /* 新增 */
+            position: relative; /* 新增 */
         }
         nav a:hover {
             background-color: #555;
@@ -52,7 +51,6 @@
             min-width: 160px;
             z-index: 1;
             margin-top: 8px; /* 跟其他導覽欄項目的間距 */
-            left: 0; /* 新增 */
         }
         .dropdown-content a {
             color: white;
@@ -151,37 +149,28 @@
         <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
     </header>
     <nav>
-        <div class="dropdown">
-            <a href="index.html">個人簡介</a>
-            <div class="dropdown-content">
-                <a href="personal_info.html">基本資訊</a>
-                <a href="education.html">學歷</a>
-                <a href="skills.html">技能</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <a href="experience.html">合作經歷</a>
-            <div class="dropdown-content">
-                <a href="previous_works.html">過往工作</a>
-                <a href="projects.html">專案</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <a href="works.html">作品集</a>
-            <div class="dropdown-content">
-                <a href="abacus_works.html">Abaqus作品集</a>
-                <a href="comsol_works.html">Comsol作品集</a>
-            </div>
-        </div>
-        <div class="dropdown">
-            <a href="contact.html">聯繫方式</a>
-            <div class="dropdown-content">
-                <a href="email.html">電子郵件</a>
-                <a href="phone.html">電話</a>
-                <a href="social_media.html">社交媒體</a>
-            </div>
-        </div>
+        <a href="index.html">個人簡介</a>
+        <a href="experience.html">合作經歷</a>
+        <a href="works.html">作品集</a>
+        <a href="contact.html">聯繫方式</a>
     </nav>
+    <div class="container">
+        <section class="section">
+            <!-- 作品集內容 -->
+        </section>
+    </div>
+    <footer>
+        <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+    </footer>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+
     <div class="container">
         <section class="section">
             <h2>Abaqus作品集</h2>
