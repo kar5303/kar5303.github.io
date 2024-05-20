@@ -112,6 +112,27 @@
         .portfolio-item a:hover {
             text-decoration: underline; /* 懸停時顯示下劃線 */
         }
+        /* 返回頂部按鈕樣式 */
+        #back-to-top-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        #back-to-top {
+            background-color: transparent;
+            color: #000;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #444;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #back-to-top:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -189,6 +210,28 @@
     <footer>
        
     </footer>
+    <div id="back-to-top-container">
+        <a id="back-to-top" href="#">返回頂部</a>
+    </div>
+
+    <script>
+        // 返回頂部按鈕的顯示/隱藏邏輯
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("back-to-top-container").style.display = "block";
+            } else {
+                document.getElementById("back-to-top-container").style.display = "none";
+            }
+        }
+
+        // 返回頂部的平滑滾動
+        document.getElementById('back-to-top').addEventListener('click', function(event) {
+            event.preventDefault();
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        });
+    </script>
 </body>
 </html>
 
