@@ -210,26 +210,30 @@
     <footer>
        
     </footer>
-    <div id="back-to-top-container">
-        <a id="back-to-top" href="#">返回頂部</a>
-    </div>
-
     <script>
-        // 返回頂部按鈕的顯示/隱藏邏輯
-        window.onscroll = function() {scrollFunction()};
+        console.log("Script loaded");
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
         function scrollFunction() {
+            console.log("scrollFunction called");
+            var btn = document.getElementById("back-to-top-container");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                document.getElementById("back-to-top-container").style.display = "block";
+                btn.style.display = "block";
             } else {
-                document.getElementById("back-to-top-container").style.display = "none";
+                btn.style.display = "none";
             }
         }
 
-        // 返回頂部的平滑滾動
-        document.getElementById('back-to-top').addEventListener('click', function(event) {
-            event.preventDefault();
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
+        function scrollToTop() {
+            console.log("scrollToTop called");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            scrollFunction();
         });
     </script>
 </body>
