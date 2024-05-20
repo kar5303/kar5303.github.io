@@ -118,37 +118,6 @@
             margin-top: 40px; /* 區隔頂部間距 */
             margin-bottom: 20px; /* 區隔底部間距 */
         }
-       .dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f4f4f4; /* 背景色與原導覽欄一致 */
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: #333; /* 文字顏色與原導覽欄一致 */
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #ddd; /* 滑鼠懸停時的背景色與原導覽欄一致 */
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: #ccc; /* 滑鼠懸停時的背景色與原導覽欄一致 */
-}
     </style>
 </head>
 <body>
@@ -156,18 +125,10 @@
         <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
     </header>
     <nav>
-    <a href="index.html">個人簡介</a>
-    <a href="experience.html">合作經歷</a>
-    <div class="dropdown">
-        <button class="dropbtn">作品集
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="#abaqus">Abaqus作品集</a>
-            <a href="#comsol">Comsol作品集</a>
-        </div>
-    </div>
-    <a href="contact.html">聯繫方式</a>
+        <a href="index.html">個人簡介</a>
+        <a href="experience.html">合作經歷</a>
+        <a href="works.html">作品集</a>
+        <a href="contact.html">聯繫方式</a>
     </nav>
     <div class="container">
         <section class="section">
@@ -253,6 +214,4 @@
     </script>
 </body>
 </html>
-
-
 
