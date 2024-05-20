@@ -117,23 +117,7 @@
             padding: 10px 0;
             margin-top: 40px; /* 區隔頂部間距 */
             margin-bottom: 20px; /* 區隔底部間距 */
-        }
-    <script>
-        window.onscroll = function() {scrollFunction()};
-    
-        function scrollFunction() {
-            var btn = document.getElementById("back-to-top-container");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btn.style.display = "block";
-                } else {
-                btn.style.display = "none";
-                }
-         }
-
-         function scrollToTop() {
-             window.scrollTo({ top: 0, behavior: 'smooth' });
-         }
-     </script>   
+        } 
     </style>
 </head>
 <body>
@@ -235,10 +219,21 @@
     </footer>
 
     <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+        window.onscroll = function() {scrollFunction()};
+    
+        function scrollFunction() {
+            var btn = document.getElementById("back-to-top-container");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+                } else {
+                btn.style.display = "none";
+                }
+         }
+
+         function scrollToTop() {
+             window.scrollTo({ top: 0, behavior: 'smooth' });
+         }
+     </script> 
 </body>
 </html>
 
