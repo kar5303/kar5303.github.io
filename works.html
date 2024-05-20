@@ -41,6 +41,30 @@
         nav a:hover {
             background-color: #555;
         }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #444;
+            min-width: 160px;
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        .dropdown-content a:hover {
+            background-color: #555;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
         .container {
             width: 80%;
             margin: 0 auto;
@@ -127,7 +151,13 @@
     <nav>
         <a href="index.html">個人簡介</a>
         <a href="experience.html">合作經歷</a>
-        <a href="works.html">作品集</a>
+        <div class="dropdown">
+            <a href="works.html">作品集</a>
+            <div class="dropdown-content">
+                <a href="#abaqus">Abaqus作品集</a>
+                <a href="#comsol">Comsol作品集</a>
+            </div>
+        </div>
         <a href="contact.html">聯繫方式</a>
     </nav>
     <div class="container">
