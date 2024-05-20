@@ -47,7 +47,6 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding-bottom: 100px;
-            text-align: left; /* 將內容靠左對齊 */
         }
         .section {
             margin-bottom: 20px;
@@ -79,7 +78,7 @@
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* 將圖標靠左對齊 */
+            align-items: flex-start; /* 水平靠左对齐 */
             justify-content: center; /* 垂直居中 */
         }
         .contact-info p {
@@ -121,6 +120,12 @@
             .contact-info p {
                 width: 100%;
                 justify-content: center;
+            }
+        }
+        @media (min-width: 769px) {
+            .contact-info {
+                align-items: center; /* 水平居中对齐 */
+                text-align: center;
             }
         }
     </style>
