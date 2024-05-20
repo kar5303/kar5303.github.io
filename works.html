@@ -118,6 +118,22 @@
             margin-top: 40px; /* 區隔頂部間距 */
             margin-bottom: 20px; /* 區隔底部間距 */
         }
+    <script>
+        window.onscroll = function() {scrollFunction()};
+    
+        function scrollFunction() {
+            var btn = document.getElementById("back-to-top-container");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btn.style.display = "block";
+                } else {
+                btn.style.display = "none";
+                }
+         }
+
+         function scrollToTop() {
+             window.scrollTo({ top: 0, behavior: 'smooth' });
+         }
+     </script>   
     </style>
 </head>
 <body>
@@ -213,7 +229,9 @@
         </section>
     </div>
     <footer>
-        <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+        <div id="back-to-top-container">
+            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+        </div>
     </footer>
 
     <script>
