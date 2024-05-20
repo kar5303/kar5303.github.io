@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sean - 作品集</title>
     <style>
-        /* 保留原始的 CSS 樣式 */
+        /* CSS樣式與你提供的相同 */
+        .portfolio-item {
+            margin-bottom: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .portfolio-item h3 {
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        .portfolio-item p {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -21,18 +34,25 @@
     <div class="container">
         <section class="section">
             <h2>Abaqus作品集</h2>
-            <ul>
-                <li><a href="#abaqus1">後照鏡碰撞分析(簡易流程)</a></li>
-                <li><a href="#abaqus2">落摔分析(簡易流程)</a></li>
-                <li><a href="#abaqus3">橋梁拓樸最佳化(簡易流程)</a></li>
-                <li><a href="#abaqus4">流固歐拉分析(結果展示)</a></li>
-            </ul>
+            <div class="portfolio-item">
+                <h3 onclick="toggleContent('abaqus1')">後照鏡碰撞分析(簡易流程)</h3>
+                <p id="abaqus1">使用Abaqus進行碰撞分析，模擬後照鏡碰撞時的真實情況。</p>
+                <!-- 在這裡放置影片 -->
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/y-ljLO2isO4?si=XebNdJL50Xo6vPyX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+            <!-- 省略其他作品內容 -->
             <h2>Comsol作品集</h2>
-            <ul>
-                <li><a href="#comsol1">熱水器結構差異下的流場分析</a></li>
-                <li><a href="#comsol2">骨頭承受應力之受力狀況</a></li>
-                <li><a href="#comsol3">散熱鰭片-散熱情況分析</a></li>
-            </ul>
+            <div class="portfolio-item">
+                <h3 onclick="toggleContent('comsol1')">熱水器結構差異下的流場分析</h3>
+                <p id="comsol1">使用comsol軟體進行流固耦合分析，探討了一種三層結構的熱水器設計中每層的溫度變化及其對出水口溫度的影響。</p>
+                <!-- 在這裡放置影片 -->
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/giY6idrEdYc?si=nHGeVxkpEdo0RUID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+            <!-- 省略其他作品內容 -->
         </section>
     </div>
     <footer>
@@ -40,11 +60,18 @@
     </footer>
 
     <script>
+        function toggleContent(id) {
+            var content = document.getElementById(id);
+            if (content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
 </html>
-
-
