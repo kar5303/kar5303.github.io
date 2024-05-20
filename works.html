@@ -219,18 +219,24 @@
     </footer>
 
     <script>
-        window.onscroll = function() {scrollFunction()};
-    
-         function scrollFunction() {
+        console.log("Script loaded");
+
+        window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            console.log("scrollFunction called");
             var btn = document.getElementById("back-to-top-container");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 btn.style.display = "block";
-                } else {
+            } else {
                 btn.style.display = "none";
-                }
-         }
+            }
+        }
 
          function scrollToTop() {
+             console.log("scrollToTop called");
              window.scrollTo({ top: 0, behavior: 'smooth' });
          }
          scrollFunction();
