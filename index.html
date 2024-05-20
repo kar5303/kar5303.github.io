@@ -207,35 +207,30 @@
             </ul>
         </section>
     </div>
-    <footer>
-       
-    </footer>
-    <script>
-        console.log("Script loaded");
+   <footer>
+    <div id="back-to-top-container">
+        <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+    </div>
+   </footer>
 
-        window.onscroll = function() {
-            scrollFunction();
-        };
+<style>
+    #back-to-top {
+        display: inline-block;
+        background-color: transparent;
+        color: #fff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border: 2px solid #444;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold; /* 新增：將字體設置為粗體 */
+        font-size: inherit; /* 新增：保持字體大小與父元素一致 */
+    }
 
-        function scrollFunction() {
-            console.log("scrollFunction called");
-            var btn = document.getElementById("back-to-top-container");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btn.style.display = "block";
-            } else {
-                btn.style.display = "none";
-            }
-        }
-
-        function scrollToTop() {
-            console.log("scrollToTop called");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            scrollFunction();
-        });
-    </script>
+    #back-to-top:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+</style>
 </body>
 </html>
 
