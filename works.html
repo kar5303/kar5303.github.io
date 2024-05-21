@@ -72,26 +72,28 @@
             height: auto;
             margin-right: 20px;
         }
-        /* 新增的 CSS */
+        /* 更新的 CSS */
         .index-list {
             list-style: none;
             padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around; /* 水平排列並居中 */
         }
         .index-list li {
-            margin: 10px 0;
+            margin: 10px;
         }
         .index-list li a {
             text-decoration: none;
-            color: #444;
-            font-size: 18px;
-            border: 2px solid #444;
-            padding: 10px 15px;
-            border-radius: 5px;
-            display: block;
+            color: #fff; /* 文字顏色為白色 */
+            background-color: #444; /* 背景顏色為深色 */
+            font-size: 16px;
+            padding: 10px 15px; /* 添加內邊距 */
+            border-radius: 5px; /* 圓角 */
             transition: background-color 0.3s, color 0.3s;
         }
         .index-list li a:hover {
-            background-color: #444;
+            background-color: #555;
             color: #fff;
         }
         footer {
