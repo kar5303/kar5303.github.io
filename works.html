@@ -72,6 +72,28 @@
             height: auto;
             margin-right: 20px;
         }
+        /* 新增的 CSS */
+        .index-list {
+            list-style: none;
+            padding: 0;
+        }
+        .index-list li {
+            margin: 10px 0;
+        }
+        .index-list li a {
+            text-decoration: none;
+            color: #444;
+            font-size: 18px;
+            border: 2px solid #444;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .index-list li a:hover {
+            background-color: #444;
+            color: #fff;
+        }
         footer {
             background-color: #333;
             color: #fff;
@@ -135,7 +157,7 @@
     <div class="container">
         <section class="section">
             <h2>作品集索引</h2>
-            <ul>
+            <ul class="index-list">
                 <li><a href="#abaqus">Abaqus作品集</a></li>
                 <li><a href="#comsol">Comsol作品集</a></li>
             </ul>
