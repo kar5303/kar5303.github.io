@@ -48,7 +48,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding-bottom: 100px;
         }
-        .section {
+                .section {
             margin-bottom: 40px;
         }
         .section h2 {
@@ -88,8 +88,8 @@
         }
         #back-to-top {
             background-color: #444;
-            color: #fff;
-            font-weight: bold;
+            color: #fff;/* 修改字體顏色為黑色 */
+            font-weight: bold; /* 修改字體為粗體 */
             padding: 10px 20px;
             text-decoration: none;
             border: 2px solid #444;
@@ -97,7 +97,7 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #555;
+            background-color: #444;
         }
         .video-container {
             position: relative;
@@ -119,39 +119,7 @@
             padding: 10px 0;
             margin-top: 40px;
             margin-bottom: 20px;
-        }
-        /* 新增的 CSS */
-        .index-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .index-list li {
-            margin: 10px;
-            text-align: center;
-        }
-        .index-list li img {
-            width: 100px;
-            height: auto;
-            display: block;
-            margin: 0 auto 10px;
-        }
-        .index-list li a {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            background-color: #444;
-            font-size: 16px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .index-list li a:hover {
-            background-color: #555;
-            color: #fff;
-        }
+        } 
     </style>
 </head>
 <body>
@@ -184,22 +152,30 @@
             <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
         </div>
     </footer>
-    <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+   <script>
+        console.log("Script loaded");
 
         window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            console.log("scrollFunction called");
             var btnContainer = document.getElementById("back-to-top-container");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 btnContainer.style.display = "block";
             } else {
                 btnContainer.style.display = "none";
             }
-        };
+        }
+
+        function scrollToTop() {
+            console.log("scrollToTop called");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
-            window.onscroll();
+            scrollFunction();
         });
     </script>
 </body>
