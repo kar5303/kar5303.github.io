@@ -177,62 +177,53 @@
                 <p>程式碼與校正</p>
                 <pre>
                     <code>
-#include "HX711.h"
-#include <Servo.h>
+                        #include "HX711.h"
+                        #include <Servo.h>
+                        // 接線設定
+                        const int DT_PIN = 6;
+                        const int SCK_PIN = 5;
+                        Servo myServo1;
+                        Servo myServo2;
+                        int pos = 0; // 設定初始位置
+                        const int scale_factor = 350; // 比例參數
+                        HX711 scale;                        
+                        void setup() {
+                            Serial.begin(9600);
+                            Serial.println("Initializing the scale");
+                            scale.begin(DT_PIN, SCK_PIN);
+                            
+                            Serial.println("Before setting up the scale:");
+                            Serial.println(scale.get_units(5), 0); // 未設定比例參數前的數值
+                            scale.set_scale(scale_factor); // 設定比例參數
+                            scale.tare(); // 歸零
 
-// 接線設定
-const int DT_PIN = 6;
-const int SCK_PIN = 5;
-Servo myServo1;
-Servo myServo2;
-
-int pos = 0; // 設定初始位置
-
-const int scale_factor = 350; // 比例參數
-HX711 scale;
-
-void setup() {
-    Serial.begin(9600);
-    Serial.println("Initializing the scale");
-
-    scale.begin(DT_PIN, SCK_PIN);
-
-    Serial.println("Before setting up the scale:");
-    Serial.println(scale.get_units(5), 0); // 未設定比例參數前的數值
-
-    scale.set_scale(scale_factor); // 設定比例參數
-    scale.tare(); // 歸零
-
-    Serial.println("After setting up the scale:");
-    Serial.println(scale.get_units(5), 0); // 設定比例參數後的數值
-
-    Serial.println("Readings:");
-    pinMode(LED_BUILTIN, OUTPUT);
-    myServo1.attach(9);
-    myServo2.attach(10);
-}
-
-void loop() {
-    Serial.print(scale.get_units(1), 0); Serial.println("\t");
-    delay(1000);
-
-    if (scale.get_units(1) < -500) {
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(2000);
-        myServo1.write(90);
-        myServo2.write(90);
-    } else {
-        digitalWrite(LED_BUILTIN, LOW);
-        delay(2000);
-        myServo1.write(0);
-        myServo2.write(0);
-    }
-
-    delay(10);
-    scale.power_down(); // 進入睡眠模式
-    delay(10);
-    scale.power_up(); // 結束睡眠模式
-}
+                            Serial.println("After setting up the scale:");
+                            Serial.println(scale.get_units(5), 0); // 設定比例參數後的數值
+                            Serial.println("Readings:");
+                            pinMode(LED_BUILTIN, OUTPUT);
+                            myServo1.attach(9);
+                            myServo2.attach(10);
+                        }
+                        void loop() {
+                        Serial.print(scale.get_units(1), 0); Serial.println("\t");
+                        delay(1000);
+                            if (scale.get_units(1) < -500) {
+                            digitalWrite(LED_BUILTIN, HIGH);
+                            delay(2000);
+                            myServo1.write(90);
+                            myServo2.write(90);
+                            } else {
+                                digitalWrite(LED_BUILTIN, LOW);
+                                delay(2000);
+                                myServo1.write(0);
+                                myServo2.write(0);
+                            }
+                            
+                            delay(10);
+                            scale.power_down(); // 進入睡眠模式
+                            delay(10);
+                            scale.power_up(); // 結束睡眠模式
+                        }
                     </code>
                 </pre>
                 <img src="mechatronics_HX711.jpg" alt="HX711程式碼校正" style="width:100%;height:auto;">
