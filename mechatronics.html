@@ -32,6 +32,7 @@
             display: flex;
             justify-content: center;
             background-color: #444;
+            flex-wrap: wrap; /* 讓導航欄在小屏幕上自動換行 */
         }
         nav a {
             color: #fff;
@@ -52,6 +53,11 @@
             padding-bottom: 100px;
             flex: 1;
         }
+        @media (max-width: 600px) {
+            .container {
+                width: 95%; /* 在小屏幕上調整容器寬度 */
+            }
+        }
         .section {
             margin-bottom: 40px;
         }
@@ -70,11 +76,13 @@
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            flex-direction: column; /* 在小屏幕上垂直排列 */
         }
         .profile img {
-            width: 150px;
+            width: 100%;
+            max-width: 150px; /* 限制圖片最大寬度 */
             height: auto;
-            margin-right: 20px;
+            margin-bottom: 10px; /* 在小屏幕上增加底部間距 */
         }
         footer {
             background-color: #333;
@@ -177,53 +185,55 @@
                 <p>程式碼</p>
                 <pre>
                     <code>
-                        #include "HX711.h"
-                        #include <Servo.h>
-                        // 接線設定
-                        const int DT_PIN = 6;
-                        const int SCK_PIN = 5;
-                        Servo myServo1;
-                        Servo myServo2;
-                        int pos = 0; // 設定初始位置
-                        const int scale_factor = 350; // 比例參數
-                        HX711 scale;                        
-                        void setup() {
-                            Serial.begin(9600);
-                            Serial.println("Initializing the scale");
-                            scale.begin(DT_PIN, SCK_PIN);
-                            
-                            Serial.println("Before setting up the scale:");
-                            Serial.println(scale.get_units(5), 0); // 未設定比例參數前的數值
-                            scale.set_scale(scale_factor); // 設定比例參數
-                            scale.tare(); // 歸零
+#include "HX711.h"
+#include <Servo.h>
+// 接線設定
+const int DT_PIN = 6;
+const int SCK_PIN = 5;
+Servo myServo1;
+Servo myServo2;
+int pos = 0; // 設定初始位置
+const int scale_factor = 350; // 比例參數
+HX711 scale;
 
-                            Serial.println("After setting up the scale:");
-                            Serial.println(scale.get_units(5), 0); // 設定比例參數後的數值
-                            Serial.println("Readings:");
-                            pinMode(LED_BUILTIN, OUTPUT);
-                            myServo1.attach(9);
-                            myServo2.attach(10);
-                        }
-                        void loop() {
-                        Serial.print(scale.get_units(1), 0); Serial.println("\t");
-                        delay(1000);
-                            if (scale.get_units(1) < -500) {
-                            digitalWrite(LED_BUILTIN, HIGH);
-                            delay(2000);
-                            myServo1.write(90);
-                            myServo2.write(90);
-                            } else {
-                                digitalWrite(LED_BUILTIN, LOW);
-                                delay(2000);
-                                myServo1.write(0);
-                                myServo2.write(0);
-                            }
-                            
-                            delay(10);
-                            scale.power_down(); // 進入睡眠模式
-                            delay(10);
-                            scale.power_up(); // 結束睡眠模式
-                        }
+void setup() {
+    Serial.begin(9600);
+    Serial.println("Initializing the scale");
+    scale.begin(DT_PIN, SCK_PIN);
+
+    Serial.println("Before setting up the scale:");
+    Serial.println(scale.get_units(5), 0); // 未設定比例參數前的數值
+    scale.set_scale(scale_factor); // 設定比例參數
+    scale.tare(); // 歸零
+
+    Serial.println("After setting up the scale:");
+    Serial.println(scale.get_units(5), 0); // 設定比例參數後的數值
+    Serial.println("Readings:");
+    pinMode(LED_BUILTIN, OUTPUT);
+    myServo1.attach(9);
+    myServo2.attach(10);
+}
+
+void loop() {
+    Serial.print(scale.get_units(1), 0); Serial.println("\t");
+    delay(1000);
+    if (scale.get_units(1) < -500) {
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(2000);
+        myServo1.write(90);
+        myServo2.write(90);
+    } else {
+        digitalWrite(LED_BUILTIN, LOW);
+        delay(2000);
+        myServo1.write(0);
+        myServo2.write(0);
+    }
+
+    delay(10);
+    scale.power_down(); // 進入睡眠模式
+    delay(10);
+    scale.power_up(); // 結束睡眠模式
+}
                     </code>
                 </pre>
                 <p>HX711程式碼校正</p>
@@ -238,7 +248,7 @@
                 <img src="mechatronics_strain_gauge_demo.png" alt="應變規數據展示圖片" style="width:100%;height:auto;">
             </div>
            <div class="portfolio-item">
-                <h3>Step 8: 柵欄負荷過載警示</h3>
+                <h3>Step 9: 柵欄負荷過載警示</h3>
                 <img src="mechatronics_strain_gauge_demo.png" alt="應變規數據展示圖片" style="width:100%;height:auto;">
             </div>                     
         </section>
@@ -262,3 +272,4 @@
     </script>
 </body>
 </html>
+
