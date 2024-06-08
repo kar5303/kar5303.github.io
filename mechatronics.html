@@ -175,11 +175,13 @@
        /* 在手机屏幕上缩小代码块的宽度 */
         @media (max-width: 600px) {
             .code-container {
+                font-size: 14px;
+                line-height: 1.4;
                 overflow-x: auto;
             }
             .code-container pre {
-                word-wrap: normal;
-                white-space: pre;
+                margin: 0;
+                white-space: pre-wrap;                
             }
         }
 
