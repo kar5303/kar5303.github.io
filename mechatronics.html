@@ -132,20 +132,19 @@
     </nav>
     <div class="container">
         <section class="section">
-            <h2>機電整合實務Electromechanical implementation</h2>
-            <h3>Application of bridge strain gauges</h3>
-            <div class="portfolio-item">
-            </div>
+            <h2>機電整合實務 Electromechanical Implementation</h2>
+            <h3>Application of Bridge Strain Gauges</h3>
+            <div class="portfolio-item"></div>
             <div class="portfolio-item">                
                 <img src="mechatronics_application.png" alt="應用圖片" style="width:100%;height:auto;">
             </div>
             <div class="portfolio-item">
-                <h3>Step1構思與準備</h3>
+                <h3>Step 1: 構思與準備</h3>
                 <p>評估橋樑維修提醒：測量平時橋樑所承受的力，倘若數值超過一定安全數值，就必須給予警示讓相關人員來檢查。</p>
                 <p>限制承載橋樑人數：藉由橋樑能承受的數值計算，限制橋上所能承受的人數。</p>
             </div>
             <div class="portfolio-item">
-                <h3>Step2材料準備</h3>
+                <h3>Step 2: 材料準備</h3>
                 <ul>
                     <li>鋁條</li>
                     <li>砝碼</li>
@@ -157,26 +156,28 @@
                 </ul>
             </div>            
             <div class="portfolio-item">
-                <h3>Step3橋樑受力分析</h3>
+                <h3>Step 3: 橋樑受力分析</h3>
                 <img src="mechatronics_bridge_analysis.png" alt="橋樑受力分析圖片" style="width:100%;height:auto;">
             </div>
             <div class="portfolio-item">
-                <h3>Step4應變規位置與架設</h3>
+                <h3>Step 4: 應變規位置與架設</h3>
                 <p>應變規位置與架設說明</p>
                 <img src="mechatronics_strain_gauge.png" alt="應變規圖片" style="width:100%;height:auto;">
                 <img src="mechatronics_strain_gauge2.png" alt="應變規圖片2" style="width:100%;height:auto;">
             </div>
             <div class="portfolio-item">
-                <h3>Step5柵欄運作電路圖</h3>
+                <h3>Step 5: 柵欄運作電路圖</h3>
                 <div class="video-container">
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/TmT0B2gkobs?si=-UMECfCa3EjRR5a4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <img src="mechatronics_circuit.png" alt="電路圖圖片" style="width:100%;height:auto;">
             </div>
             <div class="portfolio-item">
-                <h3>Step6感測器編譯與校正</h3>
+                <h3>Step 6: 感測器編譯與校正</h3>
                 <p>程式碼與校正</p>
-                <p>#include "HX711.h"
+                <pre>
+                    <code>
+#include "HX711.h"
 #include <Servo.h>
 
 // 接線設定
@@ -232,50 +233,37 @@ void loop() {
     delay(10);
     scale.power_up(); // 結束睡眠模式
 }
-</p>
-                
+                    </code>
+                </pre>
                 <img src="mechatronics_HX711.jpg" alt="HX711程式碼校正" style="width:100%;height:auto;">
             </div>                        
             <div class="portfolio-item">
-                <h3>Step7負荷結果展示</h3>
-                <p>橋樑負荷加重與減重的測試與數據整理。</p>
-                <img src="mechatronics_load_test.png" alt="負荷測試圖片" style="width:100%;height:auto;">
+                <h3>Step 7: 負荷結果展示</h3>
+                <img src="mechatronics_result.png" alt="結果展示圖片" style="width:100%;height:auto;">
+                <img src="mechatronics_result2.png" alt="結果展示圖片2" style="width:100%;height:auto;">
             </div>
             <div class="portfolio-item">
-                <h3>Step8柵欄運作結果展示</h3>
-                <p>橋樑柵欄單邊控制與警示燈提醒，雙邊控制與警示燈校正。</p>
-                <img src="mechatronics_gate_test.png" alt="柵欄測試圖片" style="width:100%;height:auto;">
+                <h3>Step 8: 應變規數據展示</h3>
+                <img src="mechatronics_strain_gauge_demo.png" alt="應變規數據展示圖片" style="width:100%;height:auto;">
             </div>
-            <div class="portfolio-item">
-                <h3>Step9柵欄負荷過載警示結果展示</h3>
-                <p>負荷過載警示程式碼與實際應用。</p>
-                <img src="mechatronics_overload.png" alt="負荷過載警示圖片" style="width:100%;height:auto;">
-            </div>            
         </section>
     </div>
     <footer>
-        <div id="back-to-top-container">
-            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
-        </div>
+        &copy; 2023 Your Company. All rights reserved.
     </footer>
+    <div id="back-to-top-container">
+        <a href="#" id="back-to-top">回到頂部</a>
+    </div>
     <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.onscroll = function() {
-            var btnContainer = document.getElementById("back-to-top-container");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btnContainer.style.display = "block";
+        window.addEventListener('scroll', function() {
+            var scrollPosition = window.pageYOffset;
+            var backToTopButton = document.getElementById('back-to-top-container');
+            if (scrollPosition > 300) {
+                backToTopButton.style.display = 'block';
             } else {
-                btnContainer.style.display = "none";
+                backToTopButton.style.display = 'none';
             }
-        };
-
-        document.addEventListener("DOMContentLoaded", function() {
-            window.onscroll();
         });
     </script>
 </body>
 </html>
-
