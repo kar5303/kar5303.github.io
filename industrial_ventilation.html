@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工業通風作品集</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 8px 0;
+            text-align: center;
+            font-size: 20px;
+        }
+        @media (max-width: 600px) {
+            header {
+                padding: 5px 0;
+                font-size: 16px;
+            }
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: #fff;
+            padding: 14px 10px;
+            text-decoration: none;
+            text-align: center;
+            white-space: nowrap;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-bottom: 100px;
+            flex: 1;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .portfolio-item {
+            margin-bottom: 30px;
+        }
+        .portfolio-item h3 {
+            margin-bottom: 10px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile img {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+        }
+        #back-to-top-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        #back-to-top {
+            background-color: #444;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #444;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #back-to-top:hover {
+            background-color: #555;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .portfolio-heading {
+            text-align: center;
+            background-color: #777;
+            color: #fff;
+            padding: 10px 0;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .index-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .index-list li {
+            margin: 10px;
+            text-align: center;
+        }
+        .index-list li img {
+            width: 375px;
+            height: 210px;
+            display: block;
+            margin: 0 auto 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加陰影效果 */
+            border-radius: 10px; /* 添加圓角 */
+        }
+        .index-list li a {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            background-color: #444;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .index-list li a:hover {
+            background-color: #555;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .index-list li img {
+                width: 100%; /* 讓圖片寬度隨著其容器大小自動調整 */
+                height: auto; /* 保持圖片比例 */
+            }
+        }
+        .content-section img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
+    </header>
+    <nav>
+        <a href="index.html">個人簡介</a>
+        <a href="experience.html">合作經歷</a>
+        <a href="works.html">作品集</a>
+        <a href="contact.html">聯繫方式</a>
+    </nav>
+    <div class="container">
+        <section class="section">
+            <h2>工業通風</h2>
+            <div class="content-section">
+                <h3>1. 污染源說明</h3>
+                <p>(1) 空間大小</p>
+                <p>通風環境設置為教室，有窗戶還有門並且設置好管道出口。</p>
+                <p>(2) 污染源</p>
+                <p>汙染源設定為可以清潔板擦的板擦箱，讓其粉末等有害汙染在板擦箱內，藉由通風管道排出。</p>
+                
+                <h3>2. 局部排氣設計</h3>
+                <p>由污染源的類型與區域大小，設計吸氣罩:</p>
+                <p>(1) 吸氣罩類型：Canopy Hood(頂棚式氣罩)</p>
+                <p>(2) 吸氣罩尺寸：</p>
+                <p>(3) 吸氣速度與吸氣量：</p>
+                
+                <h3>3. 管道設計</h3>
+                <p>由空間大小、污染源放置位置及吸氣罩的安裝條件，規畫管道系統</p>
+                <h4>3.1 風機上游管道</h4>
+                <p>(1) 管道尺寸規畫：</p>
+                <p>(2) 管道內流速、流量、損失、壓力等評估</p>
+                
+                <h4>3.2 風機下游管道</h4>
+                <p>(1) 管道尺寸規畫：</p>
+                <p>(2) 管道內流速、流量、損失、壓力等評估</p>
+                <p>3.3 管道系統損失與流量需求</p>
+                
+                <h3>4. 風機匹配</h3>
+                <p>由管道系統的損失與流量需求，上網詢找適當的風機，並將性能曲線與管道系統阻抗匹配，求得風扇操作點，確認流量是否滿足吸氣罩的需求。</p>
+                <p>風機網站:</p>
+                <p>(1) 質昌風機</p>
+                <p>(2) 順功風機</p>
+                
+                <h3>5. 管道風機系統機構設計</h3>
+                <img src="industrial_ventilation_design.png" alt="管道風機系統機構設計">
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div id="back-to-top-container">
+            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+        </div>
+    </footer>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onscroll = function() {
+            var btnContainer = document.getElementById("back-to-top-container");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btnContainer.style.display = "block";
+            } else {
+                btnContainer.style.display = "none";
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            window.onscroll();
+        });
+    </script>
+</body>
+</html>
