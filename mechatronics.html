@@ -172,10 +172,17 @@
             max-width: 100%;
             height: auto;
         }
-       .code-container {
-           max-width: 100%;
-           overflow-x: auto;
+       /* 在手机屏幕上缩小代码块的宽度 */
+        @media (max-width: 600px) {
+            .code-container {
+                overflow-x: auto;
+            }
+            .code-container pre {
+                word-wrap: normal;
+                white-space: pre;
+            }
         }
+
 
 
     </style>
