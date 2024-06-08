@@ -165,13 +165,13 @@
             </div>            
             <div class="portfolio-item">
                 <h3>Step 3: 橋樑受力分析</h3>
-                <img src="mechatronics_bridge_analysis.png" alt="橋樑受力分析圖片" style="width:100%;height:auto;">
+                <img src="mechatronics_bridge_analysis.png" alt="橋樑受力分析圖片" style="width:70%;height:auto;">
             </div>
             <div class="portfolio-item">
                 <h3>Step 4: 應變規位置與架設</h3>
                 <p>應變規位置與架設說明</p>
-                <img src="mechatronics_strain_gauge.png" alt="應變規圖片" style="width:100%;height:auto;">
-                <img src="mechatronics_strain_gauge2.png" alt="應變規圖片2" style="width:100%;height:auto;">
+                <img src="mechatronics_strain_gauge.png" alt="應變規圖片" style="width:70%;height:auto;">
+                <img src="mechatronics_strain_gauge2.png" alt="應變規圖片2" style="width:70%;height:auto;">
             </div>
             <div class="portfolio-item">
                 <h3>Step 5: 柵欄運作電路圖</h3>
@@ -237,7 +237,7 @@ void loop() {
                     </code>
                 </pre>
                 <p>HX711程式碼校正</p>
-                <img src="mechatronics_HX711.jpg" alt="HX711程式碼校正" style="width:100%;height:auto;">
+                <img src="mechatronics_HX711.jpg" alt="HX711程式碼校正" style="width:50%;height:auto;">
             </div>                        
             <div class="portfolio-item">
                 <h3>Step 7: 負荷結果展示</h3>
@@ -249,6 +249,75 @@ void loop() {
             </div>
            <div class="portfolio-item">
                 <h3>Step 9: 柵欄負荷過載警示</h3>
+               <code>
+                   #include "HX711.h"
+#include <Servo.h>
+
+// 接線設定
+const int DT_PIN = 6;
+const int SCK_PIN = 5;
+Servo myServo1;
+Servo myServo2;
+
+int pos = 0;  // 設定舵機位置
+
+const int scale_factor = 350;  // 比例參數，依據校正程式中取得
+HX711 scale;
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Initializing the scale");
+
+  scale.begin(DT_PIN, SCK_PIN);
+
+  Serial.println("Before setting up the scale:");
+  Serial.println(scale.get_units(5), 0);  // 沒設定比例參數的數值
+
+  scale.set_scale(scale_factor);  // 設定比例參數
+  scale.tare();  // 歸零
+
+  Serial.println("After setting up the scale:");
+  Serial.println(scale.get_units(5), 0);  // 設定比例參數後的數值
+
+  Serial.println("Readings:");
+  pinMode(LED_BUILTIN, OUTPUT);  // 在這個訊息之前就不要放東西在電子稱上
+  myServo1.attach(9);
+  myServo2.attach(10);
+}
+void loop() {
+  Serial.print(scale.get_units(1), 0);
+  Serial.println("\t");
+  delay(1000);
+
+  if (scale.get_units(1) > -500) {
+    digitalWrite(LED_BUILTIN, LOW);
+    Serial.println(1);
+    delay(2000);
+    myServo1.write(0);
+    myServo2.write(0);
+  } 
+  else if (scale.get_units(1) < -1000) {
+    digitalWrite(LED_BUILTIN, LOW);
+    Serial.println(3);
+    delayMicroseconds(100000);
+    digitalWrite(LED_BUILTIN, HIGH);
+    delayMicroseconds(100000);
+  } 
+  else if (scale.get_units(1) < -500) {
+    digitalWrite(LED_BUILTIN, HIGH);
+    Serial.println(2);
+    delay(2000);
+    myServo1.write(90);
+    myServo2.write(90);
+  }
+
+  delay(10);
+  scale.power_down();  // 進入睡眠模式
+  delay(10);
+  scale.power_up();  // 結束睡眠模式
+}
+
+               </code>
                 <img src="mechatronics_strain_gauge_demo.png" alt="應變規數據展示圖片" style="width:100%;height:auto;">
             </div>                     
         </section>
