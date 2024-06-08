@@ -354,36 +354,22 @@ void loop() {
     </div>
 
     <script>
-        window.addEventListener('scroll', function() {
-            var scrollPosition = window.pageYOffset;
-            var backToTopButton = document.getElementById('back-to-top-container');
-            if (scrollPosition > 300) {
-                backToTopButton.style.display = 'block';
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onscroll = function() {
+            var btnContainer = document.getElementById("back-to-top-container");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btnContainer.style.display = "block";
             } else {
-                backToTopButton.style.display = 'none';
+                btnContainer.style.display = "none";
             }
-        });
-
-        // Smooth scroll to top
-        document.getElementById('back-to-top').addEventListener('click', function(event) {
-            event.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        // 設置所有影片的寬度和高度與第一個影片相同
-        window.onload = function() {
-            var firstVideo = document.querySelector('.video-container iframe');
-            var width = firstVideo.offsetWidth;
-            var height = firstVideo.offsetHeight;
-
-            var videos = document.querySelectorAll('.video-container iframe');
-            videos.forEach(function(video) {
-                video.setAttribute('width', width);
-                video.setAttribute('height', height);
-            });
         };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            window.onscroll();
+        });
     </script>
 </body>
 </html>
