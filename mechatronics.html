@@ -171,7 +171,19 @@
             margin: 20px auto;
             max-width: 100%;
             height: auto;
-        }      
+        }
+        .code-container {
+            max-height: 300px; /* 設定最大高度 */
+            overflow-y: auto; /* 若超過最大高度則顯示滾動條 */
+        }
+        .code-container pre {
+            font-size: 14px; /* 調整字體大小 */
+        }
+        @media (max-width: 600px) {
+            .code-container pre {
+                font-size: 12px; /* 在手機上進一步縮小字體大小 */
+            }
+        }
 
     </style>
 </head>
