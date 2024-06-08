@@ -111,7 +111,7 @@
             transition: background-color 0.3s, border 0.3s;
         }
         #back-to-top:hover {
-            background-color: #fff;
+            background-color: #444;
             color: #444;
             border-color: #444;
         }
@@ -348,8 +348,9 @@ void loop() {
         &copy; 2023 Your Company. All rights reserved.
     </footer>
     <div id="back-to-top-container">
-        <a href="#" id="back-to-top">回到頂部</a>
+    <button id="back-to-top">回到頂部</button>
     </div>
+
     <script>
         window.addEventListener('scroll', function() {
             var scrollPosition = window.pageYOffset;
