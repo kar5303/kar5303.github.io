@@ -346,7 +346,7 @@ void loop() {
         </section>
     </div>
     <footer>
-        &copy; 2024 Sean. All rights reserved.
+        
     </footer>
     <div id="back-to-top-container">
     <button id="back-to-top">回到頂部</button>
@@ -371,6 +371,18 @@ void loop() {
                 behavior: 'smooth'
             });
         });
+        // 設置所有影片的寬度和高度與第一個影片相同
+        window.onload = function() {
+            var firstVideo = document.querySelector('.video-container iframe');
+            var width = firstVideo.offsetWidth;
+            var height = firstVideo.offsetHeight;
+
+            var videos = document.querySelectorAll('.video-container iframe');
+            videos.forEach(function(video) {
+                video.setAttribute('width', width);
+                video.setAttribute('height', height);
+            });
+        };
     </script>
 </body>
 </html>
