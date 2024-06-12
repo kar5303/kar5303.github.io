@@ -31,8 +31,14 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://kar5303.github.io/comsol.html</loc>
-        <lastmod>2024-05-26</lastmod>
+        <loc>https://kar5303.github.io/industrial_ventilation.html</loc>
+        <lastmod>2024-06-12</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://kar5303.github.io/mechatronics.html</loc>
+        <lastmod>2024-06-12</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
