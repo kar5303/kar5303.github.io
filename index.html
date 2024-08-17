@@ -26,50 +26,53 @@
             }
         }
         nav {
-            display: flex;
-            justify-content: space-between; /* 使 LOGO 和菜單圖示在同一行，並留有空間 */
-            align-items: center; /* 垂直置中對齊 */
-            background-color: #444;
-            position: relative;
-            padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
-        }
-        nav img {
-            width: 100px; /* 根據需要調整 LOGO 的寬度 */
-            height: auto;
-            display: block; /* 確保 img 是區塊級元素 */
-            margin: 0 auto; /* 自動在父元素中水平居中 */
-        }
-        nav input[type="checkbox"] {
-            display: none;
-        }
-        nav .menu-icon {
-            font-size: 24px;
-            color: #fff;
-            cursor: pointer;
-            padding: 14px;
-            text-align: center;
-        }
-        nav .menu {
-            display: none;
-            position: absolute;
-            top: 60px; /* Adjust based on header height */
-            left: 0; /* 將菜單左對齊 */
-            background-color: #444;
-            width: 100%;
-            text-align: center;
-        }
-        nav .menu a {
-            display: block;
-            padding: 14px 0;
-            color: #fff;
-            text-decoration: none;
-        }
-        nav .menu a:hover {
-            background-color: #555;
-        }
-        nav input[type="checkbox"]:checked ~ .menu {
-            display: block;
-        }
+    display: flex;
+    justify-content: center; /* 將 LOGO 和菜單圖標都在導航欄內居中 */
+    align-items: center; /* 確保 LOGO 和其他元素垂直置中對齊 */
+    background-color: #444;
+    position: relative;
+    padding: 0 10px; /* 添加左右內邊距 */
+}
+
+nav img {
+    width: 100px; /* 調整 LOGO 的寬度 */
+    height: auto;
+    display: block;
+}
+
+nav .menu-icon {
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    padding: 14px;
+    margin-left: auto; /* 使菜單圖示在 LOGO 右側 */
+}
+
+nav .menu {
+    display: none;
+    position: absolute;
+    top: 60px; /* 調整基於導航欄高度 */
+    left: 0;
+    background-color: #444;
+    width: 100%;
+    text-align: center;
+}
+
+nav .menu a {
+    display: block;
+    padding: 14px 0;
+    color: #fff;
+    text-decoration: none;
+}
+
+nav .menu a:hover {
+    background-color: #555;
+}
+
+nav input[type="checkbox"]:checked ~ .menu {
+    display: block;
+}
+
         .container {
             width: 80%;
             margin: 0 auto;
