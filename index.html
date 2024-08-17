@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sean王秋雄</title>
+    <title>Sean 王秋雄</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -31,22 +31,18 @@
             padding: 0;
             background-color: #444;
         }
-
         nav ul li {
             position: relative;
         }
-
         nav ul li a {
             display: block;
             padding: 14px 10px;
             color: #fff;
             text-decoration: none;
         }
-
         nav ul li a:hover {
             background-color: #555;
         }
-
         .submenu {
             display: none;
             position: absolute;
@@ -55,20 +51,13 @@
             background-color: #444;
             min-width: 180px;
         }
-
         .submenu li a {
             padding: 10px;
             white-space: nowrap;
         }
-
-        nav ul li:hover .submenu {
-            display: block;
-        }
-
         .submenu.show {
             display: block;
         }
-
         .container {
             width: 80%;
             margin: 0 auto;
@@ -134,17 +123,6 @@
             font-style: italic;
             color: #555;
         }
-        .profile-info p {
-            font-style: italic;
-            color: #555;
-        }
-        .profile {
-            margin-bottom: 10px;
-        }
-
-        .profile-info {
-            margin-top: 0px;
-        }
         footer {
             background-color: #333;
             color: #fff;
@@ -179,7 +157,7 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #444;
+            background-color: #555;
         }
     </style>
 </head>
@@ -196,14 +174,12 @@
                 <a href="#">合作經歷</a>
                 <ul class="submenu">
                     <li><a href="experience.html">合作經歷</a></li>
-                    <!-- 添加更多的子菜單項目 -->
                 </ul>
             </li>
             <li>
                 <a href="#">作品集</a>
                 <ul class="submenu">
                     <li><a href="works.html">作品集</a></li>
-                    <!-- 添加更多的子菜單項目 -->
                 </ul>
             </li>
             <li>
@@ -257,7 +233,7 @@
                         event.preventDefault();  // 阻止默認的超鏈接行為
                         submenu.classList.toggle("show");
 
-                        // 可選：關閉其他打開的子菜單
+                        // 關閉其他打開的子菜單
                         document.querySelectorAll(".submenu.show").forEach(function(openSubmenu) {
                             if (openSubmenu !== submenu) {
                                 openSubmenu.classList.remove("show");
@@ -265,6 +241,23 @@
                         });
                     }
                 });
+            });
+
+            // Scroll to Top Functionality
+            var backToTop = document.getElementById("back-to-top");
+            var backToTopContainer = document.getElementById("back-to-top-container");
+
+            window.addEventListener("scroll", function() {
+                if (window.pageYOffset > 300) {
+                    backToTopContainer.style.display = "block";
+                } else {
+                    backToTopContainer.style.display = "none";
+                }
+            });
+
+            backToTop.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.scrollTo({top: 0, behavior: 'smooth'});
             });
         });
     </script>
