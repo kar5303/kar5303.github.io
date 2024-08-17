@@ -33,11 +33,13 @@
             position: relative;
             padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
         }
-        nav img {
-            display: block; /* 將 LOGO 設置為塊級元素 */
-            position: absolute;
-            top: 50%;
-            left: 80px; /* 調整 LOGO 靠左的距離 */
+       nav img {
+           position: absolute; /* 使用絕對定位 */
+           top: 50%; /* 垂直居中 */
+           left: 50%; /* 水平居中 */
+           transform: translate(-60%, -50%); /* 確保中心對齊 */
+           width: 100px; /* 設置 LOGO 寬度 */
+           height: auto; /* 保持 LOGO 的比例 */
         }
         
         nav input[type="checkbox"] {
