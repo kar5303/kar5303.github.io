@@ -27,51 +27,18 @@
         }
         nav {
             display: flex;
-            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content: space-between; 
-            align-items: center; /* 垂直方向上居中對齊 */
+            justify-content: center;
             background-color: #444;
-            padding: 10; /* 去掉額外的內邊距 */
-            position: relative;
         }
-
-        nav img {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%); /* LOGO 水平居中 */
-            width: 100px;
-            height: auto;
-        }
-        nav input[type="checkbox"] {
-            display: none;
-        }
-        nav .menu-icon {
-            font-size: 24px;
+        nav a {
             color: #fff;
-            cursor: pointer;
-            padding: 14px;
-            text-align: center;
-        }
-        nav .menu {
-            display: none;
-            position: absolute;
-            top: 60px; /* Adjust based on header height */
-            left: 0; /* 將菜單左對齊 */
-            background-color: #444;
-            width: 100%;
-            text-align: center;
-        }
-        nav .menu a {
-            display: block;
-            padding: 14px 0;
-            color: #fff;
+            padding: 14px 10px; /* 調整填充 */
             text-decoration: none;
+            text-align: center;
+            white-space: nowrap; /* 確保文本不換行 */
         }
-        nav .menu a:hover {
+        nav a:hover {
             background-color: #555;
-        }
-        nav input[type="checkbox"]:checked ~ .menu {
-            display: block;
         }
         .container {
             width: 80%;
@@ -79,7 +46,7 @@
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            flex: 1;
+            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
         }
         .section {
             margin-bottom: 20px;
@@ -154,8 +121,8 @@
             color: #fff;
             text-align: center;
             padding: 10px 0;
+            position: fixed;
             width: 100%;
-            position: relative;
             bottom: 0;
         }
         .portfolio-item a {
@@ -164,9 +131,6 @@
         }
         .portfolio-item a:hover {
             text-decoration: underline; /* 懸停時顯示下劃線 */
-        }
-        .section {
-            margin-bottom: 40px;
         }
         /* 返回頂部按鈕樣式 */
         #back-to-top-container {
@@ -187,25 +151,21 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #555;
+            background-color: #444;
         }
-
-
     </style>
+    
 </head>
 <body>
-    
+    <header>
+        <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
+    </header>
     <nav>
-        <img src="LOGO.png" alt="Your Logo">
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
-        <div class="menu">
-            <a href="#about">個人簡介</a>
-            <a href="experience.html">合作經歷</a>
-            <a href="works.html">作品集</a>
-            <a href="contact.html">聯繫方式</a>
-            <!-- 根據需要添加更多頁面的連結 -->
-        </div>
+        <a href="#about">個人簡介</a>
+        <a href="experience.html">合作經歷</a>
+        <a href="works.html">作品集</a>
+        <a href="contact.html">聯繫方式</a>
+        <!-- 根據需要添加更多頁面的連結 -->
     </nav>
     <div class="container">
         <section id="about" class="section">
@@ -230,14 +190,8 @@
             </div>
             <div class="portfolio-item">
                 <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E7%B5%90%E6%A7%8B%E8%80%90%E9%9C%87%E8%88%87%E6%8B%93%E6%A8%B9%E8%A8%AD%E8%A8%88.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
+                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E7%B5%90%E6%A7%8B%E8%80%90%E9%9C%87%E8%88%87%E6%8B%93%E6%A8%B8%E8%A8%AD%E8%A8%88.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
                 <p>士盟科技2021SIMULIA</p>
-                </ul>
-            </div>
-            <div class="portfolio-item">
-                <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%8D%E5%82%99%E5%85%AC%E6%BC%94.pdf" target="_blank">車道偏架過彎演示</a></h3>
-                <p>士盟科技2020SIMULIA</p>
                 </ul>
             </div>
             <div class="portfolio-item">
@@ -275,32 +229,38 @@
         </section>
     </div>
     <footer>
-        
+        <div id="back-to-top-container">
+            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+        </div>
     </footer>
-    <div id="back-to-top-container">
-        <a href="#top" id="back-to-top">返回頂部</a>
-    </div>
-     <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+
+    <script>
+        console.log("Script loaded");
 
         window.onscroll = function() {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            console.log("scrollFunction called");
             var btnContainer = document.getElementById("back-to-top-container");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 btnContainer.style.display = "block";
             } else {
                 btnContainer.style.display = "none";
             }
-        };
+        }
+
+        function scrollToTop() {
+            console.log("scrollToTop called");
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
-            window.onscroll();
+            scrollFunction();
         });
-    </script>
     </script>
 </body>
 </html>
-
 
 
