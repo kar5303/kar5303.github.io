@@ -167,25 +167,34 @@
         }
         /* 返回頂部按鈕樣式 */
         #back-to-top-container {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        #back-to-top {
-            background-color: #444;
-            color: #fff;
-            font-weight: bold;
-            padding: 10px 20px;
-            text-decoration: none;
-            border: 2px solid #444;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #back-to-top:hover {
-            background-color: #555;
-        }
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#back-to-top {
+    background-color: #444;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid #444;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 150px;  /* 設定按鈕寬度 */
+    height: 50px;  /* 設定按鈕高度 */
+    font-size: 16px;  /* 設定文字大小 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#back-to-top:hover {
+    background-color: #555;
+}
+
 
     </style>
 </head>
