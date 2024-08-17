@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         header {
             background-color: #333;
@@ -167,13 +170,7 @@
             width: 100%;
             bottom: 0;
         }
-        .portfolio-item a {
-            text-decoration: none; /* 移除超連結的默認下劃線 */
-            color: inherit; /* 繼承父元素的顏色 */
-        }
-        .portfolio-item a:hover {
-            text-decoration: underline; /* 懸停時顯示下劃線 */
-        }
+        
         /* 返回頂部按鈕樣式 */
         #back-to-top-container {
             display: none;
@@ -193,7 +190,7 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #444;
+            background-color: #555;
         }
     </style>
     
