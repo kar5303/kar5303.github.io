@@ -27,16 +27,26 @@
         }
         nav {
             display: flex;
-            justify-content: space-between; /* 使 LOGO 和菜單圖示在同一行，並留有空間 */
-            align-items: center; /* 垂直置中對齊 */
+            justify-content: center; /* 水平置中 */
+            align-items: center; /* 垂直置中 */
             background-color: #444;
+            padding: 0 10px; /* 添加左右內邊距 */
             position: relative;
-            padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
+        }
+        .nav-container {
+            display: flex;
+            align-items: center; /* 垂直置中 */
+            width: 100%;
+            max-width: 1200px; /* 可選，設定最大寬度 */
+        }
+        .logo-container {
+            flex: 1; /* 使 LOGO 占用可用空間 */
+            display: flex;
+            justify-content: center; /* 水平置中 */
         }
         nav img {
             width: 100px; /* 根據需要調整 LOGO 的寬度 */
             height: auto;
-            margin-mind: auto; /* 使 LOGO 靠左對齊 */
         }
         nav input[type="checkbox"] {
             display: none;
@@ -46,7 +56,6 @@
             color: #fff;
             cursor: pointer;
             padding: 14px;
-            text-align: center;
         }
         nav .menu {
             display: none;
@@ -180,7 +189,7 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #333;
+            background-color: #444;
         }
 
     </style>
@@ -188,15 +197,19 @@
 <body>
     
     <nav>
-        <img src="LOGO.png" alt="Your Logo">
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
-        <div class="menu">
-            <a href="#about">個人簡介</a>
-            <a href="experience.html">合作經歷</a>
-            <a href="works.html">作品集</a>
-            <a href="contact.html">聯繫方式</a>
-            <!-- 根據需要添加更多頁面的連結 -->
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
+            </div>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+            <div class="menu">
+                <a href="#about">個人簡介</a>
+                <a href="experience.html">合作經歷</a>
+                <a href="works.html">作品集</a>
+                <a href="contact.html">聯繫方式</a>
+                <!-- 根據需要添加更多頁面的連結 -->
+            </div>
         </div>
     </nav>
     <div class="container">
@@ -222,38 +235,33 @@
             </div>
             <div class="portfolio-item">
                 <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E7%B5%90%E6%A7%8B%E8%80%90%E9%9C%87%E8%88%87%E6%8B%93%E6%A8%B9%E8%A8%AD%E8%A8%88.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
-                <p>士盟科技2021SIMULIA</p>
-                </ul>
-            </div>
-            <div class="portfolio-item">
-                <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%8D%E5%82%99%E5%85%AC%E6%BC%94.pdf" target="_blank">車道偏架過彎演示</a></h3>
-                <p>士盟科技2020SIMULIA</p>
+                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E8%90%BD%E7%9B%9B%E5%BC%B7%E5%BA%A6%E5%88%86%E6%9E%90.pdf" target="_blank">桌架落摔強度分析</a></h3>
+                <p>士盟科技2022SIMULIA</p>
                 </ul>
             </div>
         </section>
     </div>
     <footer>
-        
+        &copy; 2024 Sean Wang
     </footer>
+
+    <!-- 返回頂部按鈕 -->
     <div id="back-to-top-container">
-        <a href="#top" id="back-to-top">返回頂部</a>
+        <a href="#" id="back-to-top">返回頂部</a>
     </div>
+
     <script>
-        // Show back-to-top button on scroll
-        window.addEventListener('scroll', function () {
-            var button = document.getElementById('back-to-top-container');
+        // 返回頂部按鈕顯示和隱藏
+        window.addEventListener('scroll', function() {
+            var backToTop = document.getElementById('back-to-top-container');
             if (window.scrollY > 300) {
-                button.style.display = 'block';
+                backToTop.style.display = 'block';
             } else {
-                button.style.display = 'none';
+                backToTop.style.display = 'none';
             }
         });
     </script>
 </body>
 </html>
-
-
 
 
