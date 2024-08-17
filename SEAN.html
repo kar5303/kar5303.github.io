@@ -170,7 +170,13 @@
             width: 100%;
             bottom: 0;
         }
-        
+        .portfolio-item a {
+            text-decoration: none; /* 移除超連結的默認下劃線 */
+            color: inherit; /* 繼承父元素的顏色 */
+        }
+        .portfolio-item a:hover {
+            text-decoration: underline; /* 懸停時顯示下劃線 */
+        }
         /* 返回頂部按鈕樣式 */
         #back-to-top-container {
             display: none;
@@ -276,29 +282,21 @@
     </footer>
 
     <script>
-        console.log("Script loaded");
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         window.onscroll = function() {
-            scrollFunction();
-        };
-
-        function scrollFunction() {
-            console.log("scrollFunction called");
             var btnContainer = document.getElementById("back-to-top-container");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 btnContainer.style.display = "block";
             } else {
                 btnContainer.style.display = "none";
             }
-        }
-
-        function scrollToTop() {
-            console.log("scrollToTop called");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        };
 
         document.addEventListener("DOMContentLoaded", function() {
-            scrollFunction();
+            window.onscroll();
         });
     </script>
 </body>
