@@ -33,6 +33,10 @@
             position: relative;
             padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
         }
+        nav img {
+            display: block; /* 將 LOGO 設置為塊級元素 */
+            margin: 0 auto; /* 水平置中 */
+        }
         nav input[type="checkbox"] {
             display: none;
         }
@@ -65,10 +69,6 @@
         }
         nav input[type="checkbox"]:checked ~ .menu {
             display: block;
-        }
-        nav img {
-            display: block; /* 將 LOGO 設置為塊級元素 */
-            margin: 0 auto; /* 水平置中 */
         }
         .container {
             width: 80%;
