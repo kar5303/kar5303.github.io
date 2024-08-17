@@ -17,35 +17,58 @@
             color: #fff;
             padding: 8px 0;
             text-align: center;
-        }
-        header img {
-            width: 100px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #444;
-        }
-        nav a {
-            color: #fff;
-            padding: 14px 10px;
-            text-decoration: none;
-            text-align: center;
-            white-space: nowrap;
-        }
-        nav a:hover {
-            background-color: #555;
+            font-size: 20px; /* 修改字體大小 */
         }
         @media (max-width: 600px) {
             header {
-                padding: 5px 0;
+                padding: 5px 0; /* 小型螢幕下進一步縮小字體大小 */
+                font-size: 16px; /* 在小型螢幕下減小字體大小 */
             }
-            header img {
-                width: 80px;
-            }
+        }
+        nav {
+            display: flex;
+            justify-content: center; /* 將內容置中 */
+            align-items: center; /* 垂直置中對齊 */
+            background-color: #444;
+            position: relative;
+            padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
+        }
+        nav img {
+            display: block; /* 將 LOGO 設置為塊級元素 */
+            margin: 0 auto; /* 水平置中 */
+        }
+        nav input[type="checkbox"] {
+            display: none;
+        }
+        nav .menu-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            padding: 14px;
+            text-align: center;
+            display: block;
+            margin-left: 0; /* 確保圖示靠左對齊 */
+        }
+        nav .menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* Adjust based on header height */
+            left: 0; /* 將菜單左對齊 */
+            background-color: #444;
+            width: 100%;
+            text-align: center;
+        }
+        nav .menu a {
+            display: block;
+            padding: 14px 0;
+            color: #fff;
+            text-decoration: none;
+        }
+        nav .menu a:hover {
+            background-color: #555;
+        }
+        nav input[type="checkbox"]:checked ~ .menu {
+            display: block;
         }
         .container {
             width: 80%;
@@ -53,7 +76,7 @@
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: 100px;
+            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
         }
         .section {
             margin-bottom: 20px;
@@ -69,13 +92,13 @@
             margin-bottom: 20px;
         }
         .profile img {
-            width: 220px;
-            height: auto;
+            width: 220px; /* 調整照片寬度 */
+            height: auto; /* 保持縱橫比 */
             margin-bottom: 15px;
         }
         @media (max-width: 600px) {
             .profile img {
-                width: 180px;
+                width: 180px; /* 小屏幕上的寬度 */
             }
         }
         .profile-info {
@@ -90,14 +113,14 @@
         .profile-description {
             text-align: left;
             width: 100%;
-            max-width: 600px;
+            max-width: 600px; /* 設置最大寬度 */
         }
         .profile-description p {
-            margin: 0 0 10px;
-            text-align: justify;
+            margin: 0 0 10px; /* 增加段落間距 */
+            text-align: justify; /* 使文本兩端對齊 */
         }
         .portfolio-item {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 增加項目間距 */
         }
         .portfolio-item h3 {
             margin: 0;
@@ -113,14 +136,15 @@
             color: #555;
         }
         .profile-info p {
-            font-style: italic;
-            color: #555;
+            font-style: italic; /* 將文字設置為斜體 */
+            color: #555; /* 調整顏色以匹配其他文字 */
         }
         .profile {
-            margin-bottom: 10px;
+            margin-bottom: 10px; /* 調整照片底部的距離 */
         }
+
         .profile-info {
-            margin-top: 0px;
+            margin-top: 0px; /* 調整照片下名字的頂部距離 */
         }
         footer {
             background-color: #333;
@@ -132,12 +156,13 @@
             bottom: 0;
         }
         .portfolio-item a {
-            text-decoration: none;
-            color: inherit;
+            text-decoration: none; /* 移除超連結的默認下劃線 */
+            color: inherit; /* 繼承父元素的顏色 */
         }
         .portfolio-item a:hover {
-            text-decoration: underline;
+            text-decoration: underline; /* 懸停時顯示下劃線 */
         }
+        /* 返回頂部按鈕樣式 */
         #back-to-top-container {
             display: none;
             position: fixed;
@@ -156,14 +181,13 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #555;
+            background-color: #444;
         }
     </style>
 </head>
 <body>
-    <header>
-        
-        <nav>
+    
+    <nav>
         <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="menu-icon">&#9776;</label>
@@ -173,8 +197,8 @@
             <a href="works.html">作品集</a>
             <a href="contact.html">聯繫方式</a>
             <!-- 根據需要添加更多頁面的連結 -->
-        </nav>
-    </header>
+        </div>
+    </nav>
     <div class="container">
         <section id="about" class="section">
             <h2>個人簡介</h2>
@@ -204,66 +228,30 @@
             </div>
             <div class="portfolio-item">
                 <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%8D%E5%82%99%E5%85%AC%E6%BC%94.pdf" target="_blank">車道偏移警示系統</a></h3>
-                <p>成功大學2021CSME</p>
+                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%8D%E5%82%99%E5%85%AC%E6%BC%94.pdf" target="_blank">車道偏架過彎演示</a></h3>
+                <p>士盟科技2020SIMULIA</p>
                 </ul>
             </div>
         </section>
-        <section id="education" class="section">
-            <h2>學歷</h2>
-            <ul>
-                <li>碩士學歷-國立虎尾科技大學 機械設計工程系，2021年 - 2023年</li>
-                <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
-                <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
-            </ul>
-        </section>
-        <section id="skills" class="section">
-            <h2>技能</h2>
-            <ul>
-                <li>Inventor</li>
-                <li>SolidWorks</li>
-                <li>Comsol有限元素分析軟體</li>
-                <li>Abaqus CAE</li>
-            </ul>
-        </section>
-        <section id="certifications" class="section">
-            <h2>證照</h2>
-            <ul>
-                <li>CAD電腦輔助機械設計製圖丙級</li>
-                <li>3D電腦輔助機械製圖丙級</li>
-            </ul>
-        </section>
     </div>
     <footer>
-        <div id="back-to-top-container">
-            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
-        </div>
+        <p>&copy; 2024 Sean 王秋雄. All rights reserved.</p>
     </footer>
-
+    <div id="back-to-top-container">
+        <a href="#top" id="back-to-top">返回頂部</a>
+    </div>
     <script>
-        window.onscroll = function() {
-            scrollFunction();
-        };
-
-        function scrollFunction() {
-            var btnContainer = document.getElementById("back-to-top-container");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btnContainer.style.display = "block";
+        // Show back-to-top button on scroll
+        window.addEventListener('scroll', function () {
+            var button = document.getElementById('back-to-top-container');
+            if (window.scrollY > 300) {
+                button.style.display = 'block';
             } else {
-                btnContainer.style.display = "none";
+                button.style.display = 'none';
             }
-        }
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            scrollFunction();
         });
     </script>
 </body>
 </html>
-
 
 
