@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         header {
             background-color: #333;
@@ -27,8 +30,50 @@
         }
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
+            justify-content: space-between; 
+            align-items: center; /* 垂直方向上居中對齊 */
+            background-color: #333;
+            padding: 10; /* 去掉額外的內邊距 */
+            position: relative;
+        }
+        nav img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* LOGO 水平居中 */
+            width: 100px;
+            height: auto;
+        }
+        nav input[type="checkbox"] {
+            display: none;
+        }
+        nav .menu-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            padding: 14px;
+            text-align: center;
+        }
+        nav .menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* Adjust based on header height */
+            left: 0; /* 將菜單左對齊 */
             background-color: #444;
+            width: 100%;
+            text-align: center;
+        }
+        nav .menu a {
+            display: block;
+            padding: 14px 0;
+            color: #fff;
+            text-decoration: none;
+        }
+        nav .menu a:hover {
+            background-color: #555;
+        }
+        nav input[type="checkbox"]:checked ~ .menu {
+            display: block;
         }
         nav a {
             color: #fff;
@@ -46,7 +91,7 @@
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
+            flex: 1;
         }
         .section {
             margin-bottom: 20px;
@@ -157,15 +202,17 @@
     
 </head>
 <body>
-    <header>
-        <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
-    </header>
     <nav>
-        <a href="#about">個人簡介</a>
-        <a href="experience.html">合作經歷</a>
-        <a href="works.html">作品集</a>
-        <a href="contact.html">聯繫方式</a>
-        <!-- 根據需要添加更多頁面的連結 -->
+        <img src="LOGO.png" alt="Your Logo">
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <div class="menu">
+            <a href="#about">個人簡介</a>
+            <a href="experience.html">合作經歷</a>
+            <a href="works.html">作品集</a>
+            <a href="contact.html">聯繫方式</a>
+            <!-- 根據需要添加更多頁面的連結 -->
+        </div>   
     </nav>
     <div class="container">
         <section id="about" class="section">
@@ -228,36 +275,27 @@
             </ul>
         </section>
     </div>
-    <footer>
-        <div id="back-to-top-container">
+    
+    <div id="back-to-top-container">
             <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
         </div>
-    </footer>
 
     <script>
-        console.log("Script loaded");
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         window.onscroll = function() {
-            scrollFunction();
-        };
-
-        function scrollFunction() {
-            console.log("scrollFunction called");
             var btnContainer = document.getElementById("back-to-top-container");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 btnContainer.style.display = "block";
             } else {
                 btnContainer.style.display = "none";
             }
-        }
-
-        function scrollToTop() {
-            console.log("scrollToTop called");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        };
 
         document.addEventListener("DOMContentLoaded", function() {
-            scrollFunction();
+            window.onscroll();
         });
     </script>
 </body>
