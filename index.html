@@ -184,28 +184,34 @@
             background-color: #444;
         }
 header {
-            background-color: #333;
-            color: #fff;
-            padding: 8px 0;
-            display: flex;
-            justify-content: center; /* 確保水平方向上居中 */
-            align-items: center; /* 確保垂直方向上居中 */
-            text-align: center;
-        }
-        header img {
-            width: 150px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        @media (max-width: 600px) {
-            header {
-                padding: 5px 0; /* 調整 padding 以適應小螢幕 */
-            }
-            header img {
-                width: 80px; /* 小屏幕上的 LOGO 寬度 */
-            }
-        }
+    background-color: #333;
+    color: #fff;
+    padding: 8px 0;
+    position: relative; /* 為了能夠使用 absolute 定位 */
+    text-align: center; /* 如果需要可以保留 */
+}
+
+header img {
+    width: 100px;
+    height: auto;
+    position: absolute; /* 使用絕對定位 */
+    top: 50%; /* 調整 LOGO 的垂直位置 */
+    left: 50%; /* 調整 LOGO 的水平位置 */
+    transform: translate(-50%, -50%); /* 確保中心對齊 */
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 5px 0; /* 調整 padding 以適應小螢幕 */
+    }
+    header img {
+        width: 80px; /* 小屏幕上的 LOGO 寬度 */
+        /* 調整 top 和 left 屬性以重新定位 LOGO */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* 確保中心對齊 */
+    }
+}
     </style>
 </head>
 <body>
