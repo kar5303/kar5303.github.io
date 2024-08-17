@@ -10,10 +10,10 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            color: #444;
+            color: #333;
         }
         header {
-            background-color: #444;
+            background-color: #333;
             color: #fff;
             padding: 8px 0;
             text-align: center;
@@ -25,13 +25,13 @@
                 font-size: 16px; /* 在小型螢幕下減小字體大小 */
             }
         }
-       nav {
-           display: flex;
-           justify-content: center; /* 將內容置中 */
-           align-items: center; /* 垂直置中對齊 */
-           background-color: #444;
-           position: relative;
-           padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
+        nav {
+            display: flex;
+            justify-content: center; /* 將內容置中 */
+            align-items: center; /* 垂直置中對齊 */
+            background-color: #444;
+            position: relative;
+            padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
         }
         nav img {
             display: block; /* 將 LOGO 設置為塊級元素 */
@@ -70,7 +70,6 @@
         nav input[type="checkbox"]:checked ~ .menu {
             display: block;
         }
-
         .container {
             width: 80%;
             margin: 0 auto;
@@ -184,23 +183,23 @@
         #back-to-top:hover {
             background-color: #444;
         }
+
     </style>
 </head>
-<body>    
+<body>
+    
     <nav>
-    <div class="nav-logo">
-        <img src="LOGO.png" alt="Your Logo">
-    </div>
-    <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="menu-icon">&#9776;</label>
-    <div class="menu">
-        <a href="#about">個人簡介</a>
-        <a href="experience.html">合作經歷</a>
-        <a href="works.html">作品集</a>
-        <a href="contact.html">聯繫方式</a>
-        <!-- 根據需要添加更多頁面的連結 -->
-    </div>
-</nav>
+        <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <div class="menu">
+            <a href="#about">個人簡介</a>
+            <a href="experience.html">合作經歷</a>
+            <a href="works.html">作品集</a>
+            <a href="contact.html">聯繫方式</a>
+            <!-- 根據需要添加更多頁面的連結 -->
+        </div>
+    </nav>
     <div class="container">
         <section id="about" class="section">
             <h2>個人簡介</h2>
