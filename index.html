@@ -25,61 +25,51 @@
                 font-size: 16px; /* 在小型螢幕下減小字體大小 */
             }
         }
-       nav {
-    display: flex;
-    justify-content: center; /* 將內容置中 */
-    align-items: center; /* 垂直置中對齊 */
-    background-color: #444;
-    padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
-    position: relative;
-}
-
-.nav-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px; /* 可選，設定最大寬度 */
-    margin: 0 auto; /* 中心對齊 */
-}
-
-.logo-container {
-    display: flex;
-    justify-content: center; /* 水平置中 LOGO */
-    position: relative;
-    width: 100%; /* 使 LOGO 在容器中居中 */
-}
-
-nav img {
-    width: 100px; /* 根據需要調整 LOGO 的寬度 */
-    height: auto;
-    margin: 0; /* 初始化 margin */
-}
-
-/* 菜單圖示 */
-.menu-icon {
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    padding: 14px;
-    text-align: center;
-    margin-left: 20px; /* 調整菜單圖示的位置 */
-}
-
-/* 菜單 */
-.menu {
-    display: none;
-    position: absolute;
-    top: 60px; /* 根據 header 高度調整 */
-    left: 0; /* 菜單左對齊 */
-    background-color: #444;
-    width: 100%;
-    text-align: center;
-}
-
-nav input[type="checkbox"]:checked ~ .menu {
-    display: block;
-}
-
+        nav {
+            display: flex;
+            justify-content: center; /* 將內容置中 */
+            align-items: center; /* 垂直置中對齊 */
+            background-color: #444;
+            position: relative;
+            padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
+        }
+        nav img {
+            display: block; /* 將 LOGO 設置為塊級元素 */
+            margin: 0 auto; /* 水平置中 */
+        }
+        nav input[type="checkbox"] {
+            display: none;
+        }
+        nav .menu-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            padding: 14px;
+            text-align: center;
+            display: block;
+            margin-left: 0; /* 確保圖示靠左對齊 */
+        }
+        nav .menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* Adjust based on header height */
+            left: 0; /* 將菜單左對齊 */
+            background-color: #444;
+            width: 100%;
+            text-align: center;
+        }
+        nav .menu a {
+            display: block;
+            padding: 14px 0;
+            color: #fff;
+            text-decoration: none;
+        }
+        nav .menu a:hover {
+            background-color: #555;
+        }
+        nav input[type="checkbox"]:checked ~ .menu {
+            display: block;
+        }
         .container {
             width: 80%;
             margin: 0 auto;
