@@ -187,17 +187,15 @@ header {
     background-color: #333;
     color: #fff;
     padding: 8px 0;
-    position: relative; /* 為了能夠使用 absolute 定位 */
-    text-align: center; /* 如果需要可以保留 */
+    text-align: center; /* 保持 LOGO 在 header 中心 */
 }
 
 header img {
     width: 100px;
     height: auto;
-    position: absolute; /* 使用絕對定位 */
-    top: 50%; /* 調整 LOGO 的垂直位置 */
-    left: 50%; /* 調整 LOGO 的水平位置 */
-    transform: translate(-50%, -50%); /* 確保中心對齊 */
+    margin-left: auto; /* 使 LOGO 靠左或靠右 */
+    margin-right: auto; /* 使 LOGO 靠左或靠右 */
+    display: block; /* 保證 LOGO 為塊級元素 */
 }
 
 @media (max-width: 600px) {
@@ -206,12 +204,10 @@ header img {
     }
     header img {
         width: 150px; /* 小屏幕上的 LOGO 寬度 */
-        /* 調整 top 和 left 屬性以重新定位 LOGO */
-        top: 50%;
-        left: 50%;
-        transform: translate(-60%, -50%); /* 確保中心對齊 */
+        /* 可以根據需要調整 margin-left 和 margin-right 來重新定位 LOGO */
     }
 }
+
     </style>
 </head>
 <body>
