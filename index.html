@@ -25,20 +25,22 @@
                 font-size: 16px; /* 在小型螢幕下減小字體大小 */
             }
         }
-       nav {
-            display: flex;
-            justify-content: space-between; /* 使 LOGO 和菜單圖示在同一行，並留有空間 */
-            align-items: center; /* 垂直置中對齊 */
-            background-color: #444;
-            position: relative;
-            padding: 0 px; /* 添加左右內邊距，以免內容緊貼邊緣 */
-        }
-        nav img {
-            width: 100px; /* 根據需要調整 LOGO 的寬度 */
-            height: auto;
-            display: block; /* 確保 img 是區塊級元素 */
-            margin: 0 auto; /* 自動在父元素中水平居中 */
-        }
+      nav {
+    display: flex;
+    justify-content: center; /* 將所有內容在水平方向上居中對齊 */
+    align-items: center; /* 垂直方向上居中對齊 */
+    background-color: #444;
+    padding: 0; /* 去掉額外的內邊距 */
+    position: relative;
+}
+
+nav img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* LOGO 水平居中 */
+    width: 100px;
+    height: auto;
+}
         nav input[type="checkbox"] {
             display: none;
         }
