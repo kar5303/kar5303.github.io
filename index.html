@@ -72,6 +72,7 @@
         .section h2 {
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
+            cursor: pointer;
         }
         .profile {
             display: flex;
@@ -159,6 +160,13 @@
         #back-to-top:hover {
             background-color: #555;
         }
+        .section-content {
+            display: none;
+            padding-top: 10px;
+        }
+        .section-content.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -190,28 +198,34 @@
     <div class="container">
         <section id="about" class="section">
             <h2>個人簡介</h2>
-            <div class="profile">
-                <img src="Sean.JPG" alt="個人照片">
-                <div class="profile-info">
-                    <p>Sean 王秋雄</p>
-                </div>
-                <div class="profile-description">
-                    <p>我是Sean，一位熱愛工程設計的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出與環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及多家製造商合作，並將研究技術應用於解決實際的工業問題，積累了豐富的實務經驗。</p>
+            <div class="section-content">
+                <div class="profile">
+                    <img src="Sean.JPG" alt="個人照片">
+                    <div class="profile-info">
+                        <p>Sean 王秋雄</p>
+                    </div>
+                    <div class="profile-description">
+                        <p>我是Sean，一位熱愛工程設計的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出與環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及多家製造商合作，並將研究技術應用於解決實際的工業問題，積累了豐富的實務經驗。</p>
+                    </div>
                 </div>
             </div>
         </section>
         <section id="experience" class="section">
             <h2>合作經歷</h2>
-            <div class="portfolio-item">
-                <h3>合作經歷</h3>
-                <p>在研究所期間，曾與愛之味及多家製造商合作，並將研究技術應用於解決實際的工業問題。</p>
+            <div class="section-content">
+                <div class="portfolio-item">
+                    <h3>合作經歷</h3>
+                    <p>在研究所期間，曾與愛之味及多家製造商合作，並將研究技術應用於解決實際的工業問題。</p>
+                </div>
             </div>
         </section>
         <section id="works" class="section">
             <h2>作品集</h2>
-            <div class="portfolio-item">
-                <h3>作品集</h3>
-                <p>在學術生涯中設計出與環保相關發展的紙拖鞋。</p>
+            <div class="section-content">
+                <div class="portfolio-item">
+                    <h3>作品集</h3>
+                    <p>在學術生涯中設計出與環保相關發展的紙拖鞋。</p>
+                </div>
             </div>
         </section>
     </div>
@@ -223,6 +237,16 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // 展開或收起 section 內容
+            var sections = document.querySelectorAll(".section h2");
+            sections.forEach(function(section) {
+                section.addEventListener("click", function() {
+                    var content = this.nextElementSibling;
+                    content.classList.toggle("show");
+                });
+            });
+
+            // 控制子菜單的顯示
             var menuItems = document.querySelectorAll("nav > ul > li > a");
 
             menuItems.forEach(function(menuItem) {
