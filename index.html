@@ -187,24 +187,22 @@ header {
     background-color: #333;
     color: #fff;
     padding: 8px 0;
-    text-align: center; /* 保持 LOGO 在 header 中心 */
+    position: relative; /* 使子元素的 absolute 定位相對於 header */
 }
 
 header img {
     width: 100px;
     height: auto;
-    margin-left: 50px; /* 使 LOGO 靠左或靠右 */
-    margin-right: 20px;; /* 使 LOGO 靠左或靠右 */
-    display: block; /* 保證 LOGO 為塊級元素 */
+    position: absolute; /* 使用絕對定位 */
+    top: 50%; /* 垂直居中 */
+    left: 20px; /* 調整 LOGO 距離左邊的距離 */
+    transform: translateY(-50%); /* 垂直居中對齊 */
 }
 
 @media (max-width: 600px) {
-    header {
-        padding: 5px 0; /* 調整 padding 以適應小螢幕 */
-    }
     header img {
         width: 150px; /* 小屏幕上的 LOGO 寬度 */
-        /* 可以根據需要調整 margin-left 和 margin-right 來重新定位 LOGO */
+        left: 10px; /* 調整 LOGO 距離左邊的距離 */
     }
 }
 
