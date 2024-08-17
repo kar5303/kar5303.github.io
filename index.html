@@ -27,9 +27,11 @@
         }
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between; /* 使用 space-between 來將圖示和菜單項目分開 */
+            align-items: center; /* 垂直置中對齊 */
             background-color: #444;
             position: relative;
+            padding: 0 10px; /* 添加左右內邊距，以免內容緊貼邊緣 */
         }
         nav input[type="checkbox"] {
             display: none;
@@ -41,12 +43,13 @@
             padding: 14px;
             text-align: center;
             display: block;
+            margin-left: 0; /* 確保圖示靠左對齊 */
         }
         nav .menu {
             display: none;
             position: absolute;
             top: 60px; /* Adjust based on header height */
-            right: 0;
+            left: 0; /* 將菜單左對齊 */
             background-color: #444;
             width: 100%;
             text-align: center;
@@ -222,7 +225,7 @@
             </div>
             <div class="portfolio-item">
                 <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%93%E5%81%8F%E6%9E%B6%E9%81%8E%E5%82%99%E5%85%AC%E6%BC%94.pdf" target="_blank">車道偏架過彎演示</a></h3>
+                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%8D%E5%82%99%E5%85%AC%E6%BC%94.pdf" target="_blank">車道偏架過彎演示</a></h3>
                 <p>士盟科技2020SIMULIA</p>
                 </ul>
             </div>
