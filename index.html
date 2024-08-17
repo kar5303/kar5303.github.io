@@ -35,8 +35,12 @@
         }
         nav img {
             display: block; /* 將 LOGO 設置為塊級元素 */
-            margin: 0 auto; /* 水平置中 */
+            position: absolute;
+            top: 50%;
+            left: 20px; /* 調整 LOGO 靠左的距離 */
+            transform: translateY(-50%); /* 只垂直居中 */
         }
+        
         nav input[type="checkbox"] {
             display: none;
         }
@@ -183,29 +187,6 @@
         #back-to-top:hover {
             background-color: #444;
         }
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 8px 0;
-    position: relative; /* 使子元素的 absolute 定位相對於 header */
-}
-
-header img {
-    width: 100px;
-    height: auto;
-    position: absolute; /* 使用絕對定位 */
-    top: 50%; /* 垂直居中 */
-    left: 20px; /* 調整 LOGO 距離左邊的距離 */
-    transform: translateY(-50%); /* 垂直居中對齊 */
-}
-
-@media (max-width: 600px) {
-    header img {
-        width: 150px; /* 小屏幕上的 LOGO 寬度 */
-        left: 10px; /* 調整 LOGO 距離左邊的距離 */
-    }
-}
-
     </style>
 </head>
 <body>
