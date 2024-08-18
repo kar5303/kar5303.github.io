@@ -6,14 +6,20 @@
     <title>Sean - 合作經歷</title>
     <style>
         /* 樣式可以直接從其他頁複製 */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            position: relative; /* 使 footer 能夠固定在底部 */
+            min-height: 100vh; /* 確保 body 高度至少為視窗高度 */
         }
-         header {
+        header {
             background-color: #333;
             color: #fff;
             padding: 8px 0;
@@ -26,14 +32,13 @@
                 padding: 5px 0; /* 小型螢幕下進一步縮小字體大小 */
                 font-size: 16px; /* 在小型螢幕下減小字體大小 */
             }
-        }        
+        }
         nav {
             display: flex;
             justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content: flex-end; 
             align-items: center; /* 垂直方向上居中對齊 */
             background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
+            padding: 10px; /* 修正內邊距 */
             position: relative;
         }
         nav img {
@@ -90,7 +95,7 @@
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
+            padding-bottom: 60px; /* 為了避免 footer 遮擋內容 */
             flex: 1;
         }
         .section {
@@ -105,11 +110,11 @@
             color: #fff;
             text-align: center;
             padding: 10px 0;
-            position: relative;
+            position: absolute; /* 使 footer 固定在底部 */
             width: 100%;
             bottom: 0;
         }
-         #back-to-top-container {
+        #back-to-top-container {
             display: none;
             position: fixed;
             bottom: 20px;
@@ -118,7 +123,7 @@
         }
         #back-to-top {
             background-color: #444;
-            color: #fff;/* 修改字體顏色為黑色 */
+            color: #fff; /* 修改字體顏色為白色 */
             font-weight: bold; /* 修改字體為粗體 */
             padding: 10px 20px;
             text-decoration: none;
@@ -127,18 +132,14 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #444;
+            background-color: #555; /* 修改 hover 顏色 */
         }
-        
         /* 新增樣式 */
         .experience-item {
             margin-bottom: 20px;
         }
         .experience-item h3 {
             margin-bottom: 5px;
-        }
-        .experience-item p {
-            line-height: 1.6;
         }
         .experience-item p {
             line-height: 1.6;
@@ -236,3 +237,4 @@
     </script>
 </body>
 </html>
+
