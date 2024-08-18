@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         header {
             background-color: #333;
@@ -27,8 +30,50 @@
         }
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
+            justify-content:  flex-end; 
+            align-items: center; /* 垂直方向上居中對齊 */
+            background-color: #333;
+            padding: 10; /* 去掉額外的內邊距 */
+            position: relative;
+        }
+        nav img {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* LOGO 水平居中 */
+            width: 100px;
+            height: auto;
+        }
+        nav input[type="checkbox"] {
+            display: none;
+        }
+        nav .menu-icon {
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            padding: 14px;
+            text-align: center;
+        }
+        nav .menu {
+            display: none;
+            position: absolute;
+            top: 60px; /* Adjust based on header height */
+            Left: 0; /* 將菜單左對齊 */
             background-color: #444;
+            width: 100%;
+            text-align: center;
+        }
+        nav .menu a {
+            display: block;
+            padding: 14px 0;
+            color: #fff;
+            text-decoration: none;
+        }
+        nav .menu a:hover {
+            background-color: #555;
+        }
+        nav input[type="checkbox"]:checked ~ .menu {
+            display: block;
         }
         nav a {
             color: #fff;
@@ -46,7 +91,8 @@
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: 100px; /* 為了避免 footer 遮擋內容 */
+            padding-bottom: 100px;
+            flex: 1;
         }
         .section {
             margin-bottom: 20px;
@@ -55,16 +101,7 @@
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
         }
-        .profile {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .profile img {
-            width: 220px; /* 調整照片寬度 */
-            height: auto; /* 保持縱橫比 */
-            margin-bottom: 15px;
+          margin-bottom: 15px;
         }
         @media (max-width: 600px) {
             .profile img {
@@ -89,50 +126,17 @@
             margin: 0 0 10px; /* 增加段落間距 */
             text-align: justify; /* 使文本兩端對齊 */
         }
-        .portfolio-item {
-            margin-bottom: 10px; /* 增加項目間距 */
-        }
-        .portfolio-item h3 {
-            margin: 0;
-            font-weight: bold;
-        }
-        .portfolio-item p {
-            margin: 0;
-            font-style: italic;
-            color: #555;
-        }
-        .profile-info em {
-            font-style: italic;
-            color: #555;
-        }
-        .profile-info p {
-            font-style: italic; /* 將文字設置為斜體 */
-            color: #555; /* 調整顏色以匹配其他文字 */
-        }
-        .profile {
-            margin-bottom: 10px; /* 調整照片底部的距離 */
-        }
-
-        .profile-info {
-            margin-top: 0px; /* 調整照片下名字的頂部距離 */
-        }
+        
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 10px 0;
-            position: fixed;
+            position: relative;
             width: 100%;
             bottom: 0;
         }
-        .portfolio-item a {
-            text-decoration: none; /* 移除超連結的默認下劃線 */
-            color: inherit; /* 繼承父元素的顏色 */
-        }
-        .portfolio-item a:hover {
-            text-decoration: underline; /* 懸停時顯示下劃線 */
-        }
-        /* 返回頂部按鈕樣式 */
+       
         #back-to-top-container {
             display: none;
             position: fixed;
@@ -157,15 +161,17 @@
     
 </head>
 <body>
-    <header>
-        <img src="LOGO.png" alt="Your Logo" style="width: 100px; height: auto;">
-    </header>
     <nav>
-        <a href="#about">個人簡介</a>
-        <a href="experience.html">合作經歷</a>
-        <a href="works.html">作品集</a>
-        <a href="contact.html">聯繫方式</a>
-        <!-- 根據需要添加更多頁面的連結 -->
+        <img src="LOGO.png" alt="Your Logo">
+        <input type="checkbox" id="menu-toggle">
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <div class="menu">
+            <a href="index.html">個人簡介</a>
+            <a href="experience.html">合作經歷</a>
+            <a href="works.html">作品集</a>
+            <a href="contact.html">聯繫方式</a>
+            <!-- 根據需要添加更多頁面的連結 -->
+        </div>   
     </nav>
     <div class="container">
         <section id="about" class="section">
@@ -178,87 +184,33 @@
                 <div class="profile-description">
                     <p>我是Sean，一位熱愛工程設計的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出與環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流固耦合分析等技術，進一步體現了對工程和設計的熱忱。</p>
                 </div>
-            </div>
-        </section>
-        <section id="portfolio" class="section">
-            <h2>研討會經歷</h2>
-            <div class="portfolio-item">
-                <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E9%9B%BB%E5%AD%90%E7%83%A4%E7%9B%A4%E9%90%B5%E6%9E%B6%E8%90%BD%E6%91%94%E5%BC%B7%E5%BA%A6%E5%88%86%E6%9E%90.pdf" target="_blank">電子烤盤鐵架落摔強度分析</a></h3>
-                <p>士盟科技2022SIMULIA</p>
-                </ul>
-            </div>
-            <div class="portfolio-item">
-                <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E7%B5%90%E6%A7%8B%E8%80%90%E9%9C%87%E8%88%87%E6%8B%93%E6%A8%B8%E8%A8%AD%E8%A8%88.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
-                <p>士盟科技2021SIMULIA</p>
-                </ul>
-            </div>
-            <div class="portfolio-item">
-                <ul>
-                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%93%E5%81%8F%E7%A7%BB%E8%AD%A6%E7%A4%BA%E7%B3%BB%E7%B5%B1.pdf" target="_blank">車道偏移警示系統</a></h3>
-                <p>成功大學2021CSME</p>
-                </ul>
-            </div>
-    </section>
-        <section id="education" class="section">
-            <h2>學歷</h2>
-            <ul>
-                <li>碩士學歷-國立虎尾科技大學 機械設計工程系，2021年 - 2023年</li>
-                <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
-                <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
-            </ul>
-            <!-- 根據需要添加更多學歷資訊 -->
-        </section>
-        <section id="skills" class="section">
-            <h2>技能</h2>
-            <ul>
-                <li>Inventor</li>
-                <li>SolidWorks</li>
-                <li>Comsol有限元素分析軟體</li>
-                <li>Abaqus CAE</li>
-            </ul>
-        </section>
-        <section id="certifications" class="section">
-            <h2>證照</h2>
-            <ul>
-                <li>CAD電腦輔助機械設計製圖丙級</li>
-                <li>3D電腦輔助機械製圖丙級</li>
-                <!-- 根據需要添加更多證照 -->
-            </ul>
+            
         </section>
     </div>
     <footer>
         <div id="back-to-top-container">
             <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
-        </div>
+        </div>    
     </footer>
 
     <script>
-        console.log("Script loaded");
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         window.onscroll = function() {
-            scrollFunction();
-        };
-
-        function scrollFunction() {
-            console.log("scrollFunction called");
             var btnContainer = document.getElementById("back-to-top-container");
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 btnContainer.style.display = "block";
             } else {
                 btnContainer.style.display = "none";
             }
-        }
-
-        function scrollToTop() {
-            console.log("scrollToTop called");
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        };
 
         document.addEventListener("DOMContentLoaded", function() {
-            scrollFunction();
+            window.onscroll();
         });
     </script>
 </body>
-</html> 
+</html>
+
