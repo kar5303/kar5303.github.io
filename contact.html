@@ -115,7 +115,7 @@
             color: #fff;
             text-align: center;
             padding: 10px 0;
-            position: flex;
+            position: relative;
             width: 100%;
             bottom: 0;
         }
@@ -168,6 +168,26 @@
                 align-items: center; /* 大屏幕时居中对齐 */
                 text-align: center;
             }
+        }
+        #back-to-top-container {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        #back-to-top {
+            background-color: #444;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid #444;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #back-to-top:hover {
+            background-color: #555;
         }
     </style>
 </head>
