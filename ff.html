@@ -11,6 +11,9 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         header {
             background-color: #333;
@@ -27,17 +30,16 @@
         }
         nav {
             display: flex;
-            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content: flex-end; 
-            align-items: center; /* 垂直方向上居中對齊 */
+            justify-content: center;
+            align-items: center;
             background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
+            padding: 10px 0;
             position: relative;
         }
         nav img {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%); /* LOGO 水平居中 */
+            transform: translateX(-50%);
             width: 100px;
             height: auto;
         }
@@ -54,8 +56,8 @@
         nav .menu {
             display: none;
             position: absolute;
-            top: 60px; /* Adjust based on header height */
-            left: 0; /* 將菜單左對齊 */
+            top: 60px;
+            left: 0;
             background-color: #444;
             width: 100%;
             text-align: center;
@@ -83,12 +85,12 @@
             background-color: #555;
         }
         .container {
+            flex: 1; /* 使内容区域占据可用的垂直空间 */
             width: 80%;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: 100px;
         }
         .section {
             margin-bottom: 20px;
@@ -96,8 +98,6 @@
         .section h2 {
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
-        }
-        margin-bottom: 15px;
         }
         .profile-info {
             text-align: center;
@@ -118,22 +118,19 @@
             height: auto;
             margin-right: 20px;
         }
-        
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 10px 0;
-            position: fixed;
             width: 100%;
-            bottom: 0;
         }
         .contact-info {
             margin-bottom: 20px;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* 默认小屏幕时靠左对齐 */
-            justify-content: center; /* 垂直居中 */
+            align-items: flex-start;
+            justify-content: center;
         }
         .contact-info p {
             margin: 0;
@@ -168,26 +165,16 @@
                 height: 250px;
             }
             .contact-info {
-                align-items: flex-start; /* 小屏幕时靠左对齐 */
+                align-items: flex-start;
                 text-align: left;
             }
         }
         @media (min-width: 769px) {
             .contact-info {
-                align-items: center; /* 大屏幕时居中对齐 */
+                align-items: center;
                 text-align: center;
             }
         }
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            margin: 0;
-        }
-        .container {
-            flex: 1;
-        }
-
         #back-to-top-container {
             display: none;
             position: fixed;
@@ -220,7 +207,6 @@
             <a href="experience.html">合作經歷</a>
             <a href="works.html">作品集</a>
             <a href="contact.html">聯繫方式</a>
-            <!-- 根據需要添加更多頁面的連結 -->
         </div>   
     </nav>
     <div class="container">
@@ -234,32 +220,29 @@
             </div>
             <div class="map-container">
                 <h3>地圖位置</h3>
-                <!-- 嵌入式 Google 地圖 -->
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d645.8152024363856!2d120.43065738568073!3d23.701604741859082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346eba00c1444b7d%3A0x9cc8fd990373f28e!2z5ZyL56uL6JmO5bC-56eR5oqA5aSn5a24IOe2nOWQiOW3peeoi-mkqOS4gOmkqA!5e0!3m2!1szh-TW!2stw!4v1715847963600!5m2!1szh-TW!2stw" class="map" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
     </div>
     <footer>
-           
+        <!-- 页脚内容 -->
     </footer>
-            <div id="back-to-top-container">
-            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
-        </div>
+    <div id="back-to-top-container">
+        <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+    </div>
     <script>
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         window.onscroll = function() {
-            var btnContainer = document.getElementById("back-to-top-container");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btnContainer.style.display = "block";
+            const backToTopContainer = document.getElementById('back-to-top-container');
+            if (window.pageYOffset > 100) {
+                backToTopContainer.style.display = 'block';
             } else {
-                btnContainer.style.display = "none";
+                backToTopContainer.style.display = 'none';
             }
-        };
-
-        document.addEventListener("DOMContentLoaded", function() {
-            window.onscroll();
-        });
+        }
     </script>
 </body>
 </html>
