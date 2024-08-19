@@ -31,10 +31,8 @@
         nav {
             display: flex;
             justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content:  flex-end; 
-            align-items: center; /* 垂直方向上居中對齊 */
             background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
+            padding: 10px 0; /* 調整內邊距 */
             position: relative;
         }
         nav img {
@@ -52,7 +50,6 @@
             color: #fff;
             cursor: pointer;
             padding: 14px;
-            text-align: center;
         }
         nav .menu {
             display: none;
@@ -158,7 +155,6 @@
         .profile {
             margin-bottom: 10px; /* 調整照片底部的距離 */
         }
-
         .profile-info {
             margin-top: 0px; /* 調整照片下名字的頂部距離 */
         }
@@ -197,19 +193,21 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #444;
+            background-color: #555;
         }
         /* 時間軸樣式 */
         .timeline {
             position: relative;
             max-width: 900px;
             margin: 0 auto;
-            padding: 10px;
+            padding: 20px 0;
+            padding-bottom: 40px;
         }
         .timeline-item {
-            padding: 10px;
+            padding: 10px 20px;
             position: relative;
             border-left: 2px solid #333;
+            margin-bottom: 20px;
         }
         .timeline-item::before {
             content: '';
@@ -315,4 +313,3 @@
     </script>
 </body>
 </html>
-
