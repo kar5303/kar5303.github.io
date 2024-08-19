@@ -31,8 +31,10 @@
         nav {
             display: flex;
             justify-content: center; /* 將所有內容在水平方向上居中對齊 */
+            justify-content:  flex-end; 
+            align-items: center; /* 垂直方向上居中對齊 */
             background-color: #333;
-            padding: 10px 0; /* 調整內邊距 */
+            padding: 10; /* 去掉額外的內邊距 */
             position: relative;
         }
         nav img {
@@ -50,12 +52,13 @@
             color: #fff;
             cursor: pointer;
             padding: 14px;
+            text-align: center;
         }
         nav .menu {
             display: none;
             position: absolute;
             top: 60px; /* Adjust based on header height */
-            left: 0; /* 將菜單左對齊 */
+            Left: 0; /* 將菜單左對齊 */
             background-color: #444;
             width: 100%;
             text-align: center;
@@ -155,6 +158,7 @@
         .profile {
             margin-bottom: 10px; /* 調整照片底部的距離 */
         }
+
         .profile-info {
             margin-top: 0px; /* 調整照片下名字的頂部距離 */
         }
@@ -193,46 +197,35 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #555;
+            background-color: #444;
         }
-        /* 時間軸樣式 */
-        .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px 0;
-            padding-bottom: 40px;
-        }
-        .timeline-item {
-            padding: 10px 20px;
-            position: relative;
-            border-left: 2px solid #333;
-            margin-bottom: 20px;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -6px;
-            width: 12px;
-            height: 12px;
-            background-color: #333;
-            border-radius: 50%;
-            top: 10px;
-            transform: translateX(-50%);
-        }
-        .timeline-content {
-            padding-left: 20px;
-        }
-        .timeline-content h3 {
-            margin: 0;
-            font-weight: bold;
-        }
-        .timeline-content p {
-            margin: 0;
-            font-style: italic;
-            color: #555;
-        }
+        .section h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 24px; /* 調整標題字體大小 */
+}
+
+.portfolio-item {
+    margin-bottom: 20px; /* 增加項目間距 */
+    padding: 15px; /* 增加內邊距 */
+    background-color: #f9f9f9; /* 背景色 */
+    border: 1px solid #ddd; /* 邊框顏色 */
+    border-radius: 5px; /* 邊框圓角 */
+}
+
+.portfolio-item h3 {
+    font-size: 18px; /* 調整標題字體大小 */
+    margin-bottom: 10px; /* 調整標題底部距離 */
+}
+
+.portfolio-item p {
+    font-size: 16px; /* 調整描述文字字體大小 */
+    color: #555; /* 調整描述文字顏色 */
+}
+
     </style>
+    
 </head>
 <body>
     <nav>
@@ -260,56 +253,73 @@
                 </div>
             </div>
         </section>
-        <section id="experience" class="section">
-            <h2>研討會經歷</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>2024年8月 - 2024年中國機械工程學會年會</h3>
-                        <p>在這次會議上，我介紹了我的研究成果並與來自不同領域的專家進行了交流。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>2023年6月 - 國際流體力學研討會</h3>
-                        <p>參與了這次研討會，分享了關於流體動力學的研究成果，並進一步了解了流體力學領域的最新技術和趨勢。</p>
-                    </div>
-                </div>
-                <!-- 根據需要添加更多時間軸條目 -->
-            </div>
-        </section>
         <section id="portfolio" class="section">
-            <h2>作品集</h2>
-            <div class="portfolio-item">
-                <h3><a href="#">紙拖鞋設計</a></h3>
-                <p>開發了一款環保紙拖鞋，融合創新設計和可持續材料。</p>
-            </div>
-            <div class="portfolio-item">
-                <h3><a href="#">瓶型碰撞分析</a></h3>
-                <p>針對瓶型設計進行了詳細的碰撞分析，提供了改進建議。</p>
-            </div>
-            <div class="portfolio-item">
-                <h3><a href="#">流固耦合分析</a></h3>
-                <p>進行了流固耦合分析，探討了流體與結構交互作用的影響。</p>
-            </div>
+    <h2>研討會經歷</h2>
+    <div class="portfolio-item">
+        <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E9%9B%BB%E5%AD%90%E7%83%A4%E7%9B%A4%E9%90%B5%E6%9E%B6%E8%90%BD%E6%91%94%E5%BC%B7%E5%BA%A6%E5%88%86%E6%9E%90.pdf" target="_blank">電子烤盤鐵架落摔強度分析</a></h3>
+        <p>士盟科技2022SIMULIA</p>
+    </div>
+    <div class="portfolio-item">
+        <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E7%B5%90%E6%A7%8B%E8%80%90%E9%9C%87%E8%88%87%E6%8B%93%E6%A8%B9%E8%A8%AD%E8%A8%88.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
+        <p>士盟科技2021SIMULIA</p>
+    </div>
+    <div class="portfolio-item">
+        <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%93%E5%81%8F%E7%A7%BB%E8%AD%A6%E7%A4%BA%E7%B3%BB%E7%B5%B1.pdf" target="_blank">車道偏移警示系統</a></h3>
+        <p>成功大學2021CSME</p>
+    </div>
+</section>
+
+        <section id="education" class="section">
+            <h2>學歷</h2>
+            <ul>
+                <li>碩士學歷-國立虎尾科技大學 機械設計工程系，2021年 - 2023年</li>
+                <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
+                <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
+            </ul>
+            <!-- 根據需要添加更多學歷資訊 -->
+        </section>
+        <section id="skills" class="section">
+            <h2>技能</h2>
+            <ul>
+                <li>Inventor</li>
+                <li>SolidWorks</li>
+                <li>Comsol有限元素分析軟體</li>
+                <li>Abaqus CAE</li>
+            </ul>
+        </section>
+        <section id="certifications" class="section">
+            <h2>證照</h2>
+            <ul>
+                <li>CAD電腦輔助機械設計製圖丙級</li>
+                <li>3D電腦輔助機械製圖丙級</li>
+                <!-- 根據需要添加更多證照 -->
+            </ul>
         </section>
     </div>
     <footer>
-        <p>&copy; 2024 Sean 王秋雄 | All Rights Reserved</p>
+        <div id="back-to-top-container">
+            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+        </div>    
     </footer>
-    <div id="back-to-top-container">
-        <a href="#top" id="back-to-top">Back to Top</a>
-    </div>
+
     <script>
-        // 顯示“返回頂部”按鈕
-        window.addEventListener('scroll', function() {
-            var backToTop = document.getElementById('back-to-top-container');
-            if (window.scrollY > 300) {
-                backToTop.style.display = 'block';
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onscroll = function() {
+            var btnContainer = document.getElementById("back-to-top-container");
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                btnContainer.style.display = "block";
             } else {
-                backToTop.style.display = 'none';
+                btnContainer.style.display = "none";
             }
+        };
+
+        document.addEventListener("DOMContentLoaded", function() {
+            window.onscroll();
         });
     </script>
 </body>
 </html>
+
