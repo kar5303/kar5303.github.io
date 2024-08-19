@@ -143,21 +143,23 @@
         #back-to-top:hover {
             background-color: #444;
         }
-        /* 新增樣式 */
-        .experience-item {
-            margin-bottom: 20px;
+        .profile-info p {
+            font-style: italic; /* 將文字設置為斜體 */
+            color: #555; /* 調整顏色以匹配其他文字 */
         }
-        .experience-item h3 {
-            margin-bottom: 5px;
+        .profile {
+            margin-bottom: 10px; /* 調整照片底部的距離 */
         }
-        .experience-item p {
-            line-height: 1.6;
-            text-align: justify; /* 讓文字兩端對齊 */
+
+        .profile-info {
+            margin-top: 0px; /* 調整照片下名字的頂部距離 */
         }
-        .company-info img {
-            width: 100px; /* 設置商標圖片的寬度 */
-            height: auto; /* 讓高度按比例自適應 */
-            margin-right: 10px; /* 增加商標圖片與文本之間的間距 */
+        .portfolio-item a {
+            text-decoration: none; /* 移除超連結的默認下劃線 */
+            color: inherit; /* 繼承父元素的顏色 */
+        }
+        .portfolio-item a:hover {
+            text-decoration: underline; /* 懸停時顯示下劃線 */
         }
     </style>
     
@@ -176,42 +178,64 @@
         </div>   
     </nav>
     <div class="container">
-        <section class="section">
-            <h2>合作經歷</h2>
-            <div class="experience-item">
-                <div class="company-info">
-                    <a href="https://www.agv.com.tw">
-                        <img src="愛之味.png" alt="愛之味公司圖片">
-                    </a>
+        <section id="about" class="section">
+            <h2>個人簡介</h2>
+            <div class="profile">
+                <img src="Sean.JPG" alt="個人照片">
+                <div class="profile-info">
+                    <p>Sean 王秋雄</p>
                 </div>
-                <h3>愛之味股份有限公司&國立虎尾科技大學</h3>
-                <p>職位：研究生</p>
-                <p>期間：2022年 - 2023年</p>
-                <p>簡介：在虎尾科技大學林瑞璋教授的引薦下，與愛之味股份有限公司合作，進行塑膠瓶型的結構設計優化，藉此達到降低減塑的目標。並以有限元素分析進行分析，運用實際碰撞實驗加以驗證。</p>
-            </div>
-            <div class="experience-item">
-                <div class="company-info">
-                    <a href="https://www.homemark.com.tw">
-                        <img src="鴻茂.png" alt="鴻茂公司圖片">
-                    </a>
+                <div class="profile-description">
+                    <p>我是Sean，一位熱愛工程設計的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出與環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流固耦合分析等技術，進一步體現了對工程和設計的熱忱。</p>
                 </div>
-                <h3>鴻茂工業股份有限公司&國立虎尾科技大學</h3>
-                <p>職位：研究生</p>
-                <p>期間：2022年 - 2023</p>
-                <p>簡介：在虎尾科技大學林瑞璋教授的指導下與鴻茂股份有限公司探討熱水器結構的差異，並為熱水器結構設計所造成的溫度差異進行設計改良，最後以有限元素進行模擬分析驗證。</p>
             </div>
-            <div class="experience-item">
-                <div class="company-info">
-                    <a href="https://www.superalloy.tw">
-                        <img src="SAI.png" alt="巧新公司圖片">
-                    </a>
-                </div>
-                <h3>巧新股份有限公司&國立虎尾科技大學</h3>
-                <p>職位：技術員</p>
-                <p>期間：2017年 - 2021</p>
-                <p>簡介：參與虎尾科技大學與巧新股份有限公司的產學合作，擁有理解傳統產業4年的工作經驗，並為機械製造部門製作輪圈研磨風險評估表。</p>
+        </section>
+        <section id="portfolio" class="section">
+            <h2>研討會經歷</h2>
+            <div class="portfolio-item">
+                <ul>
+                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E9%9B%BB%E5%AD%90%E7%83%A4%E7%9B%A4%E9%90%B5%E6%9E%B6%E8%90%BD%E6%91%94%E5%BC%B7%E5%BA%A6%E5%88%86%E6%9E%90.pdf" target="_blank">電子烤盤鐵架落摔強度分析</a></h3>
+                <p>士盟科技2022SIMULIA</p>
+                </ul>
             </div>
-            <!-- 在這裡繼續添加合作經歷 -->
+            <div class="portfolio-item">
+                <ul>
+                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E7%B5%90%E6%A7%8B%E8%80%90%E9%9C%87%E8%88%87%E6%8B%93%E6%A8%B8%E8%A8%AD%E8%A8%88.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
+                <p>士盟科技2021SIMULIA</p>
+                </ul>
+            </div>
+            <div class="portfolio-item">
+                <ul>
+                <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%93%E5%81%8F%E7%A7%BB%E8%AD%A6%E7%A4%BA%E7%B3%BB%E7%B5%B1.pdf" target="_blank">車道偏移警示系統</a></h3>
+                <p>成功大學2021CSME</p>
+                </ul>
+            </div>
+    </section>
+        <section id="education" class="section">
+            <h2>學歷</h2>
+            <ul>
+                <li>碩士學歷-國立虎尾科技大學 機械設計工程系，2021年 - 2023年</li>
+                <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
+                <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
+            </ul>
+            <!-- 根據需要添加更多學歷資訊 -->
+        </section>
+        <section id="skills" class="section">
+            <h2>技能</h2>
+            <ul>
+                <li>Inventor</li>
+                <li>SolidWorks</li>
+                <li>Comsol有限元素分析軟體</li>
+                <li>Abaqus CAE</li>
+            </ul>
+        </section>
+        <section id="certifications" class="section">
+            <h2>證照</h2>
+            <ul>
+                <li>CAD電腦輔助機械設計製圖丙級</li>
+                <li>3D電腦輔助機械製圖丙級</li>
+                <!-- 根據需要添加更多證照 -->
+            </ul>
         </section>
     </div>
     <footer>
@@ -240,4 +264,3 @@
     </script>
 </body>
 </html>
-
