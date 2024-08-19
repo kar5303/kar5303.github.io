@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sean - 聯繫方式</title>
+    <title>Sean王秋雄</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,8 +11,6 @@
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
-            display: flex;
-            flex-direction: column;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -22,27 +20,27 @@
             color: #fff;
             padding: 8px 0;
             text-align: center;
-            font-size: 20px;
+            font-size: 20px; /* 修改字體大小 */
         }
         @media (max-width: 600px) {
             header {
-                padding: 5px 0;
-                font-size: 16px;
+                padding: 5px 0; /* 小型螢幕下進一步縮小字體大小 */
+                font-size: 16px; /* 在小型螢幕下減小字體大小 */
             }
         }
         nav {
             display: flex;
-            justify-content: center;
-            justify-content: flex-end;
-            align-items: center;
+            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
+            justify-content:  flex-end; 
+            align-items: center; /* 垂直方向上居中對齊 */
             background-color: #333;
-            padding: 10px ;
+            padding: 10; /* 去掉額外的內邊距 */
             position: relative;
         }
         nav img {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%); /* LOGO 水平居中 */
             width: 100px;
             height: auto;
         }
@@ -59,8 +57,8 @@
         nav .menu {
             display: none;
             position: absolute;
-            top: 60px;
-            left: 0;
+            top: 60px; /* Adjust based on header height */
+            Left: 0; /* 將菜單左對齊 */
             background-color: #444;
             width: 100%;
             text-align: center;
@@ -79,21 +77,22 @@
         }
         nav a {
             color: #fff;
-            padding: 14px 10px;
+            padding: 14px 10px; /* 調整填充 */
             text-decoration: none;
             text-align: center;
-            white-space: nowrap;
+            white-space: nowrap; /* 確保文本不換行 */
         }
         nav a:hover {
             background-color: #555;
         }
         .container {
-            flex: 1; /* 使内容区域占据可用的垂直空间 */
             width: 80%;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding-bottom: 100px;
+            flex: 1;
         }
         .section {
             margin-bottom: 20px;
@@ -101,6 +100,8 @@
         .section h2 {
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
+        }
+          margin-bottom: 15px;
         }
         .profile-info {
             text-align: center;
@@ -111,73 +112,17 @@
             margin-top: 0;
             margin-bottom: 0;
         }
-        .profile {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .profile img {
-            width: 150px;
-            height: auto;
-            margin-right: 20px;
-        }
+              
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 10px 0;
+            position: relative;
             width: 100%;
+            bottom: 0;
         }
-        .contact-info {
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-        }
-        .contact-info p {
-            margin: 0;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
-            font-size: 16px;
-        }
-        .contact-info img {
-            width: 20px;
-            height: auto;
-            margin-right: 10px;
-        }
-        .contact-info a {
-            text-decoration: none;
-            color: inherit;
-        }
-        .map-container {
-            text-align: center;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        .map {
-            width: 100%;
-            height: 400px;
-            border: 2px solid #333;
-        }
-        @media (max-width: 768px) {
-            .map {
-                height: 250px;
-            }
-            .contact-info {
-                align-items: flex-start;
-                text-align: left;
-            }
-        }
-        @media (min-width: 769px) {
-            .contact-info {
-                align-items: center;
-                text-align: center;
-            }
-        }
+       
         #back-to-top-container {
             display: none;
             position: fixed;
