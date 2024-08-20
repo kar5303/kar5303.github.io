@@ -258,9 +258,11 @@
         .portfolio-item img {
             border-radius: 15px; /* 圓角效果 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
-            
+            max-width: 300px; /* 設定圖片最大寬度 */
+            max-height: 200px; /* 設定圖片最大高度 */
+            object-fit: cover; /* 保持圖片比例並裁剪填充 */
             display: block; /* 讓圖片在其容器中顯示為塊級元素 */
-            
+            margin: 0 auto; /* 使圖片在容器中水平居中 */
         }
 
     </style>
