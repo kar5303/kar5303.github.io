@@ -233,6 +233,24 @@
         .profile-content {
             width: 50%; /* 設定文字內容寬度為50% */
         }
+        .videos-container {
+    display: flex;
+    justify-content: space-between; /* 使影片容器之間有適當間距 */
+    gap: 20px; /* 設置影片容器之間的間距 */
+    flex-wrap: wrap; /* 使容器在小螢幕上能換行 */
+}
+
+.video-container {
+    flex: 1;
+    min-width: 300px; /* 設定最小寬度，以適應不同的螢幕尺寸 */
+    padding-bottom: 20px; /* 增加底部間距 */
+}
+
+.video-container iframe {
+    width: 100%;
+    height: auto; /* 保持影片比例 */
+}
+
     </style>
 </head>
 <body>
@@ -263,8 +281,13 @@
         <section class="section">
             <h2>最新消息</h2>
             <p>使用耦合歐拉-拉格朗日方法將擺槌放入水中。</p>
-            <div class="video-container">
-                <iframe width="500" height="300" src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <div class="videos-container">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/anotherVideoID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div
             </div>
         </section>
         <section class="section">
