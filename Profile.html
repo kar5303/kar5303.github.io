@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sean王秋雄</title>
+    <title>首頁- Sean </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,27 +20,26 @@
             color: #fff;
             padding: 8px 0;
             text-align: center;
-            font-size: 20px; /* 修改字體大小 */
+            font-size: 20px;
         }
         @media (max-width: 600px) {
             header {
-                padding: 5px 0; /* 小型螢幕下進一步縮小字體大小 */
-                font-size: 16px; /* 在小型螢幕下減小字體大小 */
+                padding: 5px 0;
+                font-size: 16px;
             }
         }
         nav {
             display: flex;
-            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content:  flex-end; 
-            align-items: center; /* 垂直方向上居中對齊 */
+            justify-content: center;
+            align-items: center;
             background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
+            padding: 10px;
             position: relative;
         }
         nav img {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%); /* LOGO 水平居中 */
+            transform: translateX(-50%);
             width: 100px;
             height: auto;
         }
@@ -57,8 +56,8 @@
         nav .menu {
             display: none;
             position: absolute;
-            top: 60px; /* Adjust based on header height */
-            Left: 0; /* 將菜單左對齊 */
+            top: 60px;
+            left: 0;
             background-color: #444;
             width: 100%;
             text-align: center;
@@ -77,10 +76,10 @@
         }
         nav a {
             color: #fff;
-            padding: 14px 10px; /* 調整填充 */
+            padding: 14px 10px;
             text-decoration: none;
             text-align: center;
-            white-space: nowrap; /* 確保文本不換行 */
+            white-space: nowrap;
         }
         nav a:hover {
             background-color: #555;
@@ -95,90 +94,46 @@
             flex: 1;
         }
         .section {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
         .section h2 {
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .portfolio-item {
+            margin-bottom: 30px;
+        }
+        .portfolio-item h3 {
+            margin-bottom: 10px;
         }
         .profile {
             display: flex;
-            flex-direction: column;
             align-items: center;
             margin-bottom: 20px;
         }
         .profile img {
-            width: 220px; /* 調整照片寬度 */
-            height: auto; /* 保持縱橫比 */
-            margin-bottom: 15px;
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
         }
-        @media (max-width: 600px) {
-            .profile img {
-                width: 180px; /* 小屏幕上的寬度 */
-            }
+        .profile-content {
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .profile-info {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .profile-info p {
-            font-size: 15px;
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-        .profile-description {
-            text-align: left;
-            width: 100%;
-            max-width: 600px; /* 設置最大寬度 */
-        }
-        .profile-description p {
-            margin: 0 0 10px; /* 增加段落間距 */
-            text-align: justify; /* 使文本兩端對齊 */
-        }
-        .portfolio-item {
-            margin-bottom: 10px; /* 增加項目間距 */
-        }
-        .portfolio-item h3 {
-            margin: 0;
-            font-weight: bold;
-        }
-        .portfolio-item p {
-            margin: 0;
-            font-style: italic;
-            color: #555;
-        }
-        .profile-info em {
-            font-style: italic;
-            color: #555;
-        }
-        .profile-info p {
-            font-style: italic; /* 將文字設置為斜體 */
-            color: #555; /* 調整顏色以匹配其他文字 */
-        }
-        .profile {
-            margin-bottom: 10px; /* 調整照片底部的距離 */
-        }
-
-        .profile-info {
-            margin-top: 0px; /* 調整照片下名字的頂部距離 */
+        .profile-content p {
+            font-size: 18px;
+            line-height: 1.5;
         }
         footer {
             background-color: #333;
             color: #fff;
             text-align: center;
             padding: 10px 0;
-            position: relative;
             width: 100%;
+            position: relative;
             bottom: 0;
         }
-        .portfolio-item a {
-            text-decoration: none; /* 移除超連結的默認下劃線 */
-            color: inherit; /* 繼承父元素的顏色 */
-        }
-        .portfolio-item a:hover {
-            text-decoration: underline; /* 懸停時顯示下劃線 */
-        }
-        /* 返回頂部按鈕樣式 */
         #back-to-top-container {
             display: none;
             position: fixed;
@@ -197,35 +152,75 @@
             cursor: pointer;
         }
         #back-to-top:hover {
-            background-color: #444;
+            background-color: #555;
         }
-        .section h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    font-size: 24px; /* 調整標題字體大小 */
-}
-
-.portfolio-item {
-    margin-bottom: 20px; /* 增加項目間距 */
-    padding: 15px; /* 增加內邊距 */
-    background-color: #f9f9f9; /* 背景色 */
-    border: 1px solid #ddd; /* 邊框顏色 */
-    border-radius: 5px; /* 邊框圓角 */
-}
-
-.portfolio-item h3 {
-    font-size: 18px; /* 調整標題字體大小 */
-    margin-bottom: 10px; /* 調整標題底部距離 */
-}
-
-.portfolio-item p {
-    font-size: 16px; /* 調整描述文字字體大小 */
-    color: #555; /* 調整描述文字顏色 */
-}
-
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .portfolio-heading {
+            text-align: center;
+            background-color: #777;
+            color: #fff;
+            padding: 10px 0;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+        .index-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .index-list li {
+            margin: 10px;
+            text-align: center;
+        }
+        .index-list li img {
+            width: 375px;
+            height: 210px;
+            display: block;
+            margin: 0 auto 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .index-list li a {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            background-color: #444;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .index-list li a:hover {
+            background-color: #555;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .index-list li img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .content-section img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+        }
     </style>
-    
 </head>
 <body>
     <nav>
@@ -233,93 +228,59 @@
         <input type="checkbox" id="menu-toggle">
         <label for="menu-toggle" class="menu-icon">&#9776;</label>
         <div class="menu">
+            <a href="TEST.html">首頁</a>
             <a href="index.html">個人簡介</a>
             <a href="experience.html">合作經歷</a>
             <a href="works.html">作品集</a>
             <a href="contact.html">聯繫方式</a>
-            <!-- 根據需要添加更多頁面的連結 -->
         </div>   
     </nav>
     <div class="container">
-        <section id="about" class="section">
-            <h2>個人簡介</h2>
+        <section class="section">
+            <h2>Sean的個人網站</h2>
             <div class="profile">
-                <img src="Sean.JPG" alt="個人照片">
-                <div class="profile-info">
-                    <p>Sean 王秋雄</p>
-                </div>
-                <div class="profile-description">
-                    <p>我是Sean，一位熱愛工程設計的人，對於製造產品和探索新技術充滿熱情。在學術生涯中設計出與環保相關發展的紙拖鞋。並於攻讀研究所期間，曾與愛之味及鴻茂熱水器合作，深入研究瓶型碰撞分析、結構設計和流固耦合分析等技術，進一步體現了對工程和設計的熱忱。</p>
+                <img src="你的個人照片.png" alt="Sean的個人照片">
+                <div class="profile-content">
+                    <p>這裡展示我的專業技能、經歷和作品集。我致力於研究充實相關知識，並展示我的最新作品和動態。</p>
                 </div>
             </div>
         </section>
-        <section id="portfolio" class="section">
-    <h2>研討會經歷</h2>
-    <div class="portfolio-item">
-        <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E9%9B%BB%E5%AD%90%E7%83%A4%E7%9B%A4%E9%90%B5%E6%9E%B6%E8%90%BD%E6%91%94%E5%BC%B7%E5%BA%A6%E5%88%86%E6%9E%90.pdf" target="_blank">電子烤盤鐵架落摔強度分析</a></h3>
-        <p>士盟科技2022SIMULIA</p>
-    </div>
-    <div class="portfolio-item">
-        <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E6%A1%81%E6%9E%B6%E7%B5%90%E6%A7%8B%E8%80%90%E9%9C%87%E8%88%87%E6%8B%93%E6%A8%B9%E8%A8%AD%E8%A8%88.pdf" target="_blank">桁架結構耐震與拓樸設計</a></h3>
-        <p>士盟科技2021SIMULIA</p>
-    </div>
-    <div class="portfolio-item">
-        <h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E8%BB%8A%E9%81%93%E5%81%8F%E7%A7%BB%E8%AD%A6%E7%A4%BA%E7%B3%BB%E7%B5%B1.pdf" target="_blank">車道偏移警示系統</a></h3>
-        <p>成功大學2021CSME</p>
-    </div>
-</section>
-
-        <section id="education" class="section">
-            <h2>學歷</h2>
-            <ul>
-                <li>碩士學歷-國立虎尾科技大學 機械設計工程系，2021年 - 2023年</li>
-                <li>大學學歷-國立虎尾科技大學 機械設計工程系，2017年 - 2021年</li>
-                <li>高中學歷-國立嘉義高工 機械製圖科，2014年 - 2017年</li>
-            </ul>
-            <!-- 根據需要添加更多學歷資訊 -->
+        <section class="section">
+            <h2>最新消息</h2>
+            <p>使用耦合歐拉-拉格朗日方法將擺槌放入水中。</p>
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
         </section>
-        <section id="skills" class="section">
-            <h2>技能</h2>
-            <ul>
-                <li>Inventor</li>
-                <li>SolidWorks</li>
-                <li>Comsol有限元素分析軟體</li>
-                <li>Abaqus CAE</li>
-            </ul>
-        </section>
-        <section id="certifications" class="section">
-            <h2>證照</h2>
-            <ul>
-                <li>CAD電腦輔助機械設計製圖丙級</li>
-                <li>3D電腦輔助機械製圖丙級</li>
-                <!-- 根據需要添加更多證照 -->
-            </ul>
+        <section class="section">
+            <h2>作品集預覽</h2>
+            <div class="portfolio-item">
+                <h3>落摔分析</h3>
+                <img src="落摔分析.png" alt="落摔分析" style="max-width: 20%; height: auto;">
+                <p>使用Abaqus進行簡單落摔分析，嘗試烤肉框架的強度是否足夠承受撞擊。</p>
+                <p><a href="abaqus.html">查看更多</a></p>
+            </div>
+            <div class="portfolio-item">
+                <h3>熱水器結構差異下的流場分析</h3>
+                <img src="熱水器結構差異下的流場分析之研究.png" alt="熱水器結構差異下的流場分析" style="max-width: 20%; height: auto;">
+                <p>使用comsol軟體進行流固耦合分析，探討了一種三層結構的熱水器增加水流的方式。</p>
+                <p><a href="comsol.html">查看更多</a></p>
+            </div>
+            <div class="portfolio-item">
+                <h3>HVAC通風系統設計</h3>
+                <img src="HVAC通風系統設計.png" alt="HVAC通風系統設計" style="max-width: 20%; height: auto;">
+                <p>參與了一個工業通風系統的設計，保證空氣質量和舒適度達到最佳標準。</p>
+                <p><a href="HVAC.html">查看更多</a></p>
+            </div>
         </section>
     </div>
     <footer>
-        <div id="back-to-top-container">
-            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
-        </div>    
+        <p>&copy; 2023 Sean's Portfolio. All Rights Reserved.</p>
     </footer>
-
-    <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.onscroll = function() {
-            var btnContainer = document.getElementById("back-to-top-container");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btnContainer.style.display = "block";
-            } else {
-                btnContainer.style.display = "none";
-            }
-        };
-
-        document.addEventListener("DOMContentLoaded", function() {
-            window.onscroll();
-        });
-    </script>
+    <div id="back-to-top-container">
+        <a id="back-to-top" href="#">Back to Top</a>
+    </div>
 </body>
 </html>
+
 
