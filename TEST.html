@@ -240,14 +240,22 @@
             flex-wrap: wrap; /* 使容器在小螢幕上能換行 */
         }
         .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 保持 16:9 比例 */
+            overflow: hidden;
             flex: 1;
-            min-width: 300px; /* 設定最小寬度，以適應不同的螢幕尺寸 */
-            padding-bottom: 20px; /* 增加底部間距 */
+            min-width: 300px; /* 設定最小寬度 */
         }
         .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto; /* 保持影片比例 */
+            height: 100%; /* 確保影片填滿容器 */
+            border: 0; /* 去除邊框 */
         }
+
 
     </style>
 </head>
