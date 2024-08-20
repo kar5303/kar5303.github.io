@@ -3,137 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首頁 - Sean</title>
+    <title>首頁- Sean </title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
             color: #333;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-
         header {
-            background: linear-gradient(45deg, #333, #555);
+            background-color: #333;
             color: #fff;
-            padding: 16px 0;
+            padding: 8px 0;
             text-align: center;
-            font-size: 24px;
-            letter-spacing: 1px;
+            font-size: 20px;
         }
-
+        @media (max-width: 600px) {
+            header {
+                padding: 5px 0;
+                font-size: 16px;
+            }
+        }
         nav {
-            background-color: #444;
-            padding: 10px;
-            position: relative;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
+            justify-content: flex-end;
+            align-items: center; /* 垂直方向上居中對齊 */
+            background-color: #333;
+            padding: 10; /* 去掉額外的內邊距 */
+            position: relative;
         }
-
         nav img {
             position: absolute;
             left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
+            transform: translateX(-50%); /* LOGO 水平居中 */
+            width: 100px;
             height: auto;
         }
-
         nav input[type="checkbox"] {
             display: none;
         }
-
         nav .menu-icon {
-            font-size: 28px;
+            font-size: 24px;
             color: #fff;
             cursor: pointer;
-            padding: 12px;
+            padding: 14px;
             text-align: center;
         }
-
         nav .menu {
             display: none;
             position: absolute;
-            top: 60px;
-            left: 0;
-            background-color: #555;
+            top: 60px; /* Adjust based on header height */
+            left: 0; /* 將菜單左對齊 */
+            background-color: #444;
             width: 100%;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
-
         nav .menu a {
             display: block;
-            padding: 16px;
+            padding: 14px 0;
             color: #fff;
             text-decoration: none;
-            transition: background-color 0.3s;
         }
-
         nav .menu a:hover {
-            background-color: #666;
+            background-color: #555;
         }
-
         nav input[type="checkbox"]:checked ~ .menu {
             display: block;
         }
-
+        nav a {
+            color: #fff;
+            padding: 14px 10px;
+            text-decoration: none;
+            text-align: center;
+            white-space: nowrap;
+        }
+        nav a:hover {
+            background-color: #555;
+        }
         .container {
-            width: 85%;
-            margin: 0 auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            flex: 1;
-        }
+    width: 85%; /* 調整內容寬度 */
+    margin: 20px auto; /* 增加上下邊距 */
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* 增加陰影 */
+    border-radius: 10px; /* 添加圓角 */
+    flex: 1;
+}
 
-        .section {
-            margin-bottom: 40px;
-        }
+.section {
+    margin-bottom: 50px; /* 增加上下間距 */
+}
 
-        .section h2 {
-            border-bottom: 2px solid #444;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: #444;
-        }
+.section h2 {
+    border-bottom: 3px solid #333; /* 加粗邊框 */
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    font-size: 28px; /* 增加字體大小 */
+}
 
-        .portfolio-item {
-            margin-bottom: 40px;
-        }
+.portfolio-item {
+    margin-bottom: 40px; /* 增加上下邊距 */
+}
 
+.portfolio-item img {
+    border-radius: 8px; /* 圓角效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 添加陰影 */
         .portfolio-item h3 {
-            margin-bottom: 12px;
-            font-size: 22px;
-            color: #555;
+            margin-bottom: 10px;
         }
-
         .profile {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .profile img {
-            width: 50%;
+            width: 150px;
             height: auto;
             margin-right: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .profile-content {
-            width: 50%;
-        }
-
         footer {
-            background-color: #444;
+            background-color: #333;
             color: #fff;
             text-align: center;
             padding: 10px 0;
@@ -141,60 +135,47 @@
             position: relative;
             bottom: 0;
         }
-
         #back-to-top-container {
             display: none;
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             z-index: 1000;
         }
-
         #back-to-top {
-            background-color: #555;
+            background-color: #444;
             color: #fff;
             font-weight: bold;
-            padding: 12px 20px;
+            padding: 10px 20px;
             text-decoration: none;
-            border-radius: 50px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #444;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
         }
-
         #back-to-top:hover {
-            background-color: #666;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            background-color: #555;
         }
-
         .video-container {
             position: relative;
             width: 100%;
             padding-bottom: 56.25%;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
         .video-container iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
         }
-
         .portfolio-heading {
             text-align: center;
             background-color: #777;
             color: #fff;
-            padding: 12px 0;
+            padding: 10px 0;
             margin-top: 40px;
             margin-bottom: 20px;
-            border-radius: 8px;
         }
-
         .index-list {
             list-style: none;
             padding: 0;
@@ -202,74 +183,62 @@
             flex-wrap: wrap;
             justify-content: space-around;
         }
-
         .index-list li {
             margin: 10px;
             text-align: center;
-            width: calc(33% - 20px);
         }
-
         .index-list li img {
-            width: 100%;
-            height: auto;
+            width: 375px;
+            height: 210px;
             display: block;
             margin: 0 auto 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            transition: transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加陰影效果 */
+            border-radius: 10px; /* 添加圓角 */
         }
-
-        .index-list li img:hover {
-            transform: scale(1.05);
-        }
-
         .index-list li a {
             display: block;
             text-decoration: none;
             color: #fff;
-            background-color: #555;
-            font-size: 18px;
-            padding: 12px 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s, transform 0.3s;
+            background-color: #444;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
         }
-
         .index-list li a:hover {
-            background-color: #666;
-            transform: scale(1.05);
+            background-color: #555;
+            color: #fff;
         }
-
         @media (max-width: 600px) {
-            .index-list li {
-                width: 100%;
-            }
-
-            .profile {
-                flex-direction: column;
-            }
-
-            .profile img {
-                width: 80%;
-                margin-bottom: 20px;
-            }
-
-            .profile-content {
-                width: 100%;
+            .index-list li img {
+                width: 100%; /* 讓圖片寬度隨著其容器大小自動調整 */
+                height: auto; /* 保持圖片比例 */
             }
         }
-
         .content-section img {
             display: block;
             margin: 20px auto;
             max-width: 100%;
             height: auto;
         }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile img {
+            width: 50%; /* 設定圖片寬度為50% */
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .profile-content {
+            width: 50%; /* 設定文字內容寬度為50% */
+        }
     </style>
 </head>
 <body>
-    <header>
-        Sean的個人網站
-    </header>
     <nav>
         <img src="LOGO.png" alt="Your Logo">
         <input type="checkbox" id="menu-toggle">
@@ -280,6 +249,7 @@
             <a href="experience.html">合作經歷</a>
             <a href="works.html">作品集</a>
             <a href="contact.html">聯繫方式</a>
+            <!-- 根據需要添加更多頁面的連結 -->
         </div>   
     </nav>
     <div class="container">
@@ -287,9 +257,9 @@
             <h2>Sean的個人網站</h2>
             <p>這裡展示我的專業技能、經歷和作品集。我致力於研究充實相關知識，並展示我的最新作品和動態。</p>
             <div class="profile">
-                <img src="有限元素.png" alt="有限元素">
-                <div class="profile-content">
-                    <p>電腦輔助工程技術（Computer Aided Engineering, CAE）是一種非常重要的工程軟體，能夠協助使用者串聯工程生產的各個環節，並以最有效率的方式進行產品優化。</p>
+            <img src="有限元素.png" alt="有限元素">
+            <div class="profile-content">
+            <p>電腦輔助工程技術（Computer Aided Engineering, CAE）是一種非常重要的工程軟體，能夠協助使用者串聯工程生產的各個環節，並以最有效率的方式進行產品優化。</p>
                 </div>
             </div>
         </section>
@@ -297,26 +267,26 @@
             <h2>最新消息</h2>
             <p>使用耦合歐拉-拉格朗日方法將擺槌放入水中。</p>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe width="500" height="300" src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
         </section>
         <section class="section">
             <h2>作品集預覽</h2>
             <div class="portfolio-item">
                 <h3>落摔分析</h3>
-                <img src="落摔分析.png" alt="落摔分析">
+                <img src="落摔分析.png" alt="落摔分析" style="max-width: 20%; height: auto;">
                 <p>使用Abaqus進行簡單落摔分析，嘗試烤肉框架的強度是否足夠承受撞擊。</p>
                 <p><a href="abaqus.html">查看更多</a></p>
             </div>
             <div class="portfolio-item">
                 <h3>熱水器結構差異下的流場分析</h3>
-                <img src="熱水器結構差異下的流場分析之研究.png" alt="熱水器結構差異下的流場分析">
+                <img src="熱水器結構差異下的流場分析之研究.png" alt="熱水器結構差異下的流場分析" style="max-width: 20%; height: auto;">
                 <p>使用comsol軟體進行流固耦合分析，探討了一種三層結構的熱水器增加檔版結構設計，對於熱水器中每層的溫度變化及其對出水口溫度的影響，並進行比對其差異。</p>
                 <p><a href="comsol.html">查看更多</a></p>
             </div>
             <div class="portfolio-item">
                 <h3>H形滾軋分析</h3>
-                <img src="Abaqus H形滾札.png" alt="H形滾軋分析">
+                <img src="Abaqus H形滾札.png" alt="H形滾軋分析" style="max-width: 20%; height: auto;">
                 <p>使用滾軋分析進行簡易的Abaqus操作教學，並模擬滾軋時的真實情況。</p>
                 <p><a href="abaqus.html">查看更多</a></p>
             </div>
