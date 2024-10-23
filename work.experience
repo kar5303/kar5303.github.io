@@ -31,10 +31,10 @@
         nav {
             display: flex;
             justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content:  flex-end; 
+            justify-content: flex-end; 
             align-items: center; /* 垂直方向上居中對齊 */
             background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
+            padding: 10px; /* 去掉額外的內邊距 */
             position: relative;
         }
         nav img {
@@ -58,7 +58,7 @@
             display: none;
             position: absolute;
             top: 60px; /* Adjust based on header height */
-            Left: 0; /* 將菜單左對齊 */
+            left: 0; /* 將菜單左對齊 */
             background-color: #444;
             width: 100%;
             text-align: center;
@@ -102,8 +102,6 @@
             border-bottom: 2px solid #333;
             padding-bottom: 10px;
         }
-          margin-bottom: 15px;
-        }
         .profile-info {
             text-align: center;
             margin-bottom: 15px;
@@ -113,7 +111,6 @@
             margin-top: 0;
             margin-bottom: 0;
         }
-              
         footer {
             background-color: #333;
             color: #fff;
@@ -123,7 +120,6 @@
             width: 100%;
             bottom: 0;
         }
-       
         #back-to-top-container {
             display: none;
             position: fixed;
@@ -145,7 +141,6 @@
         #back-to-top:hover {
             background-color: #444;
         }
-        /* 新增樣式 */
         .experience-item {
             margin-bottom: 20px;
         }
@@ -156,15 +151,30 @@
             line-height: 1.6;
             text-align: justify; /* 讓文字兩端對齊 */
         }
-        .company-info img {
-            width: 75px; /* 設置商標圖片的寬度 */
-            height: auto; /* 讓高度按比例自適應 */
-            margin-bottom: -10px; /* 縮短圖片與職位之間的距離 */
-        }
+       
         .company-info p {
             margin-top: -10px; /* 縮短圖片與職位之間的距離 */
-        }    
-    </style>   
+        }
+        /* 隱藏 iframe 的視頻部分 */
+        .audio-only {
+            width: 0;
+            height: 0;
+            border: none;
+        }
+        /* 按鈕樣式 */
+        .audio-control {
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .audio-control:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
     <nav>
@@ -176,7 +186,6 @@
             <a href="experience.html">合作經歷</a>
             <a href="works.html">作品集</a>
             <a href="contact.html">聯繫方式</a>
-            <!-- 根據需要添加更多頁面的連結 -->
         </div>   
     </nav>
     <div class="container">
@@ -185,21 +194,28 @@
             <div class="experience-item">
                 <div class="company-info">
                     <h3>清單1</h3>
-                    <a href="https://www.agv.com.tw">
-                       
-            <div class="experience-item">
+                    <a href="https://www.agv.com.tw"></a>
+                </div>
                 <div class="company-info">
                     <h3>清單2</h3>
-                    <a href="https://www.homemark.com.tw">
-                        
-               
-            <div class="experience-item">
+                    <a href="https://www.homemark.com.tw"></a>
+                </div>
                 <div class="company-info">
                     <h3>清單3</h3>
-                    <a href="https://www.superalloy.tw">
-                    </a>
+                    <a href="https://www.superalloy.tw"></a>
+                </div>
             </div>
-           
+        </section>
+        <section class="section">
+            <h2>嵌入 YouTube 僅播放音頻</h2>
+            <!-- 嵌入 YouTube 影片的音頻 -->
+            <iframe id="ytplayer" class="audio-only" 
+                src="https://www.youtube.com/embed/VIDEO_ID?enablejsapi=1&autoplay=0" 
+                allow="autoplay"></iframe>
+
+            <!-- 控制音頻播放的按鈕 -->
+            <button class="audio-control" onclick="playAudio()">播放音頻</button>
+            <button class="audio-control" onclick="pauseAudio()">暫停音頻</button>
         </section>
     </div>
     <footer>
@@ -225,6 +241,40 @@
         document.addEventListener("DOMContentLoaded", function() {
             window.onscroll();
         });
+
+        // 控制 YouTube 影片播放的 API
+        var player;
+
+        // 初始化 YouTube API 並設置播放器
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('ytplayer', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        // 在影片準備好後自動控制播放/暫停
+        function onPlayerReady(event) {
+            console.log('YouTube player is ready');
+        }
+
+        // 播放音頻
+        function playAudio() {
+            if (player) {
+                player.playVideo();
+            }
+        }
+
+        // 暫停音頻
+        function pauseAudio() {
+            if (player) {
+                player.pauseVideo();
+            }
+        }
     </script>
+    <!-- 加載 YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
+
