@@ -152,6 +152,19 @@
         #back-to-top:hover {
             background-color: #444;
         }
+        videobox {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+        }
+        .videobox iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
 <body>
@@ -213,8 +226,9 @@
                 <div>
                     <h3>流固歐拉-結果展示</h3>
                     <p>使用Abaqus進行流固耦合分析並觀察罐裝水中受重力影響之變化。</p>
-                    <div class="video-container">
-                       <iframe width="300" height="200" src="https://www.youtube.com/embed/M71qDTQm_LE?si=2RxDhm0tRN1SD7VU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <<div class="videobox">
+                        <iframe frameborder="0" src="https://youtu.be/M71qDTQm_LE?si=gD079VoG2-9jguUi" allowFullScreen="true">
+                        </iframe>
                     </div>
                 </div>
             </div>
