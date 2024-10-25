@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube 影片搜尋</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>YouTube 影片搜尋</h1>
+    <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字">
+    <button id="searchButton">搜尋</button>
+    <div id="results"></div>
+
+    <script>
+        const API_KEY = '你的API金鑰';  // 請替換成你的API金鑰
+
+        $('#searchButton').click(function() {
+            const query = $('#searchQuery').val();
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+
+            $.getJSON(url, function(data) {
+                $('#results').empty();
+                data.items.forEach(item => {
+                    const videoId = item.id.videoId;
+                    const title = item.snippet.title;
+                    $('#results').append(`
+                        <div>
+                            <h3>${title}</h3>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    `);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
