@@ -225,6 +225,54 @@
                     </div>
                
             </div>
+            <head>
+    <meta charset="UTF-8">
+    <title>YouTube 影片搜尋</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>工程設計_影片搜尋</h1>
+    <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字">
+    <button id="searchButton">搜尋</button>
+    <div id="results"></div>
+
+    <script>
+        const API_KEY = 'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8';  // 請替換成你的API金鑰
+
+        $('#searchButton').click(function() {
+            const query = $('#searchQuery').val();
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+
+            $.getJSON(searchUrl, function(data) {
+                const videoIds = data.items
+                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
+                    .map(item => item.id.videoId)
+                    .join(',');
+
+                if (videoIds) {
+                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
+
+                    $.getJSON(detailsUrl, function(videoData) {
+                        $('#results').empty();
+                        videoData.items.forEach(video => {
+                            // 檢查影片的播放狀態
+                            if (video.status.embeddable) {
+                                const videoId = video.id;
+                                const title = video.snippet.title;
+                                $('#results').append(`
+                                    <div>
+                                        <h3>${title}</h3>
+                                        <iframe width="200" height="50" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                `);
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+</body>
             <!-- 其他 Abaqus 作品集内容 -->
         </section>
     </div>
