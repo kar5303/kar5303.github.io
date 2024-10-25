@@ -16,23 +16,34 @@
 
         $('#searchButton').click(function() {
             const query = $('#searchQuery').val();
-            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}`;
 
-            $.getJSON(url, function(data) {
-                $('#results').empty();
-                data.items.forEach(item => {
-                    // 確保是影片類型
-                    if (item.id.kind === 'youtube#video') {
-                        const videoId = item.id.videoId;
-                        const title = item.snippet.title;
-                        $('#results').append(`
-                            <div>
-                                <h3>${title}</h3>
-                                <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        `);
-                    }
-                });
+            $.getJSON(searchUrl, function(data) {
+                const videoIds = data.items
+                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
+                    .map(item => item.id.videoId)
+                    .join(',');
+
+                if (videoIds) {
+                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
+
+                    $.getJSON(detailsUrl, function(videoData) {
+                        $('#results').empty();
+                        videoData.items.forEach(video => {
+                            // 檢查影片的播放狀態
+                            if (video.status.embeddable) {
+                                const videoId = video.id;
+                                const title = video.snippet.title;
+                                $('#results').append(`
+                                    <div>
+                                        <h3>${title}</h3>
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                `);
+                            }
+                        });
+                    });
+                }
             });
         });
     </script>
