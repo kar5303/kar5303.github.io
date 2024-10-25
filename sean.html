@@ -21,14 +21,17 @@
             $.getJSON(url, function(data) {
                 $('#results').empty();
                 data.items.forEach(item => {
-                    const videoId = item.id.videoId;
-                    const title = item.snippet.title;
-                    $('#results').append(`
-                        <div>
-                            <h3>${title}</h3>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                    `);
+                    // 確保是影片類型
+                    if (item.id.kind === 'youtube#video') {
+                        const videoId = item.id.videoId;
+                        const title = item.snippet.title;
+                        $('#results').append(`
+                            <div>
+                                <h3>${title}</h3>
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        `);
+                    }
                 });
             });
         });
