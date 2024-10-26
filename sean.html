@@ -40,11 +40,6 @@
                                         <iframe width="200" height="50" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 `);
-                                // 點擊時只顯示該影片
-                                videoDiv.click(function() {
-                                    $('.video-item').hide(); // 隱藏其他影片
-                                    $(this).show(); // 顯示被點擊的影片
-                                });
                                 $('#results').append(videoDiv);
                             }
                         });
@@ -52,6 +47,13 @@
                 }
             });
         });
+
+        // 綁定點擊事件到動態生成的 .video-item
+        $('#results').on('click', '.video-item', function() {
+            $('.video-item').hide();  // 隱藏所有影片
+            $(this).show();           // 顯示被點擊的影片
+        });
     </script>
 </body>
 </html>
+
