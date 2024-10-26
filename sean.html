@@ -34,12 +34,18 @@
                             if (video.status.embeddable) {
                                 const videoId = video.id;
                                 const title = video.snippet.title;
-                                $('#results').append(`
-                                    <div>
+                                const videoDiv = $(`
+                                    <div class="video-item">
                                         <h3>${title}</h3>
                                         <iframe width="200" height="50" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 `);
+                                // 點擊時只顯示該影片
+                                videoDiv.click(function() {
+                                    $('.video-item').hide(); // 隱藏其他影片
+                                    $(this).show(); // 顯示被點擊的影片
+                                });
+                                $('#results').append(videoDiv);
                             }
                         });
                     });
