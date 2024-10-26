@@ -36,7 +36,7 @@
                                 const videoDiv = $(`
                                     <div class="video-item">
                                         <h3>${title}</h3>
-                                        <iframe width="200" height="50" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                                        <iframe width="400" height="300" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 `);
                                 $('#results').append(videoDiv);
@@ -47,10 +47,10 @@
             });
         });
 
-        // 點擊事件，顯示單一選取影片
+        // 點擊事件，清空並顯示單一選取影片
         $('#results').on('click', '.video-item', function() {
-            $('.video-item').hide();   // 隱藏所有影片
-            $(this).show();            // 顯示被點擊的影片
+            const selectedVideo = $(this).html();  // 抓取選取影片的 HTML
+            $('#results').html(`<div class="video-item">${selectedVideo}</div>`);  // 清空並顯示被選取的影片
         });
     </script>
 </body>
