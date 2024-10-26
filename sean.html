@@ -47,10 +47,10 @@
             });
         });
 
-        // 使用 .on() 為動態生成的 .video-item 綁定點擊事件
+        // 點擊事件，顯示單一選取影片
         $('#results').on('click', '.video-item', function() {
-            const selectedVideo = $(this).clone(); // 複製被點擊的影片
-            $('#results').empty().append(selectedVideo); // 清空結果區並顯示選取的影片
+            $('.video-item').hide();   // 隱藏所有影片
+            $(this).show();            // 顯示被點擊的影片
         });
     </script>
 </body>
