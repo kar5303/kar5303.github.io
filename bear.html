@@ -30,20 +30,25 @@
     <iframe id="resultFrame" class="iframe-container"></iframe>
 
     <script>
-        // 監聽搜尋結果的插入
-        document.addEventListener('DOMContentLoaded', function() {
-            const results = document.querySelector('.gcse-searchresults');
-            results.addEventListener('DOMNodeInserted', function(event) {
-                const links = results.getElementsByTagName('a');
-                for (let link of links) {
-                    link.onclick = function(e) {
-                        e.preventDefault(); // 防止默認行為
-                        const url = link.href; // 獲取鏈接
-                        document.getElementById('resultFrame').src = url; // 在 iframe 中加載該鏈接
-                    };
-                }
+        // 等待搜尋結果加載後，設置點擊事件
+        function addClickEvent() {
+            const links = document.querySelectorAll('.gcse-searchresults a');
+            links.forEach(link => {
+                link.onclick = function(e) {
+                    e.preventDefault(); // 防止默認行為
+                    const url = link.href; // 獲取鏈接
+                    document.getElementById('resultFrame').src = url; // 在 iframe 中加載該鏈接
+                };
             });
+        }
+
+        // 監聽搜尋結果加載
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new MutationObserver(addClickEvent);
+            const targetNode = document.querySelector('.gcse-searchresults');
+            observer.observe(targetNode, { childList: true, subtree: true });
         });
     </script>
 </body>
 </html>
+
