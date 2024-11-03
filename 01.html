@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>簡易 Google 自訂搜尋引擎</title>
-    <script async src="https://cse.google.com/cse.js?cx=47d3c08b41bdb49a3"></script>
+    <script async src="https://cse.google.com/cse.js?cx=YOUR_CX_CODE"></script>
     <style>
         .gcse-search {
             margin-bottom: 20px;
@@ -29,8 +29,6 @@
     <script>
         // 監聽搜尋結果的插入
         document.addEventListener('DOMContentLoaded', function() {
-            const resultsContainer = document.querySelector('.gcse-searchresults');
-
             const observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     mutation.addedNodes.forEach(function(node) {
@@ -40,7 +38,8 @@
                                 link.addEventListener('click', function(e) {
                                     e.preventDefault(); // 防止默認行為
                                     const url = link.href; // 獲取鏈接
-                                    document.getElementById('resultFrame').src = url; // 在 iframe 中加載該鏈接
+                                    // 使用中介頁面加載鏈接
+                                    document.getElementById('resultFrame').src = `load.html?url=${encodeURIComponent(url)}`;
                                 });
                             }
                         }
@@ -48,6 +47,7 @@
                 });
             });
 
+            const resultsContainer = document.querySelector('.gcse-searchresults');
             if (resultsContainer) {
                 observer.observe(resultsContainer, { childList: true, subtree: true });
             }
