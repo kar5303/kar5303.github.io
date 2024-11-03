@@ -10,7 +10,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         const url = urlParams.get('url'); // 獲取 URL 參數
         if (url) {
-            window.location.href = url; // 自動導向到指定 URL
+            // 使用 CORS 代理服務
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // 代理 URL
+            window.location.href = proxyUrl + url; // 自動導向到代理後的 URL
         } else {
             document.body.innerHTML = "<h1>無效的鏈接</h1>";
         }
