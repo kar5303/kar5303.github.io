@@ -3,21 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中介頁面</title>
+    <title>代理載入外部網站</title>
+    <style>
+        .iframe-container {
+            width: 100%;
+            height: 600px; /* 根據需要調整高度 */
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
+    <h1>受限網站代理載入</h1>
+    <p>輸入要載入的網站 URL：</p>
+
+    <!-- 網址輸入欄位 -->
+    <input type="text" id="urlInput" placeholder="輸入網址，例如：https://example.com">
+    <button onclick="loadViaProxy()">載入</button>
+
+    <!-- 用來嵌入代理內容的 iframe -->
+    <iframe id="resultFrame" class="iframe-container"></iframe>
+
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const url = urlParams.get('url'); // 獲取 URL 參數
-        
-        console.log('獲取的 URL:', url); // 日誌輸出
-        
-        if (url) {
-            // 使用 CORS 代理服務
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // 代理 URL
-            window.location.href = proxyUrl + url; // 自動導向到代理後的 URL
-        } else {
-            document.body.innerHTML = "<h1>無效的鏈接</h1>";
+        function loadViaProxy() {
+            const urlInput = document.getElementById('urlInput').value;
+            if (!urlInput) {
+                alert('請輸入一個有效的 URL');
+                return;
+            }
+            // 使用代理伺服器來載入目標網站
+            const proxyUrl = `https://your-proxy-server.com/proxy?url=${encodeURIComponent(urlInput)}`;
+            document.getElementById('resultFrame').src = proxyUrl;
         }
     </script>
 </body>
