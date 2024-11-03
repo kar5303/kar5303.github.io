@@ -27,18 +27,17 @@
     <iframe id="resultFrame" class="iframe-container"></iframe>
 
     <script>
-        // 監聽搜尋結果的插入
         document.addEventListener('DOMContentLoaded', function() {
             const observer = new MutationObserver(function(mutations) {
                 mutations.forEach(function(mutation) {
                     mutation.addedNodes.forEach(function(node) {
-                        if (node.nodeType === 1) { // 確保是元素節點
+                        if (node.nodeType === 1) {
                             const links = node.getElementsByTagName('a');
                             for (let link of links) {
+                                console.log('找到的鏈接:', link.href); // 日誌輸出鏈接
                                 link.addEventListener('click', function(e) {
-                                    e.preventDefault(); // 防止默認行為
-                                    const url = link.href; // 獲取鏈接
-                                    // 使用中介頁面加載鏈接
+                                    e.preventDefault();
+                                    const url = link.href;
                                     document.getElementById('resultFrame').src = `load.html?url=${encodeURIComponent(url)}`;
                                 });
                             }
