@@ -9,6 +9,9 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const url = urlParams.get('url'); // 獲取 URL 參數
+        
+        console.log('獲取的 URL:', url); // 日誌輸出
+        
         if (url) {
             // 使用 CORS 代理服務
             const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // 代理 URL
@@ -19,4 +22,5 @@
     </script>
 </body>
 </html>
+
 
