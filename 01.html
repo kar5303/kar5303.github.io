@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>測試 Iframe</title>
+    <title>簡易 Google 自訂搜尋引擎</title>
+    <script async src="https://cse.google.com/cse.js?cx=47d3c08b41bdb49a3"></script>
     <style>
+        .gcse-search {
+            margin-bottom: 20px;
+        }
         .iframe-container {
             width: 100%;
             height: 600px; /* 根據需要調整高度 */
@@ -13,12 +17,40 @@
     </style>
 </head>
 <body>
-    <h1>測試 Iframe</h1>
-    <p>請點擊下面的鏈接，看看是否能在 iframe 中顯示：</p>
+    <h1>Google 搜尋</h1>
+    <p>在這裡直接搜尋：</p>
 
-    <a href="https://www.example.com" target="resultFrame">打開 Example 網站</a>
+    <!-- Google 自訂搜尋框 -->
+    <div class="gcse-search"></div>
 
     <!-- 用來嵌入外部網站的 iframe -->
-    <iframe name="resultFrame" class="iframe-container"></iframe>
+    <iframe id="resultFrame" class="iframe-container"></iframe>
+
+    <script>
+        // 監聽搜尋結果的插入
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1) { // 確保是元素節點
+                            const links = node.getElementsByTagName('a');
+                            for (let link of links) {
+                                link.addEventListener('click', function(e) {
+                                    e.preventDefault(); // 防止默認行為
+                                    const url = link.href; // 獲取鏈接
+                                    document.getElementById('resultFrame').src = url; // 在 iframe 中加載該鏈接
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+
+            const results = document.querySelector('.gcse-searchresults');
+            if (results) {
+                observer.observe(results, { childList: true, subtree: true });
+            }
+        });
+    </script>
 </body>
 </html>
