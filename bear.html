@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>簡易 Google 自訂搜尋引擎</title>
-    <base target="_self"> <!-- 設定搜尋結果在相同的標籤中打開 -->
+    <script async src="https://cse.google.com/cse.js?cx=47d3c08b41bdb49a3"></script>
+    <style>
+        .gcse-search {
+            margin-bottom: 20px;
+        }
+        .iframe-container {
+            width: 100%;
+            height: 600px; /* 根據需要調整高度 */
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <h1>Google 搜尋</h1>
@@ -13,7 +23,27 @@
     <!-- Google 自訂搜尋框 -->
     <div class="gcse-search"></div>
 
-    <!-- Google 自訂搜尋引擎 JavaScript 代碼 -->
-    <script async src="https://cse.google.com/cse.js?cx=47d3c08b41bdb49a3"></script>
+    <!-- 嵌入搜尋結果的區域 -->
+    <div class="gcse-searchresults"></div>
+
+    <!-- 用來嵌入外部網站的 iframe -->
+    <iframe id="resultFrame" class="iframe-container"></iframe>
+
+    <script>
+        // 監聽搜尋結果的插入
+        document.addEventListener('DOMContentLoaded', function() {
+            const results = document.querySelector('.gcse-searchresults');
+            results.addEventListener('DOMNodeInserted', function(event) {
+                const links = results.getElementsByTagName('a');
+                for (let link of links) {
+                    link.onclick = function(e) {
+                        e.preventDefault(); // 防止默認行為
+                        const url = link.href; // 獲取鏈接
+                        document.getElementById('resultFrame').src = url; // 在 iframe 中加載該鏈接
+                    };
+                }
+            });
+        });
+    </script>
 </body>
 </html>
