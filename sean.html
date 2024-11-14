@@ -2,56 +2,21 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <title>YouTube 影片搜尋</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嵌入 Proxyboost 網站</title>
+    <style>
+        .iframe-container {
+            width: 100%;
+            height: 600px; /* 根據需要調整高度 */
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
-    <h1>工程設計_影片搜尋</h1>
-    <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字">
-    <button id="searchButton">搜尋</button>
-    <div id="results"></div>
+    <h1>嵌入 Proxyboost 網站</h1>
+    <p>以下為嵌入的網站內容：</p>
 
-    <script>
-        const API_KEY = 'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8';  // 請替換成你的API金鑰
-
-        $('#searchButton').click(function() {
-            const query = $('#searchQuery').val();
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}`;
-
-            $.getJSON(searchUrl, function(data) {
-                const videoIds = data.items
-                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
-                    .map(item => item.id.videoId)
-                    .join(',');
-
-                if (videoIds) {
-                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
-
-                    $.getJSON(detailsUrl, function(videoData) {
-                        $('#results').empty();
-                        videoData.items.forEach(video => {
-                            if (video.status.embeddable) {
-                                const videoId = video.id;
-                                const title = video.snippet.title;
-                                const videoDiv = $(`
-                                    <div class="video-item">
-                                        <h3>${title}</h3>
-                                        <iframe width="400" height="300" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                `);
-                                $('#results').append(videoDiv);
-                            }
-                        });
-                    });
-                }
-            });
-        });
-
-        // 點擊事件，清空並顯示單一選取影片
-        $('#results').on('click', '.video-item', function() {
-            const selectedVideo = $(this).html();  // 抓取選取影片的 HTML
-            $('#results').html(`<div class="video-item">${selectedVideo}</div>`);  // 清空並顯示被選取的影片
-        });
-    </script>
+    <!-- 用來嵌入外部網站的 iframe -->
+    <iframe id="resultFrame" class="iframe-container" src="https://plainproxies.com/resources/free-web-proxy"></iframe>
 </body>
 </html>
