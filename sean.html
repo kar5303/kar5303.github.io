@@ -1,22 +1,81 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>嵌入 PlainProxies 網站</title>
+    <title>YouTube 影片搜尋</title>
     <style>
-        .iframe-container {
-            width: 100%;
-            height: 600px; /* 可調整高度 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        #results {
+            width: 80%;
+            max-width: 600px;
+            height: 400px; /* 設定固定高度 */
+            overflow-y: scroll; /* 開啟垂直捲軸 */
             border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+        .video-item {
+            margin-bottom: 20px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1>嵌入 PlainProxies 網站</h1>
-    <p>以下為嵌入的網站內容：</p>
+    <h1>YouTube 影片搜尋</h1>
+    <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字">
+    <button id="searchButton">搜尋</button>
+    <div id="results"></div>
 
-    <!-- 用來嵌入外部網站的 iframe -->
-    <iframe id="proxyFrame" class="iframe-container" src="https://plainproxies.com/resources/free-web-proxy"></iframe>
+    <script>
+        const API_KEY = 'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8'; // 請替換API金鑰
+
+        $('#searchButton').click(function() {
+            const query = $('#searchQuery').val();
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}&maxResults=10`;
+
+            $.getJSON(searchUrl, function(data) {
+                const videoIds = data.items
+                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
+                    .map(item => item.id.videoId)
+                    .join(',');
+
+                if (videoIds) {
+                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
+
+                    $.getJSON(detailsUrl, function(videoData) {
+                        $('#results').empty();
+                        videoData.items.forEach(video => {
+                            if (video.status.embeddable) {
+                                const videoId = video.id;
+                                const title = video.snippet.title;
+                                $('#results').append(`
+                                    <div class="video-item">
+                                        <h3>${title}</h3>
+                                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                `);
+                            }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
