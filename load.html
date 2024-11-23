@@ -1,41 +1,43 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>代理載入外部網站</title>
-    <style>
-        .iframe-container {
-            width: 100%;
-            height: 600px; /* 根據需要調整高度 */
-            border: 1px solid #ccc;
-        }
-    </style>
-</head>
-<body>
-    <h1>受限網站代理載入</h1>
-    <p>輸入要載入的網站 URL：</p>
+function searchYouTube(query) {
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=10&key=${API_KEY}`;
 
-    <!-- 網址輸入欄位 -->
-    <input type="text" id="urlInput" placeholder="輸入網址，例如：https://example.com">
-    <button onclick="loadViaProxy()">載入</button>
+    $.getJSON(searchUrl)
+        .done(function(data) {
+            const videoIds = data.items
+                .filter(item => item.id.kind === 'youtube#video' && item.id.videoId)
+                .map(item => item.id.videoId)
+                .join(',');
 
-    <!-- 用來嵌入代理內容的 iframe -->
-    <iframe id="resultFrame" class="iframe-container"></iframe>
+            if (videoIds) {
+                const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
 
-    <script>
-        function loadViaProxy() {
-            const urlInput = document.getElementById('urlInput').value;
-            if (!urlInput) {
-                alert('請輸入一個有效的 URL');
-                return;
+                $.getJSON(detailsUrl)
+                    .done(function(videoData) {
+                        $('#results').empty();
+                        videoData.items.forEach(video => {
+                            if (video.status.embeddable) {
+                                const videoId = video.id;
+                                const title = video.snippet.title;
+                                $('#results').append(`
+                                    <div>
+                                        <h3>${title}</h3>
+                                        <iframe width="200" height="150" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                `);
+                            }
+                        });
+                    })
+                    .fail(function(err) {
+                        $('#results').html('<p>無法加載影片細節。</p>');
+                        console.error('Video Details API Error:', err);
+                    });
+            } else {
+                $('#results').html('<p>未找到相關影片。</p>');
             }
-            // 使用代理伺服器來載入目標網站
-            const proxyUrl = `https://xaxax.onrender.com/proxy?url=${encodeURIComponent(urlInput)}`;
-            document.getElementById('resultFrame').src = proxyUrl;
-        }
-    </script>
-</body>
-</html>
-
+        })
+        .fail(function(err) {
+            $('#results').html('<p>搜尋失敗，請稍後再試。</p>');
+            console.error('Search API Error:', err);
+        });
+}
 
