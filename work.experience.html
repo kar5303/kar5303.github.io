@@ -250,7 +250,7 @@
 
         $('#searchButton').click(function() {
             const query = $('#searchQuery').val();
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${API_KEY}`;
 
             $.getJSON(searchUrl, function(data) {
                 const videoIds = data.items
