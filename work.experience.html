@@ -235,21 +235,38 @@
                
             </div>
             <head>
+  <!DOCTYPE html>
+<html lang="zh-TW">
+<head>
     <meta charset="UTF-8">
     <title>YouTube 影片搜尋</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <h1></h1>
+    <h1>YouTube 影片搜尋</h1>
     <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字">
     <button id="searchButton">搜尋</button>
+    <button id="recommendButton">推薦關鍵字</button>
     <div id="results"></div>
 
     <script>
         const API_KEY = 'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8';  // 替換API金鑰
 
+        // 搜尋按鈕點擊事件
         $('#searchButton').click(function() {
             const query = $('#searchQuery').val();
+            searchYouTube(query);
+        });
+
+        // 推薦按鈕點擊事件
+        $('#recommendButton').click(function() {
+            const recommendations = ['KKBOX 音樂故事', 'J-POP&Lyrics'];
+            // 將推薦的關鍵字插入輸入框（可以選擇第一個關鍵字）
+            $('#searchQuery').val(recommendations.join(' 或 '));
+        });
+
+        // 搜尋功能
+        function searchYouTube(query) {
             const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${API_KEY}`;
 
             $.getJSON(searchUrl, function(data) {
@@ -279,9 +296,11 @@
                     });
                 }
             });
-        });
+        }
     </script>
 </body>
+</html>
+
             <!-- 其他 Abaqus 作品集内容 -->
         </section>
     </div>
