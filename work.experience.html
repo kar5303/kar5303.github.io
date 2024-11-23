@@ -246,7 +246,7 @@
     <h1>YouTube 影片搜尋</h1>
     <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字">
     <button id="searchButton">搜尋</button>
-    <button id="recommendButton">推薦關鍵字</button>
+    <button id="recommendButton">ʕっ•ᴥ•ʔっ推薦</button>
     <div id="results"></div>
 
     <script>
@@ -267,7 +267,7 @@
 
         // 搜尋功能
         function searchYouTube(query) {
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${API_KEY}`;
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=40&key=${API_KEY}`;
 
             $.getJSON(searchUrl, function(data) {
                 const videoIds = data.items
