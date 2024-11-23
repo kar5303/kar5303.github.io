@@ -259,43 +259,58 @@
 
         // 推薦按鈕點擊事件
         $('#recommendButton').click(function() {
-            const recommendations = ['KKBOX 音樂故事', 'J-POP&Lyrics'];
-            // 將推薦的關鍵字插入輸入框（可以選擇第一個關鍵字）
-            $('#searchQuery').val(recommendations.join(' 或 '));
-        });
-
+    const recommendations = ['KKBOX 音樂故事', 'J-POP&Lyrics'];
+    const currentQuery = $('#searchQuery').val();
+    if (currentQuery) {
+        $('#searchQuery').val(currentQuery + ' 或 ' + recommendations.join(' 或 '));
+    } else {
+        $('#searchQuery').val(recommendations.join(' 或 '));
+    }
+});
         // 搜尋功能
         function searchYouTube(query) {
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=40&key=${API_KEY}`;
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=10&key=${API_KEY}`;
 
-            $.getJSON(searchUrl, function(data) {
-                const videoIds = data.items
-                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
-                    .map(item => item.id.videoId)
-                    .join(',');
+    $.getJSON(searchUrl)
+        .done(function(data) {
+            const videoIds = data.items
+                .filter(item => item.id.kind === 'youtube#video' && item.id.videoId)
+                .map(item => item.id.videoId)
+                .join(',');
 
-                if (videoIds) {
-                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
+            if (videoIds) {
+                const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
 
-                    $.getJSON(detailsUrl, function(videoData) {
+                $.getJSON(detailsUrl)
+                    .done(function(videoData) {
                         $('#results').empty();
                         videoData.items.forEach(video => {
-                            // 檢查影片的播放狀態
                             if (video.status.embeddable) {
                                 const videoId = video.id;
                                 const title = video.snippet.title;
                                 $('#results').append(`
                                     <div>
                                         <h3>${title}</h3>
-                                        <iframe width="200" height="50" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                                        <iframe width="200" height="150" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
                                     </div>
                                 `);
                             }
                         });
+                    })
+                    .fail(function(err) {
+                        $('#results').html('<p>無法加載影片細節。</p>');
+                        console.error('Video Details API Error:', err);
                     });
-                }
-            });
-        }
+            } else {
+                $('#results').html('<p>未找到相關影片。</p>');
+            }
+        })
+        .fail(function(err) {
+            $('#results').html('<p>搜尋失敗，請稍後再試。</p>');
+            console.error('Search API Error:', err);
+        });
+}
+
     </script>
 </body>
 </html>
