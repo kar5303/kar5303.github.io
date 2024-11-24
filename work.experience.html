@@ -309,6 +309,49 @@
         </div>
     </footer>
     <script>
+        const API_KEYS = [
+            'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8',
+            'AIzaSyAtDWcQXc8qu_RGqpetnVjaA4yp3iBdaPo',
+            'AIzaSyAbcUkeJsXKDxCBvKq7wlSS0rB7MuJoQpM',
+            'AIzaSyDL3ZFDn547p4JjvKdHoJV5AuG7AOqqBoY'
+        ];
+        let currentApiKeyIndex = 0;
+
+        $('#searchButton').click(function() {
+            const query = $('#searchQuery').val();
+            searchYouTube(query);
+        });
+
+        $('#recommendButton').click(function() {
+            const recommendations = ['KKBOX 音樂故事', 'J-POP&Lyrics'];
+            $('#searchQuery').val(recommendations.join(' 或 '));
+        });
+
+        function searchYouTube(query) {
+            const apiKey = API_KEYS[currentApiKeyIndex];
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${apiKey}`;
+
+            $.getJSON(searchUrl, function(data) {
+                $('#results').empty();
+                data.items.forEach(item => {
+                    if (item.id.kind === 'youtube#video') {
+                        $('#results').append(`
+                            <div>
+                                <h3>${item.snippet.title}</h3>
+                                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${item.id.videoId}" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        `);
+                    }
+                });
+            }).fail(function() {
+                currentApiKeyIndex = (currentApiKeyIndex + 1) % API_KEYS.length;
+                if (currentApiKeyIndex === 0) {
+                    $('#results').text('所有 API 金鑰均已用盡，請稍後再試。');
+                } else {
+                    searchYouTube(query);
+                }
+            });
+        }
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -325,6 +368,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             window.onscroll();
         });
+        
     </script>
 </body>
 </html>
