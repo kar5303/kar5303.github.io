@@ -266,41 +266,47 @@
 
         // 搜尋功能
         function searchYouTube(query) {
-    const apiKey = API_KEYS[currentApiKeyIndex];
-    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${apiKey}`;
+            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${API_KEY}`;
 
-    $.getJSON(searchUrl, function(data) {
-        $('#results').empty();
-        data.items.forEach(item => {
-            if (item.id.kind === 'youtube#video') {
-                $('#results').append(`
-                    <div style="margin-bottom: 20px;">
-                        <h3>${item.snippet.title}</h3>
-                        <div style="resize: both; overflow: auto; width: 100%; max-width: 600px; height: 350px; border: 1px solid #ccc;">
-                            <iframe 
-                                width="100%" 
-                                height="100%" 
-                                src="https://www.youtube.com/embed/${item.id.videoId}" 
-                                frameborder="0" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
-                `);
-            }
-        });
-    });
-}
+            $.getJSON(searchUrl, function(data) {
+                const videoIds = data.items
+                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
+                    .map(item => item.id.videoId)
+                    .join(',');
 
-        });
-    });
+                if (videoIds) {
+                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
+
+                    $.getJSON(detailsUrl, function(videoData) {
+                        $('#results').empty();
+                        videoData.items.forEach(video => {
+                            // 檢查影片的播放狀態
+                            if (video.status.embeddable) {
+                                const videoId = video.id;
+                                const title = video.snippet.title;
+                                $('#results').append(`
+                                <div style="margin-bottom: 20px;">
+                                   <h3>${item.snippet.title}</h3>
+                                   <div style="resize: both; overflow: auto; width: 100%; max-width: 600px; height: 350px; border: 1px solid #ccc;">
+                                      <iframe 
+                                      width="100%" 
+                                      height="100%"
+                                      src="https://www.youtube.com/embed/${item.id.videoId}"
+                                      frameborder="0" 
+                                      allowfullscreen>
+                                     </iframe>
+                                  </div>
+                               </div>
+                                `);
+                            }
+                        });
+                    });
                 }
             });
         }
     </script>
 </body>
 </html>
-
             <!-- 其他 Abaqus 作品集内容 -->
         </section>
     </div>
