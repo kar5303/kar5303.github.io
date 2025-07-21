@@ -266,26 +266,18 @@
 
         // 搜尋功能
         function searchYouTube(query) {
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=40&key=${API_KEY}`;
+    const apiKey = API_KEYS[currentApiKeyIndex];
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${apiKey}`;
 
-            $.getJSON(searchUrl, function(data) {
-                const videoIds = data.items
-                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
-                    .map(item => item.id.videoId)
-                    .join(',');
-
-                if (videoIds) {
-                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
-
-                    $.getJSON(searchUrl, function(data) {
-                        $('#results').empty();
-                        data.items.forEach(item => {
-                            if (item.id.kind === 'youtube#video') {
-                                $('#results').append(`
-                                <div style="margin-bottom: 20px;">
-                                <h3>${item.snippet.title}</h3>
-                                <div style="resize: both; overflow: auto; width: 100%; max-width: 600px; height: 350px; border: 1px solid #ccc;">
-                                <iframe
+    $.getJSON(searchUrl, function(data) {
+        $('#results').empty();
+        data.items.forEach(item => {
+            if (item.id.kind === 'youtube#video') {
+                $('#results').append(`
+                    <div style="margin-bottom: 20px;">
+                        <h3>${item.snippet.title}</h3>
+                        <div style="resize: both; overflow: auto; width: 100%; max-width: 600px; height: 350px; border: 1px solid #ccc;">
+                            <iframe 
                                 width="100%" 
                                 height="100%" 
                                 src="https://www.youtube.com/embed/${item.id.videoId}" 
@@ -296,6 +288,10 @@
                     </div>
                 `);
             }
+        });
+    });
+}
+
         });
     });
                 }
