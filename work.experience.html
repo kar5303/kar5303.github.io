@@ -123,8 +123,9 @@
             height: 100%;
         }
          #results {
-             width: 80%;
-             max-width: 250px;
+             width: 80px; /* 初始寬度 */
+             min-width: 80px; /* 可以根據需求設一個最小值 */
+             max-width: none;  /* 取消寬度上限 */
              height: 80px;
              overflow: auto; /* 支援水平與垂直滾動條 */
              resize: both;   /* 允許使用者手動拖曳調整大小 */
