@@ -123,17 +123,19 @@
             height: 100%;
         }
          #results {
-            width: 80%;
-            max-width: 250px;
-            height: 80px; /* 設定固定高度 */
-            overflow-y: scroll; /* 開啟垂直捲軸 */
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            margin-top: 20px;
-            background-color: #fff;
+             width: 80%;
+             max-width: 250px;
+             height: 80px;
+             overflow: auto; /* 支援水平與垂直滾動條 */
+             resize: both;   /* 允許使用者手動拖曳調整大小 */
+             border: 1px solid #ccc;
+             padding: 10px;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+             border-radius: 10px;
+             margin-top: 20px;
+             background-color: #fff;
         }
+
         footer {
             background-color: #333;
             color: #fff;
