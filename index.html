@@ -165,30 +165,37 @@
         }
          /* 時間軸樣式 */
         .timeline {
-  position: relative;
-  margin-left: 20px;
-  padding-left: 20px;
-  border-left: 2px solid #000;
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 30px;
-  padding-left: 25px;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  top: 4px; /* 控制圓點與文字上下對齊 */
-  left: -27px; /* 控制圓點跟線的水平對齊，讓它貼在線上 */
-  width: 15px;
-  height: 15px;
-  background-color: #fff;
-  border: 2.5px solid #000;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
+            position: relative;
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 2px solid #000;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 25px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 8px; /*  從第一個圓點垂直中心開始 */
+            bottom: 0;
+            left: 0;
+            width: 2px;
+            background-color: #000;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 4px; /* 控制圓點與文字上下對齊 */
+            left: -29px; /* 控制圓點跟線的水平對齊，讓它貼在線上 */
+            width: 15px;
+            height: 15px;
+            background-color: #fff;
+            border: 2.5px solid #000;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
 
 
 
