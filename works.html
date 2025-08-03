@@ -57,11 +57,15 @@
         nav .menu {
             display: none;
             position: absolute;
-            top: 60px; /* Adjust based on header height */
-            left: 0; /* 將菜單左對齊 */
+            top: 60px;
+            left: 0;
+            right: 0; /*  加上 right: 0 讓 absolute 的 menu 水平撐滿 */
+            margin: 0 auto; /*  水平置中 */
+            max-width: 900px; /* 限制最大寬度與 .container 一樣 */
             background-color: #444;
-            width: 100%;
             text-align: center;
+            border-radius: 0 0 10px 10px; /* 可選：展開時圓角 */
+            z-index: 999;
         }
         nav .menu a {
             display: block;
