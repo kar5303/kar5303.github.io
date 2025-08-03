@@ -40,8 +40,18 @@
             justify-content: flex-end; 
             align-items: center; /* 垂直方向上居中對齊 */
             background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
+            padding: 10px; /* 去掉額外的內邊距 */
             position: relative;
+        }
+        .nav-container {
+            max-width: 900px; /* 和 container 對齊 */
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            padding: 0 16px;
         }
         nav img {
             position: absolute;
@@ -64,13 +74,12 @@
             display: none;
             position: absolute;
             top: 60px;
-            left: 0;
-            right: 0; /*  加上 right: 0 讓 absolute 的 menu 水平撐滿 */
-            margin: 0 auto; /*  水平置中 */
-            max-width: 1600px; /* 限制最大寬度與 .container 一樣 */
+            right: 16px;
+            max-width: 900px;
+            width: calc(100% - 32px);
             background-color: #444;
             text-align: center;
-            border-radius: 0 0 10px 10px; /* 可選：展開時圓角 */
+            border-radius: 0 0 10px 10px;
             z-index: 999;
         }
         nav .menu a {
@@ -224,18 +233,20 @@
     </style>
 </head>
 <body>
-    <nav>
-        <img src="LOGO.png" alt="Your Logo">
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
-        <div class="menu">
-            <a href="index.html">個人簡介</a>
-            <a href="experience.html">合作經歷</a>
-            <a href="works.html">作品集</a>
-            <a href="contact.html">聯繫方式</a>
+<nav>
+        <div class="nav-container">
+            <img src="LOGO.png" alt="Your Logo">
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+            <div class="menu">
+                <a href="index.html">個人簡介</a>
+                <a href="experience.html">合作經歷</a>
+                <a href="works.html">作品集</a>
+                <a href="contact.html">聯繫方式</a>
+        </div>
             <!-- 根據需要添加更多頁面的連結 -->
-        </div>   
-    </nav>
+    </div>
+</nav>
     <div class="container">
         <section class="section">
             <h2>作品集索引</h2>
