@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首頁- Sean </title>
+    <title>Sean - 作品集</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,13 +16,18 @@
             flex-direction: column;
         }
         header {
-            background-color: #444; /* 深灰色背景 */
+            background-color: #333;
             color: #fff;
-            padding: 10px 0; /* 增加內邊距 */
+            padding: 8px 0;
             text-align: center;
-            font-size: 24px; /* 調整字體大小 */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 添加陰影 */
+            font-size: 20px;
         }
+        .header-container {
+            max-width: 1200px; /* 這裡改成你想要跟外框一致的最大寬度 */
+            margin: 0 auto;     /* 讓內容置中 */
+            padding: 0 16px;    /* 預防畫面太窄時貼邊 */
+        }
+        
         @media (max-width: 600px) {
             header {
                 padding: 5px 0;
@@ -32,11 +37,21 @@
         nav {
             display: flex;
             justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content: flex-end;
+            justify-content: flex-end; 
             align-items: center; /* 垂直方向上居中對齊 */
             background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
+            padding: 10px; /* 去掉額外的內邊距 */
             position: relative;
+        }
+        .nav-container {
+            max-width: 900px; /* 和 container 對齊 */
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            padding: 0 16px;
         }
         nav img {
             position: absolute;
@@ -58,11 +73,14 @@
         nav .menu {
             display: none;
             position: absolute;
-            top: 60px; /* Adjust based on header height */
-            left: 0; /* 將菜單左對齊 */
-            background-color: #444;
-            width: 100%;
+            top: 60px;
+            right: 16px;
+            max-width: 900px;
+            width: calc(100% - 32px);
+            background-color: #333;
             text-align: center;
+            border-radius: 0 0 10px 10px;
+            z-index: 999;
         }
         nav .menu a {
             display: block;
@@ -88,6 +106,7 @@
         }
         .container {
             width: 80%;
+            max-width: 900px; /* 加上這一行限制最大寬度 */
             margin: 10px auto;
             padding: 20px;
             background-color: #fff;
@@ -100,10 +119,9 @@
             margin-bottom: 40px;
         }
         .section h2 {
-            border-bottom: 3px solid #333; /* 加粗邊框 */
-            padding-bottom: 12px;
-            margin-bottom: 25px;
-            font-size: 28px; /* 增加字體大小 */
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
         .portfolio-item {
             margin-bottom: 30px;
@@ -144,13 +162,13 @@
             padding: 10px 20px;
             text-decoration: none;
             border: 2px solid #444;
-            border-radius: 5px;
-            cursor: pointer;
             border-radius: 30px; /* 圓角效果 */
-            transition: background-color 0.3s, border-color 0.3s; /* 添加過渡效果 */
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* 動畫過渡 */
         }
         #back-to-top:hover {
-            background-color: #444;
+            transform: scale(1.05) translateY(-3px); /* 放大並微微上移 */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 增加陰影作為回饋 */
         }
         .video-container {
             position: relative;
@@ -212,115 +230,44 @@
                 height: auto; /* 保持圖片比例 */
             }
         }
-        .content-section img {
-            display: block;
-            margin: 20px auto;
-            max-width: 100%;
-            height: auto;
-        }
-        .profile {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .profile img {
-            width: 50%; /* 設定圖片寬度為50% */
-            height: auto;
-            margin-right: 20px;
-        }
-
-        .profile-content {
-            width: 50%; /* 設定文字內容寬度為50% */
-        }
-        .videos-container {
-            display: flex;
-            justify-content: space-between; /* 使影片容器之間有適當間距 */
-            gap: 20px; /* 設置影片容器之間的間距 */
-            flex-wrap: wrap; /* 使容器在小螢幕上能換行 */
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 30%; /* 保持 16:9 比例 */
-            overflow: hidden;
-            flex: 1;
-            min-width: 300px; /* 設定最小寬度 */
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%; /* 確保影片填滿容器 */
-            border: 0; /* 去除邊框 */
-        }
-        .portfolio-item img {
-            border-radius: 15px; /* 圓角效果 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 陰影效果 */
-            display: block; /* 讓圖片在其容器中顯示為塊級元素 */
-            
-        }
-
     </style>
 </head>
 <body>
-    <nav>
-        <img src="LOGO.png" alt="Your Logo">
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
-        <div class="menu">
-            <a href="TEST.html">首頁</a>
-            <a href="index.html">個人簡介</a>
-            <a href="experience.html">合作經歷</a>
-            <a href="works.html">作品集</a>
-            <a href="contact.html">聯繫方式</a>
+<nav>
+        <div class="nav-container">
+            <img src="LOGO.png" alt="Your Logo">
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">&#9776;</label>
+            <div class="menu">
+                <a href="index.html">個人簡介</a>
+                <a href="experience.html">合作經歷</a>
+                <a href="works.html">作品集</a>
+                <a href="contact.html">聯繫方式</a>
+        </div>
             <!-- 根據需要添加更多頁面的連結 -->
-        </div>   
-    </nav>
+    </div>
+</nav>
     <div class="container">
         <section class="section">
-            <h2>Sean的個人網站</h2>
-            <p></p>
-            <div class="profile">
-            <img src="有限元素.png" alt="有限元素">
-            <div class="profile-content">
-            <p>電腦輔助工程技術（Computer Aided Engineering, CAE）是一種非常重要的工程軟體，能夠協助使用者串聯工程生產的各個環節，並以最有效率的方式進行產品優化。</p>
-                </div>
-            </div>
-        </section>
-        <section class="section">
-            <h2>最新消息</h2>
-            <p>使用耦合歐拉-拉格朗日方法將擺槌放入水中。</p>
-            <div class="videos-container">
-                <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-                <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/y-ljLO2isO4?si=XebNdJL50Xo6vPyX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div
-            </div>
-        </section>
-        <section class="section">
-            <h2>作品集預覽</h2>
-            <div class="portfolio-item">
-                <h3>落摔分析</h3>
-                <img src="落摔分析.png" alt="落摔分析" style="max-width: 20%; height: auto;">
-                <p>使用Abaqus進行簡單落摔分析，嘗試烤肉框架的強度是否足夠承受撞擊。</p>
-                <p><a href="abaqus.html">查看更多</a></p>
-            </div>
-            <div class="portfolio-item">
-                <h3>熱水器結構差異下的流場分析</h3>
-                <img src="熱水器結構差異下的流場分析之研究.png" alt="熱水器結構差異下的流場分析" style="max-width: 20%; height: auto;">
-                <p>使用comsol軟體進行流固耦合分析，探討了一種三層結構的熱水器增加檔版結構設計，對於熱水器中每層的溫度變化及其對出水口溫度的影響，並進行比對其差異。</p>
-                <p><a href="comsol.html">查看更多</a></p>
-            </div>
-            <div class="portfolio-item">
-                <h3>H形滾軋分析</h3>
-                <img src="Abaqus H形滾札.png" alt="H形滾軋分析" style="max-width: 20%; height: auto;">
-                <p>使用滾軋分析進行簡易的Abaqus操作教學，並模擬滾軋時的真實情況。</p>
-                <p><a href="abaqus.html">查看更多</a></p>
-            </div>
+            <h2>作品集索引</h2>
+            <ul class="index-list">
+                <li>
+                    <img src="abaqus_image.png" alt="Abaqus">
+                    <a href="abaqus.html">Abaqus作品集</a>
+                </li>
+                <li>
+                    <img src="comsol_image.png" alt="Comsol">
+                    <a href="comsol.html">Comsol作品集</a>
+                </li>
+                <li>
+                    <img src="industrial_ventilation.png" alt="工業通風">
+                    <a href="industrial_ventilation.html">Industrial ventilation作品集</a>
+                </li>
+                <li>
+                    <img src="mechatronics.png" alt="機電整合實務">
+                    <a href="mechatronics.html">Electromechanical 作品集</a>
+                </li>
+            </ul>
         </section>
     </div>
     <footer>
@@ -348,3 +295,4 @@
     </script>
 </body>
 </html>
+
