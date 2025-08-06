@@ -278,9 +278,12 @@
             <h2>研討會經歷</h2>
             <div class="portfolio-item">
                 <ul>
-                /*<h3><a href="https://raw.githubusercontent.com/kar5303/kar5303.github.io/main/%E9%9B%BB%E5%AD%90%E7%83%A4%E7%9B%A4%E9%90%B5%E6%9E%B6%E8%90%BD%E6%91%94%E5%BC%B7%E5%BA%A6%E5%88%86%E6%9E%90.pdf" target="_blank">電子烤盤鐵架落摔強度分析PDF</a></h3>*/
-                <iframe src="https://kar5303.github.io/%E9%9B%BB%E5%AD%90%E7%83%A4%E7%9B%A4%E9%90%B5%E6%9E%B6%E8%90%BD%E6%91%94%E5%BC%B7%E5%BA%A6%E5%88%86%E6%9E%90.pdf" width="100%" height="600px" style="border: none;"></iframe>  
+                <h3><a href="#" onclick="showPDF('https://docs.google.com/gview?url=https://drive.google.com/uc?export=download&id=1w1D0kJPgF3QRS6ncinS1cAFc_-U65ME7&embedded=true'); return false;">電子烤盤鐵架落摔強度分析 PDF</a></h3>
                 <p>士盟科技2022SIMULIA</p>
+                <!-- 放置 PDF 的 iframe（初始不顯示） -->
+            <div id="pdf-viewer" style="display: none; margin-top: 20px;">
+                    <iframe id="pdf-frame" width="100%" height="600px" style="border: none;"></iframe>
+            </div>
                 </ul>
             </div>
             <div class="portfolio-item">
@@ -359,6 +362,18 @@
             window.onscroll();
         });
     </script>
+    <script>
+    function showPDF(pdfUrl) {
+        var iframe = document.getElementById("pdf-frame");
+        var viewer = document.getElementById("pdf-viewer");
+        iframe.src = pdfUrl;
+        viewer.style.display = "block";
+        window.scrollTo({
+            top: viewer.offsetTop - 20,
+            behavior: "smooth"
+        });
+    }
+</script>
 </body>
 </html>
 
