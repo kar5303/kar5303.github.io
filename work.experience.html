@@ -1,411 +1,503 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abaqus 有限元素分析</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 8px 0;
-            text-align: center;
-            font-size: 20px;
-        }
-        @media (max-width: 600px) {
-            header {
-                padding: 5px 0;
-                font-size: 16px;
-            }
-        }
-        nav {
-            display: flex;
-            justify-content: center; /* 將所有內容在水平方向上居中對齊 */
-            justify-content: flex-end; 
-            align-items: center; /* 垂直方向上居中對齊 */
-            background-color: #333;
-            padding: 10; /* 去掉額外的內邊距 */
-            position: relative;
-        }
-        nav img {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%); /* LOGO 水平居中 */
-            width: 100px;
-            height: auto;
-        }
-        nav input[type="checkbox"] {
-            display: none;
-        }
-        nav .menu-icon {
-            font-size: 24px;
-            color: #fff;
-            cursor: pointer;
-            padding: 14px;
-            text-align: center;
-        }
-        nav .menu {
-            display: none;
-            position: absolute;
-            top: 60px; /* Adjust based on header height */
-            left: 0; /* 將菜單左對齊 */
-            background-color:  rgba(68, 68, 68, 1);
-            width: 100%;
-            text-align: center;
-        }
-        nav .menu a {
-            display: block;
-            padding: 14px 0;
-            color: #fff;
-            text-decoration: none;
-        }
-        nav .menu a:hover {
-            background-color: #555;
-        }
-        nav input[type="checkbox"]:checked ~ .menu {
-            display: block;
-        }
-        nav a {
-            color: #fff;
-            padding: 14px 10px;
-            text-decoration: none;
-            text-align: center;
-            white-space: nowrap;
-        }
-        nav a:hover {
-            background-color: #555;
-        }
-        .container {
-            width: 80%;
-            max-width: 900px; /* 加上這一行限制最大寬度 */
-            margin: 10px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border-radius: 10px; /* 添加圓角 */
-            padding-bottom: 100px;
-            flex: 1;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .section h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .portfolio-item {
-            margin-bottom: 30px;
-        }
-        .portfolio-item h3 {
-            margin-bottom: 10px;
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            overflow: hidden;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-         #results {
-             width: 250px; /* 初始寬度 */
-             min-width: 250px; /* 可以根據需求設一個最小值 */
-             max-width: none;  /* 取消寬度上限 */
-             height: 80px;
-             overflow: auto; /* 支援水平與垂直滾動條 */
-             resize: both;   /* 允許使用者手動拖曳調整大小 */
-             border: 1px solid #ccc;
-             padding: 10px;
-             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-             border-radius: 10px;
-             margin-top: 20px;
-             background-color: #fff;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
-            position: relative;
-            bottom: 0;
-        }
-        #back-to-top-container {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-        
-        #back-to-top {
-            background-color: #444;
-            color: #fff;
-            font-weight: bold;
-            padding: 10px 20px;
-            text-decoration: none;
-            border: 2px solid #444;
-            border-radius: 30px; /* 圓角效果 */
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease; /* 動畫過渡 */
-        }
-        #back-to-top:hover {
-            transform: scale(1.05) translateY(-3px); /* 放大並微微上移 */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* 增加陰影作為回饋 */
-        }
-    </style>
-</head>
-<body>
-    <nav>
-        <img src="LOGO.png" alt="Your Logo">
-        <input type="checkbox" id="menu-toggle">
-        <label for="menu-toggle" class="menu-icon">&#9776;</label>
-        <div class="menu">
-            <a href="index.html">個人簡介</a>
-            <a href="experience.html">合作經歷</a>
-            <a href="works.html">作品集</a>
-            <a href="contact.html">聯繫方式</a>
-            <!-- 根據需要添加更多頁面的連結 -->
-        </div>
-    </nav>
-    <div class="container">
-        <section class="section">
-            <h2>Abaqus 作品集</h2>
-            <div class="portfolio-item">                                      
-                <div>
-                    <h3>H形滾軋-操作流程</h3>
-                    <p>使用滾軋分析進行簡易的Abaqus操作教學，並模擬滾軋時的真實情況。</p>
-                    <p><a href="rolling_process .pdf" download>下載操作流程文件</a></p>
-                    <div class="video-container">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/nzZG_9yAKMo?si=soYon8Tlm_s5V9OY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                <div>
-                    <h3>耦合歐拉-拉格朗日方法</h3>
-                    <p>使用耦合歐拉-拉格朗日方法將擺槌放入水中。</p>
-                    <p><a href="pendulum.cae" download>下載CAE文件檔</a></p>                    
-                    <div class="video-container">                    
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>  
-                </div>
-                <div>
-                    <h3>需求文件彙整-ʕ•ᴥ•ʔ專區</h3>
-                    <a href="https://jackalopelin.com/%e7%b8%bd%e7%b6%93%e8%b3%87%e7%94%a2%e9%85%8d%e7%bd%ae%e7%9c%8b%e6%b3%95/%e3%80%90%e6%9c%83%e5%93%a1%e5%b0%88%e5%b1%ac-%e8%b3%87%e7%94%a2%e9%85%8d%e7%bd%ae%e7%b5%84%e5%90%88%e8%ae%8a%e5%8c%96-%e3%80%91/" target="_blank">
-                    <button> ANSYS官網 網站</button>
-                    </a>
-                    <p><a href="Desktop.rar" download>下載文件檔</a></p>
-                    <div class="video-container">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/O80JiXqI2UI?si=Ii6fPFmNsjRAtwWv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div>
-                    <h3>橋梁拓樸最佳化-基礎流程</h3>
-                    <p>使用Abaqus進行簡單拓樸最佳化，並設定50%和10%的縮減為目標，再進行兩者之間的差異。</p>
-                    <p><a href="問題解決與分析.rar" download>下載文件檔</a></p>
-                    <div class="video-container">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/O80JiXqI2UI?si=Ii6fPFmNsjRAtwWv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div>
-                    <h3></h3>
-                    <p></p>
-                    <div class="videobox">
-                       
-                    </div>
-               
-            </div>
-            <head>
-  <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    
-    <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字">
-    <button id="searchButton">搜尋</button>
-    <button id="recommendButton">ʕっ•ᴥ•ʔっ推薦</button>
-    <div id="results"></div>
-
-    <script>
-        const API_KEYS = [
-    'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8'
-];
-
-let currentApiKeyIndex = 0;
-
-// 搜尋
-$('#searchButton').click(function () {
-    const query = $('#searchQuery').val();
-    searchYouTube(query);
-});
-
-// Enter 搜尋
-$('#searchQuery').keypress(function (e) {
-    if (e.which === 13) {
-        $('#searchButton').click();
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abaqus 有限元素分析</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-});
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 8px 0;
+      text-align: center;
+      font-size: 20px;
+    }
+    @media (max-width: 600px) {
+      header { padding: 5px 0; font-size: 16px; }
+    }
+    nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background-color: #333;
+      padding: 10;
+      position: relative;
+    }
+    nav img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: auto;
+    }
+    nav input[type="checkbox"] { display: none; }
+    nav .menu-icon {
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      padding: 14px;
+      text-align: center;
+    }
+    nav .menu {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      background-color: rgba(68, 68, 68, 1);
+      width: 100%;
+      text-align: center;
+    }
+    nav .menu a {
+      display: block;
+      padding: 14px 0;
+      color: #fff;
+      text-decoration: none;
+    }
+    nav .menu a:hover { background-color: #555; }
+    nav input[type="checkbox"]:checked ~ .menu { display: block; }
+    nav a {
+      color: #fff;
+      padding: 14px 10px;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+    }
+    nav a:hover { background-color: #555; }
 
-// 推薦
-$('#recommendButton').click(function () {
-    const recommendations = ['音樂', '財經', '學習'];
-    $('#searchQuery').val(recommendations[0]);
-});
+    .container {
+      width: 80%;
+      max-width: 900px;
+      margin: 10px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      border-radius: 10px;
+      padding-bottom: 100px;
+      flex: 1;
+    }
+    .section { margin-bottom: 40px; }
+    .section h2 {
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .portfolio-item { margin-bottom: 30px; }
+    .portfolio-item h3 { margin-bottom: 10px; }
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
 
-// 搜尋 YouTube
-function searchYouTube(query) {
+    /* ── 搜尋區塊樣式 ── */
+    .search-area {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .search-area h3 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      font-size: 18px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 8px;
+    }
+    .search-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    #searchQuery {
+      flex: 1;
+      min-width: 160px;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      outline: none;
+      transition: border 0.2s;
+    }
+    #searchQuery:focus { border-color: #333; }
+
+    .btn {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.97); }
+    #searchButton  { background: #333; color: #fff; }
+    #searchButton:hover  { background: #555; }
+    #recommendButton { background: #666; color: #fff; }
+    #recommendButton:hover { background: #888; }
+
+    /* ── 結果列表 ── */
+    #results {
+      margin-top: 20px;
+    }
+    .result-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .result-card h4 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .result-card .thumb-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .result-card .thumb-row img {
+      width: 160px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .result-card .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      justify-content: center;
+    }
+    .btn-watch {
+      background: #c00;
+      color: #fff;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn-watch:hover { background: #e00; }
+    .btn-mp3 {
+      background: #1a7a1a;
+      color: #fff;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn-mp3:hover { background: #259025; }
+
+    /* 嵌入播放器（展開用） */
+    .embed-area {
+      margin-top: 10px;
+      display: none;
+    }
+    .embed-area iframe {
+      width: 100%;
+      height: 220px;
+      border: none;
+      border-radius: 8px;
+    }
+    .btn-embed {
+      background: #444;
+      color: #fff;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn-embed:hover { background: #666; }
+
+    /* 狀態提示 */
+    #searchStatus {
+      color: #888;
+      font-size: 14px;
+      margin-top: 10px;
+      min-height: 20px;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      width: 100%;
+      position: relative;
+      bottom: 0;
+    }
+    #back-to-top-container {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    #back-to-top {
+      background-color: #444;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px 20px;
+      text-decoration: none;
+      border: 2px solid #444;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    #back-to-top:hover {
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    /* 提示 tooltip */
+    .cobalt-note {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="LOGO.png" alt="Your Logo">
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="menu-icon">&#9776;</label>
+  <div class="menu">
+    <a href="index.html">個人簡介</a>
+    <a href="experience.html">合作經歷</a>
+    <a href="works.html">作品集</a>
+    <a href="contact.html">聯繫方式</a>
+  </div>
+</nav>
+
+<div class="container">
+  <section class="section">
+    <h2>Abaqus 作品集</h2>
+
+    <div class="portfolio-item">
+      <h3>H形滾軋-操作流程</h3>
+      <p>使用滾軋分析進行簡易的Abaqus操作教學，並模擬滾軋時的真實情況。</p>
+      <p><a href="rolling_process .pdf" download>下載操作流程文件</a></p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/nzZG_9yAKMo?si=soYon8Tlm_s5V9OY"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <h3>耦合歐拉-拉格朗日方法</h3>
+      <p>使用耦合歐拉-拉格朗日方法將擺槌放入水中。</p>
+      <p><a href="pendulum.cae" download>下載CAE文件檔</a></p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/n2Z6cKnKgFc?si=up8zxrGHigdmvQc1"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <h3>需求文件彙整-ʕ•ᴥ•ʔ專區</h3>
+      <a href="https://jackalopelin.com/%e7%b8%bd%e7%b6%93%e8%b3%87%e7%94%a2%e9%85%8d%e7%bd%ae%e7%9c%8b%e6%b3%95/%e3%80%90%e6%9c%83%e5%93%a1%e5%b0%88%e5%b1%ac-%e8%b3%87%e7%94%a2%e9%85%8d%e7%bd%ae%e7%b5%84%e5%90%88%e8%ae%8a%e5%8c%96-%e3%80%91/" target="_blank">
+        <button class="btn" style="background:#333;color:#fff;margin-bottom:8px;">ANSYS官網 網站</button>
+      </a>
+      <p><a href="Desktop.rar" download>下載文件檔</a></p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/O80JiXqI2UI?si=Ii6fPFmNsjRAtwWv"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="portfolio-item">
+      <h3>橋梁拓樸最佳化-基礎流程</h3>
+      <p>使用Abaqus進行簡單拓樸最佳化，並設定50%和10%的縮減為目標，再進行兩者之間的差異。</p>
+      <p><a href="問題解決與分析.rar" download>下載文件檔</a></p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/O80JiXqI2UI?si=Ii6fPFmNsjRAtwWv"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         🔍 YouTube 搜尋 + MP3 下載區塊
+    ══════════════════════════════════════════ -->
+    <div class="search-area">
+      <h3>🔍 YouTube 影片搜尋</h3>
+      <div class="search-row">
+        <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字…">
+        <button class="btn" id="searchButton">搜尋</button>
+        <button class="btn" id="recommendButton">ʕっ•ᴥ•ʔっ 推薦</button>
+      </div>
+      <div id="searchStatus"></div>
+      <div id="results"></div>
+    </div>
+    <!-- ══════════════════════════════════════════ -->
+
+  </section>
+</div>
+
+<footer>
+  <p>© 2024 Abaqus 有限元素分析</p>
+</footer>
+
+<div id="back-to-top-container">
+  <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
+</div>
+
+<script>
+  /* ── API 金鑰輪換 ── */
+  const API_KEYS = [
+    'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8',
+    'AIzaSyAtDWcQXc8qu_RGqpetnVjaA4yp3iBdaPo',
+    'AIzaSyAbcUkeJsXKDxCBvKq7wlSS0rB7MuJoQpM',
+    'AIzaSyDL3ZFDn547p4JjvKdHoJV5AuG7AOqqBoY'
+  ];
+  let currentApiKeyIndex = 0;
+
+  /* ── 搜尋按鈕 ── */
+  $('#searchButton').click(function () {
+    const query = $('#searchQuery').val().trim();
+    if (!query) return;
+    searchYouTube(query);
+  });
+
+  /* ── 推薦按鈕 ── */
+  $('#recommendButton').click(function () {
+    const recommendations = ['音樂', 'Emmy追劇時間', '財經早晨速解讀'];
+    $('#searchQuery').val(recommendations[Math.floor(Math.random() * recommendations.length)]);
+    $('#searchButton').click();
+  });
+
+  /* ── Enter 鍵觸發搜尋 ── */
+  document.getElementById('searchQuery').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') $('#searchButton').click();
+  });
+
+  /* ── 搜尋主函式 ── */
+  function searchYouTube(query) {
     const apiKey = API_KEYS[currentApiKeyIndex];
+    $('#results').empty();
+    $('#searchStatus').text('搜尋中…');
 
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=10&type=video&key=${apiKey}`;
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&type=video&key=${apiKey}`;
 
-    $.getJSON(url, function (data) {
+    $.getJSON(searchUrl, function (data) {
+      const videoIds = data.items.map(item => item.id.videoId).join(',');
+      if (!videoIds) {
+        $('#searchStatus').text('找不到相關影片。');
+        return;
+      }
+
+      /* 取得影片詳細資訊（包含 embeddable 狀態）*/
+      const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${apiKey}`;
+      $.getJSON(detailsUrl, function (videoData) {
+        $('#searchStatus').text(`找到 ${videoData.items.length} 部影片`);
         $('#results').empty();
 
-        data.items.forEach(item => {
-            const videoId = item.id.videoId;
-            const title = item.snippet.title;
+        videoData.items.forEach(function (video) {
+          const videoId   = video.id;
+          const title     = $('<div>').text(video.snippet.title).html(); // XSS 防護
+          const thumb     = video.snippet.thumbnails.medium.url;
+          const ytUrl     = `https://www.youtube.com/watch?v=${videoId}`;
 
-            $('#results').append(`
-                <div style="margin-bottom:15px;">
-                    <div><strong>${title}</strong></div>
-                    <button onclick="playAudio('${videoId}', '${title.replace(/'/g, "")}')">
-                        ▶ 播放音訊
-                    </button>
+          /* ── cobalt.tools：免費、開源的影音下載工具 ── */
+          const cobaltUrl = `https://cobalt.tools/#${encodeURIComponent(ytUrl)}`;
+
+          const card = `
+            <div class="result-card">
+              <h4>${title}</h4>
+              <div class="thumb-row">
+                <img src="${thumb}" alt="縮圖">
+                <div class="btn-group">
+                  <a class="btn-watch" href="${ytUrl}" target="_blank">▶ 前往 YouTube</a>
+                  <button class="btn-embed" onclick="toggleEmbed(this, '${videoId}')">📺 在頁面播放</button>
+                  <a class="btn-mp3" href="${cobaltUrl}" target="_blank">🎵 下載 MP3</a>
+                  <span class="cobalt-note">透過 cobalt.tools 下載</span>
                 </div>
-            `);
+              </div>
+              <div class="embed-area" id="embed-${videoId}">
+                <iframe
+                  src="https://www.youtube.com/embed/${videoId}"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+            </div>`;
+          $('#results').append(card);
         });
+      });
     }).fail(function () {
-        currentApiKeyIndex = (currentApiKeyIndex + 1) % API_KEYS.length;
-        if (currentApiKeyIndex === 0) {
-            $('#results').text('API 額度已用完');
-        } else {
-            searchYouTube(query);
-        }
+      /* 金鑰失效時自動切換下一把 */
+      currentApiKeyIndex = (currentApiKeyIndex + 1) % API_KEYS.length;
+      if (currentApiKeyIndex === 0) {
+        $('#searchStatus').text('所有 API 金鑰均已用盡，請稍後再試。');
+      } else {
+        searchYouTube(query);
+      }
     });
-}
+  }
 
-// 播放音訊（核心）
-function playAudio(videoId, title) {
-    const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+  /* ── 在頁面內展開 / 收合播放器 ── */
+  function toggleEmbed(btn, videoId) {
+    const area = document.getElementById('embed-' + videoId);
+    if (area.style.display === 'block') {
+      area.style.display = 'none';
+      btn.textContent = '📺 在頁面播放';
+    } else {
+      area.style.display = 'block';
+      btn.textContent = '▲ 收合播放器';
+    }
+  }
 
-    // ⚠️ 改成你的後端網址
-    const apiUrl = `https://youtube-audio-api-xbco-production.up.railway.app/audio?url=${encodeURIComponent(youtubeUrl)}`;
+  /* ── 回到頂部 ── */
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  window.onscroll = function () {
+    const btn = document.getElementById('back-to-top-container');
+    btn.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20)
+      ? 'block' : 'none';
+  };
+  document.addEventListener('DOMContentLoaded', function () { window.onscroll(); });
+</script>
 
-    fetch(apiUrl)
-        .then(res => res.json())
-        .then(data => {
-            const player = document.getElementById('audioPlayer');
-
-            player.src = data.audioUrl;
-            player.play();
-
-            document.getElementById('nowPlaying').innerText = "🎧 正在播放：" + data.title;
-        })
-        .catch(err => {
-            console.error(err);
-            alert('播放失敗（後端未啟動或URL錯誤）');
-        });
-}
-
-            });
-        }
-    </script>
-</body>
-</html>
-
-            <!-- 其他 Abaqus 作品集内容 -->
-        </section>
-    </div>
-     <footer>
-        <div id="back-to-top-container">
-            <button id="back-to-top" onclick="scrollToTop()">回到頂部</button>
-        </div>
-    </footer>
-    <script>
-        const API_KEYS = [
-            'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8',
-            'AIzaSyAtDWcQXc8qu_RGqpetnVjaA4yp3iBdaPo',
-            'AIzaSyAbcUkeJsXKDxCBvKq7wlSS0rB7MuJoQpM',
-            'AIzaSyDL3ZFDn547p4JjvKdHoJV5AuG7AOqqBoY'
-        ];
-        let currentApiKeyIndex = 0;
-
-        $('#searchButton').click(function() {
-            const query = $('#searchQuery').val();
-            searchYouTube(query);
-        });
-
-        $('#recommendButton').click(function() {
-            const recommendations = ['音樂','Emmy追劇時間','財經早晨速解讀'];
-            $('#searchQuery').val(recommendations.join(' 或 '));
-        });
-
-        function searchYouTube(query) {
-            const apiKey = API_KEYS[currentApiKeyIndex];
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${apiKey}`;
-
-            $.getJSON(searchUrl, function(data) {
-                $('#results').empty();
-                data.items.forEach(item => {
-                    if (item.id.kind === 'youtube#video') {
-                        $('#results').append(`
-                            <div>
-                                <h3>${item.snippet.title}</h3>
-                                <iframe width="100%" height="315" src="https://www.youtube.com/embed/${item.id.videoId}" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        `);
-                    }
-                });
-            }).fail(function() {
-                currentApiKeyIndex = (currentApiKeyIndex + 1) % API_KEYS.length;
-                if (currentApiKeyIndex === 0) {
-                    $('#results').text('所有 API 金鑰均已用盡，請稍後再試。');
-                } else {
-                    searchYouTube(query);
-                }
-            });
-        }
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.onscroll = function() {
-            var btnContainer = document.getElementById("back-to-top-container");
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                btnContainer.style.display = "block";
-            } else {
-                btnContainer.style.display = "none";
-            }
-        };
-
-        document.addEventListener("DOMContentLoaded", function() {
-            window.onscroll();
-        });
-
-        document.getElementById('searchQuery').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                document.getElementById('searchButton').click();
-                }
-        });
-        
-    </script>
 </body>
 </html>
