@@ -245,51 +245,86 @@
     <div id="results"></div>
 
     <script>
-        const API_KEY = 'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8';  // 替換API金鑰
+        const API_KEYS = [
+    'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8'
+];
 
-        // 搜尋按鈕點擊事件
-        $('#searchButton').click(function() {
-            const query = $('#searchQuery').val();
+let currentApiKeyIndex = 0;
+
+// 搜尋
+$('#searchButton').click(function () {
+    const query = $('#searchQuery').val();
+    searchYouTube(query);
+});
+
+// Enter 搜尋
+$('#searchQuery').keypress(function (e) {
+    if (e.which === 13) {
+        $('#searchButton').click();
+    }
+});
+
+// 推薦
+$('#recommendButton').click(function () {
+    const recommendations = ['音樂', '財經', '學習'];
+    $('#searchQuery').val(recommendations[0]);
+});
+
+// 搜尋 YouTube
+function searchYouTube(query) {
+    const apiKey = API_KEYS[currentApiKeyIndex];
+
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=10&type=video&key=${apiKey}`;
+
+    $.getJSON(url, function (data) {
+        $('#results').empty();
+
+        data.items.forEach(item => {
+            const videoId = item.id.videoId;
+            const title = item.snippet.title;
+
+            $('#results').append(`
+                <div style="margin-bottom:15px;">
+                    <div><strong>${title}</strong></div>
+                    <button onclick="playAudio('${videoId}', '${title.replace(/'/g, "")}')">
+                        ▶ 播放音訊
+                    </button>
+                </div>
+            `);
+        });
+    }).fail(function () {
+        currentApiKeyIndex = (currentApiKeyIndex + 1) % API_KEYS.length;
+        if (currentApiKeyIndex === 0) {
+            $('#results').text('API 額度已用完');
+        } else {
             searchYouTube(query);
+        }
+    });
+}
+
+// 播放音訊（核心）
+function playAudio(videoId, title) {
+    const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
+
+    // ⚠️ 改成你的後端網址
+    const apiUrl = `https://youtube-audio-api-xbco-production.up.railway.app/audio?url=${encodeURIComponent(youtubeUrl)}`;
+
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+            const player = document.getElementById('audioPlayer');
+
+            player.src = data.audioUrl;
+            player.play();
+
+            document.getElementById('nowPlaying').innerText = "🎧 正在播放：" + data.title;
+        })
+        .catch(err => {
+            console.error(err);
+            alert('播放失敗（後端未啟動或URL錯誤）');
         });
+}
 
-        // 推薦按鈕點擊事件
-        $('#recommendButton').click(function() {
-            const recommendations = ['音樂','Emmy追劇時間','財經早晨速解讀'];
-            // 將推薦的關鍵字插入輸入框（可以選擇第一個關鍵字）
-            $('#searchQuery').val(recommendations.join(' 或 '));
-        });
-
-        // 搜尋功能
-        function searchYouTube(query) {
-            const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=20&key=${API_KEY}`;
-
-            $.getJSON(searchUrl, function(data) {
-                const videoIds = data.items
-                    .filter(item => item.id.kind === 'youtube#video')  // 確保是影片類型
-                    .map(item => item.id.videoId)
-                    .join(',');
-
-                if (videoIds) {
-                    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?part=status,snippet&id=${videoIds}&key=${API_KEY}`;
-
-                    $.getJSON(detailsUrl, function(videoData) {
-                        $('#results').empty();
-                        videoData.items.forEach(video => {
-                            // 檢查影片的播放狀態
-                            if (video.status.embeddable) {
-                                const videoId = video.id;
-                                const title = video.snippet.title;
-                                $('#results').append(`
-                                    <div>
-                                        <h3>${title}</h3>
-                                        <iframe width="200" height="50" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                `);
-                            }
-                        });
-                    });
-                }
             });
         }
     </script>
