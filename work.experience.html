@@ -242,7 +242,7 @@
 
       <div class="api-config">
         <strong>⚙️ 後端設定：</strong>
-        填入你的 Railway 後端網址（部署後從 Railway 複製）<br>
+        填入你的熊熊密語後使用<br>
         <input type="text" id="backendUrl"
                placeholder="https://your-project.up.railway.app"
                value="">
@@ -372,7 +372,7 @@ function loadMp3(btn, ytUrl) {
   audio.addEventListener('error',   () => {
     btn.disabled    = false;
     btn.textContent = '▶ 播放 MP3';
-    alert('串流失敗，請確認 Railway 後端是否正常運作。');
+    alert('串流失敗，請確認後端是否正常運作。');
   });
 
   btn.parentElement.appendChild(audio);
