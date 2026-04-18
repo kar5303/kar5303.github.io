@@ -376,93 +376,67 @@ function searchYouTube(query) {
   });
 }
 
-/* ── 載入 MP3 ── */
+/* ── 載入 MP3（用 fetch 等後端完成，再用 Blob URL 播放）── */
 function loadMp3(videoId, ytUrl) {
   const backend = getBackend();
-  if (!backend) {
-    alert('⚠️ 請先填入後端網址！');
-    return;
-  }
+  if (!backend) { alert('⚠️ 請先填入後端網址！'); return; }
 
-  const btn     = document.getElementById(`btn-${videoId}`);
-  const barWrap = document.getElementById(`bar-wrap-${videoId}`);
-  const errDiv  = document.getElementById(`err-${videoId}`);
+  const btn      = document.getElementById(`btn-${videoId}`);
+  const barWrap  = document.getElementById(`bar-wrap-${videoId}`);
+  const errDiv   = document.getElementById(`err-${videoId}`);
   const cardInfo = btn.parentElement;
 
-  // 重置錯誤訊息
-  errDiv.style.display = 'none';
-  errDiv.textContent   = '';
-
-  // 更新按鈕狀態
-  btn.disabled    = true;
-  btn.textContent = '⏳ 連線後端中…';
+  errDiv.style.display  = 'none';
+  errDiv.textContent    = '';
+  btn.disabled          = true;
+  btn.textContent       = '⏳ 連線後端中…';
   barWrap.style.display = 'block';
 
   const streamUrl = `${backend}/stream?url=${encodeURIComponent(ytUrl)}`;
 
-  // 用 fetch 先確認後端可連，再掛 audio
-  // 直接建立 audio 元素，設定 src 讓瀏覽器自己處理串流
-  const audio = document.createElement('audio');
-  audio.controls = true;
-  audio.preload  = 'auto';   // auto = 瀏覽器盡快載入
-  audio.src      = streamUrl;
+  // 計時顯示等待訊息
+  const msgs = [
+    [5000,  '⏳ 下載音訊中，請稍候…'],
+    [20000, '⏳ 後端轉檔中，請再等一下…'],
+    [50000, '⏳ 快好了，馬上就來…'],
+  ];
+  const timers = msgs.map(([ms, txt]) =>
+    setTimeout(() => { if (btn.parentElement) btn.textContent = txt; }, ms)
+  );
 
-  let started = false;
-
-  // 有資料開始來了
-  audio.addEventListener('loadstart', function () {
-    btn.textContent = '⏳ 下載音訊中…';
-  });
-
-  // 有足夠資料可以播放
-  audio.addEventListener('canplay', function () {
-    if (!started) {
-      started = true;
-      btn.remove();
+  // 用 fetch 下載整個 MP3（後端處理完才會回傳），完成後建立 Blob URL 給 audio
+  fetch(streamUrl)
+    .then(function(res) {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.blob();   // 等整個 MP3 下載完
+    })
+    .then(function(blob) {
+      timers.forEach(clearTimeout);
       barWrap.style.display = 'none';
-    }
-  });
-
-  // 同 canplay 但更保守（更多資料到了才觸發）
-  audio.addEventListener('canplaythrough', function () {
-    if (!started) {
-      started = true;
       btn.remove();
+
+      const blobUrl = URL.createObjectURL(blob);
+      const audio   = document.createElement('audio');
+      audio.controls    = true;
+      audio.src         = blobUrl;
+      audio.style.width = '100%';
+      audio.style.marginTop = '6px';
+
+      // 播放完畢後釋放 Blob URL
+      audio.addEventListener('ended', () => URL.revokeObjectURL(blobUrl));
+
+      cardInfo.appendChild(audio);
+      audio.play().catch(() => {});  // 自動播放（可能被瀏覽器擋，沒關係）
+    })
+    .catch(function(err) {
+      timers.forEach(clearTimeout);
       barWrap.style.display = 'none';
-    }
-  });
-
-  // 發生錯誤
-  audio.addEventListener('error', function (e) {
-    barWrap.style.display = 'none';
-    const codes = {1:'使用者中止',2:'網路錯誤',3:'解碼失敗',4:'格式不支援'};
-    const code  = audio.error ? audio.error.code : 0;
-    const msg   = codes[code] || '未知錯誤';
-
-    btn.disabled    = false;
-    btn.textContent = '▶ 播放 MP3';
-
-    errDiv.textContent   = `⚠️ 串流失敗（${msg}）— 請稍後再試`;
-    errDiv.style.display = 'block';
-
-    console.warn('Audio error code:', code, audio.error);
-  });
-
-  // 加入 DOM，開始載入
-  cardInfo.appendChild(audio);
-
-  // 備用 timeout：30 秒還沒 canplay 就顯示提示
-  setTimeout(function () {
-    if (!started && btn.parentElement) {
-      btn.textContent = '⏳ 後端轉檔中，請稍候…';
-    }
-  }, 10000);
-
-  setTimeout(function () {
-    if (!started && btn.parentElement) {
-      btn.textContent = '⏳ 快好了，請再等一下…';
-    }
-  }, 30000);
+      btn.disabled    = false;
+      btn.textContent = '▶ 播放 MP3';
+      errDiv.textContent   = `⚠️ 失敗：${err.message}，請稍後再試`;
+      errDiv.style.display = 'block';
+      console.error('loadMp3 error:', err);
+    });
 }
 
 /* ── 回到頂部 ── */
