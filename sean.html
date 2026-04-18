@@ -269,8 +269,8 @@
       <div class="api-config">
         <strong>⚙️ 後端設定：</strong>填入你的 Render 後端網址<br>
         <input type="text" id="backendUrl"
-               placeholder="https://mp3-stream-backendv1.onrender.com"
-               value="https://mp3-stream-backendv1.onrender.com">
+               placeholder="OUO"
+               value="https://web-production-3b8cb.up.railway.app">
       </div>
 
       <div class="search-row">
@@ -311,7 +311,7 @@ $('#searchButton').click(function () {
 });
 
 $('#recommendButton').click(function () {
-  const list = ['音樂', 'Emmy追劇時間', '財經早晨速解讀', 'lofi hip hop', '古典音樂'];
+  const list = ['JPOP音樂', 'Emmy追劇時間', '財經早晨速解讀'];
   $('#searchQuery').val(list[Math.floor(Math.random() * list.length)]);
   $('#searchButton').click();
 });
