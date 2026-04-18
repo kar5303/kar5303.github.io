@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
@@ -89,7 +89,7 @@
     }
     .api-config strong { color: #b45309; }
     .api-config input {
-      width: calc(100% - 16px); margin-top: 6px;
+      width: 100%; margin-top: 6px;
       padding: 7px 8px; border: 1px solid #ccc;
       border-radius: 6px; font-size: 13px; box-sizing: border-box;
     }
@@ -97,7 +97,7 @@
     /* ── 結果卡片 ── */
     #results { margin-top: 16px; }
     .result-card {
-      display: flex; align-items: center; gap: 14px;
+      display: flex; align-items: flex-start; gap: 14px;
       background: #fff; border: 1px solid #e0e0e0;
       border-radius: 10px; padding: 12px 16px;
       margin-bottom: 12px;
@@ -106,7 +106,6 @@
     }
     .result-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 
-    /* 縮圖：只顯示靜態圖，完全不嵌入 YouTube iframe */
     .thumb-wrap {
       position: relative; flex-shrink: 0;
       width: 100px; height: 56px;
@@ -115,7 +114,6 @@
       width: 100%; height: 100%;
       object-fit: cover; border-radius: 6px; display: block;
     }
-    /* 音符角標 */
     .thumb-wrap::after {
       content: "🎵";
       position: absolute; bottom: 3px; right: 4px;
@@ -133,8 +131,11 @@
     }
     .card-info audio {
       width: 100%; height: 36px;
-      border-radius: 20px; outline: none;
+      border-radius: 20px; outline: none; display: block;
+      margin-top: 6px;
     }
+
+    /* 播放按鈕 */
     .load-mp3-btn {
       display: inline-block;
       background: #1a7a1a; color: #fff;
@@ -144,6 +145,31 @@
     }
     .load-mp3-btn:hover { background: #259025; }
     .load-mp3-btn:disabled { background: #999; cursor: default; }
+
+    /* 載入進度條 */
+    .loading-bar-wrap {
+      width: 100%; height: 4px;
+      background: #eee; border-radius: 2px;
+      margin-top: 8px; overflow: hidden;
+      display: none;
+    }
+    .loading-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, #1a7a1a, #5cb85c);
+      border-radius: 2px;
+      animation: loading-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes loading-pulse {
+      0%   { width: 20%; opacity: 1; }
+      50%  { width: 80%; opacity: 0.7; }
+      100% { width: 20%; opacity: 1; }
+    }
+
+    /* 錯誤訊息 */
+    .error-msg {
+      font-size: 12px; color: #c00;
+      margin-top: 4px; display: none;
+    }
 
     footer {
       background-color: #333; color: #fff;
@@ -235,17 +261,16 @@
     </div>
 
     <!-- ══════════════════════════════════════
-         🎵 音樂搜尋播放器（純 MP3 串流）
+         🎵 音樂搜尋播放器
     ══════════════════════════════════════ -->
     <div class="search-area">
       <h3>🎵 音樂搜尋播放器</h3>
 
       <div class="api-config">
-        <strong>⚙️ 後端設定：</strong>
-        填入你的熊熊密語後使用<br>
+        <strong>⚙️ 後端設定：</strong>填入你的 Render 後端網址<br>
         <input type="text" id="backendUrl"
-               placeholder="https://your-project.up.railway.app"
-               value="">
+               placeholder="https://mp3-stream-backendv1.onrender.com"
+               value="https://mp3-stream-backendv1.onrender.com">
       </div>
 
       <div class="search-row">
@@ -256,7 +281,6 @@
       <div id="searchStatus"></div>
       <div id="results"></div>
     </div>
-    <!-- ══════════════════════════════════════ -->
 
   </section>
 </div>
@@ -268,7 +292,7 @@
 </div>
 
 <script>
-/* ── YouTube Data API 金鑰輪換 ── */
+/* ── YouTube API 金鑰 ── */
 const API_KEYS = [
   'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8',
   'AIzaSyAtDWcQXc8qu_RGqpetnVjaA4yp3iBdaPo',
@@ -281,14 +305,13 @@ function getBackend() {
   return ($('#backendUrl').val() || '').replace(/\/$/, '').trim();
 }
 
-/* ── 搜尋 ── */
 $('#searchButton').click(function () {
   const q = $('#searchQuery').val().trim();
   if (q) searchYouTube(q);
 });
 
 $('#recommendButton').click(function () {
-  const list = ['JPOP音樂', 'Emmy追劇時間', '財經早晨速解讀',];
+  const list = ['音樂', 'Emmy追劇時間', '財經早晨速解讀', 'lofi hip hop', '古典音樂'];
   $('#searchQuery').val(list[Math.floor(Math.random() * list.length)]);
   $('#searchButton').click();
 });
@@ -324,17 +347,22 @@ function searchYouTube(query) {
         const thumb   = (video.snippet.thumbnails.medium || video.snippet.thumbnails.default).url;
         const ytUrl   = `https://www.youtube.com/watch?v=${videoId}`;
 
-        $('#results').append(`
-          <div class="result-card">
+        const cardHtml = `
+          <div class="result-card" id="card-${videoId}">
             <div class="thumb-wrap">
               <img src="${thumb}" alt="縮圖" loading="lazy">
             </div>
             <div class="card-info">
               <div class="card-title" title="${title}">${title}</div>
-              <button class="load-mp3-btn"
-                onclick="loadMp3(this, '${ytUrl}')">▶ 播放 MP3</button>
+              <button class="load-mp3-btn" id="btn-${videoId}"
+                onclick="loadMp3('${videoId}', '${ytUrl}')">▶ 播放 MP3</button>
+              <div class="loading-bar-wrap" id="bar-wrap-${videoId}">
+                <div class="loading-bar"></div>
+              </div>
+              <div class="error-msg" id="err-${videoId}"></div>
             </div>
-          </div>`);
+          </div>`;
+        $('#results').append(cardHtml);
       });
     });
 
@@ -348,36 +376,93 @@ function searchYouTube(query) {
   });
 }
 
-/* ── 點擊「播放 MP3」→ 呼叫 Railway 後端串流 ── */
-function loadMp3(btn, ytUrl) {
+/* ── 載入 MP3 ── */
+function loadMp3(videoId, ytUrl) {
   const backend = getBackend();
   if (!backend) {
-    alert('⚠️ 請先在上方填入 Railway 後端網址！');
+    alert('⚠️ 請先填入後端網址！');
     return;
   }
 
-  const streamUrl = `${backend}/stream?url=${encodeURIComponent(ytUrl)}`;
+  const btn     = document.getElementById(`btn-${videoId}`);
+  const barWrap = document.getElementById(`bar-wrap-${videoId}`);
+  const errDiv  = document.getElementById(`err-${videoId}`);
+  const cardInfo = btn.parentElement;
+
+  // 重置錯誤訊息
+  errDiv.style.display = 'none';
+  errDiv.textContent   = '';
+
+  // 更新按鈕狀態
   btn.disabled    = true;
-  btn.textContent = '載入中…';
+  btn.textContent = '⏳ 連線後端中…';
+  barWrap.style.display = 'block';
 
-  const audio       = document.createElement('audio');
-  audio.controls    = true;
-  audio.preload     = 'none';
-  audio.src         = streamUrl;
-  audio.style.width = '100%';
-  audio.style.marginTop = '6px';
-  audio.style.borderRadius = '20px';
+  const streamUrl = `${backend}/stream?url=${encodeURIComponent(ytUrl)}`;
 
-  audio.addEventListener('canplay', () => btn.remove());
-  audio.addEventListener('error',   () => {
-    btn.disabled    = false;
-    btn.textContent = '▶ 播放 MP3';
-    alert('串流失敗，請確認後端是否正常運作。');
+  // 用 fetch 先確認後端可連，再掛 audio
+  // 直接建立 audio 元素，設定 src 讓瀏覽器自己處理串流
+  const audio = document.createElement('audio');
+  audio.controls = true;
+  audio.preload  = 'auto';   // auto = 瀏覽器盡快載入
+  audio.src      = streamUrl;
+
+  let started = false;
+
+  // 有資料開始來了
+  audio.addEventListener('loadstart', function () {
+    btn.textContent = '⏳ 下載音訊中…';
   });
 
-  btn.parentElement.appendChild(audio);
-  audio.load();
-  btn.textContent = '緩衝中…';
+  // 有足夠資料可以播放
+  audio.addEventListener('canplay', function () {
+    if (!started) {
+      started = true;
+      btn.remove();
+      barWrap.style.display = 'none';
+    }
+  });
+
+  // 同 canplay 但更保守（更多資料到了才觸發）
+  audio.addEventListener('canplaythrough', function () {
+    if (!started) {
+      started = true;
+      btn.remove();
+      barWrap.style.display = 'none';
+    }
+  });
+
+  // 發生錯誤
+  audio.addEventListener('error', function (e) {
+    barWrap.style.display = 'none';
+    const codes = {1:'使用者中止',2:'網路錯誤',3:'解碼失敗',4:'格式不支援'};
+    const code  = audio.error ? audio.error.code : 0;
+    const msg   = codes[code] || '未知錯誤';
+
+    btn.disabled    = false;
+    btn.textContent = '▶ 播放 MP3';
+
+    errDiv.textContent   = `⚠️ 串流失敗（${msg}）— 請稍後再試`;
+    errDiv.style.display = 'block';
+
+    console.warn('Audio error code:', code, audio.error);
+  });
+
+  // 加入 DOM，開始載入
+  cardInfo.appendChild(audio);
+
+  // 備用 timeout：30 秒還沒 canplay 就顯示提示
+  setTimeout(function () {
+    if (!started && btn.parentElement) {
+      btn.textContent = '⏳ 後端轉檔中，請稍候…';
+    }
+  }, 10000);
+
+  setTimeout(function () {
+    if (!started && btn.parentElement) {
+      btn.textContent = '⏳ 快好了，請再等一下…';
+    }
+  }, 30000);
 }
 
 /* ── 回到頂部 ── */
