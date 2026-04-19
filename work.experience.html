@@ -389,53 +389,73 @@ function loadMp3(videoId, ytUrl) {
   errDiv.style.display  = 'none';
   errDiv.textContent    = '';
   btn.disabled          = true;
-  btn.textContent       = '⏳ 連線後端中…';
+  btn.textContent       = '⏳ 提交任務中…';
   barWrap.style.display = 'block';
 
-  const streamUrl = `${backend}/stream?url=${encodeURIComponent(ytUrl)}`;
-
-  // 計時顯示等待訊息
-  const msgs = [
-    [5000,  '⏳ 下載音訊中，請稍候…'],
-    [20000, '⏳ 後端轉檔中，請再等一下…'],
-    [50000, '⏳ 快好了，馬上就來…'],
-  ];
-  const timers = msgs.map(([ms, txt]) =>
-    setTimeout(() => { if (btn.parentElement) btn.textContent = txt; }, ms)
-  );
-
-  // 用 fetch 下載整個 MP3（後端處理完才會回傳），完成後建立 Blob URL 給 audio
-  fetch(streamUrl)
-    .then(function(res) {
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return res.blob();   // 等整個 MP3 下載完
-    })
-    .then(function(blob) {
-      timers.forEach(clearTimeout);
-      barWrap.style.display = 'none';
-      btn.remove();
-
-      const blobUrl = URL.createObjectURL(blob);
-      const audio   = document.createElement('audio');
-      audio.controls    = true;
-      audio.src         = blobUrl;
-      audio.style.width = '100%';
-      audio.style.marginTop = '6px';
-
-      // 播放完畢後釋放 Blob URL
-      audio.addEventListener('ended', () => URL.revokeObjectURL(blobUrl));
-
-      cardInfo.appendChild(audio);
-      audio.play().catch(() => {});  // 自動播放（可能被瀏覽器擋，沒關係）
+  // Step 1：提交任務，立即取得 job_id（不等待處理）
+  fetch(`${backend}/submit?url=${encodeURIComponent(ytUrl)}`)
+    .then(r => r.json())
+    .then(function(data) {
+      if (!data.job_id) throw new Error(data.error || '提交失敗');
+      btn.textContent = '⏳ 下載中，請稍候…';
+      // Step 2：輪詢狀態
+      pollStatus(data.job_id, backend, btn, barWrap, errDiv, cardInfo, 0);
     })
     .catch(function(err) {
-      timers.forEach(clearTimeout);
       barWrap.style.display = 'none';
       btn.disabled    = false;
       btn.textContent = '▶ 播放 MP3';
-      errDiv.textContent   = `⚠️ 失敗：${err.message}，請稍後再試`;
+      errDiv.textContent   = `⚠️ 提交失敗：${err.message}`;
       errDiv.style.display = 'block';
-      console.error('loadMp3 error:', err);
+    });
+}
+
+function pollStatus(jobId, backend, btn, barWrap, errDiv, cardInfo, attempts) {
+  if (attempts > 60) {  // 最多輪詢 60 次（約 2 分鐘）
+    barWrap.style.display = 'none';
+    btn.disabled    = false;
+    btn.textContent = '▶ 播放 MP3';
+    errDiv.textContent   = '⚠️ 處理逾時，請稍後再試';
+    errDiv.style.display = 'block';
+    return;
+  }
+
+  if (attempts === 10) btn.textContent = '⏳ 轉檔中，快好了…';
+  if (attempts === 20) btn.textContent = '⏳ 即將完成…';
+
+  fetch(`${backend}/status/${jobId}`)
+    .then(r => r.json())
+    .then(function(data) {
+      if (data.status === 'done') {
+        // Step 3：下載 MP3 Blob 並播放
+        btn.textContent = '⏳ 載入音訊…';
+        return fetch(`${backend}/download/${jobId}`)
+          .then(r => { if (!r.ok) throw new Error(`下載失敗 ${r.status}`); return r.blob(); })
+          .then(function(blob) {
+            barWrap.style.display = 'none';
+            btn.remove();
+            const blobUrl = URL.createObjectURL(blob);
+            const audio   = document.createElement('audio');
+            audio.controls = true;
+            audio.src      = blobUrl;
+            audio.style.cssText = 'width:100%;margin-top:6px;border-radius:20px;';
+            audio.addEventListener('ended', () => URL.revokeObjectURL(blobUrl));
+            cardInfo.appendChild(audio);
+            audio.play().catch(() => {});
+          });
+      } else if (data.status === 'error') {
+        throw new Error(data.error || '後端錯誤');
+      } else {
+        // 還在處理，2 秒後再問
+        setTimeout(() => pollStatus(jobId, backend, btn, barWrap, errDiv, cardInfo, attempts + 1), 2000);
+      }
+    })
+    .catch(function(err) {
+      barWrap.style.display = 'none';
+      btn.disabled    = false;
+      btn.textContent = '▶ 播放 MP3';
+      errDiv.textContent   = `⚠️ 失敗：${err.message}`;
+      errDiv.style.display = 'block';
     });
 }
 
