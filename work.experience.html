@@ -79,7 +79,7 @@
     #recommendButton { background: #666; color: #fff; }
     #recommendButton:hover { background: #888; }
 
-    /* ── 推薦下拉選單 ── */
+    /* ── 推薦下拉選單（純點擊控制）── */
     .recommend-wrap {
       position: relative;
       display: inline-block;
@@ -87,20 +87,19 @@
     .recommend-menu {
       display: none;
       position: absolute;
-      top: 100%;
+      top: calc(100% + 4px);
       right: 0;
-      margin-top: 4px;
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      min-width: 180px;
+      min-width: 200px;
       max-height: 400px;
       overflow-y: auto;
-      z-index: 100;
+      z-index: 1000;
     }
-    .recommend-wrap:hover .recommend-menu,
-    .recommend-menu:hover {
+    /* 只有 .open 才顯示，hover 不會觸發 */
+    .recommend-wrap.open .recommend-menu {
       display: block;
     }
     .recommend-menu .menu-section {
@@ -110,9 +109,12 @@
       color: #888;
       background: #f5f5f5;
       border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      z-index: 1;
     }
     .recommend-menu .menu-item {
-      padding: 8px 14px;
+      padding: 9px 14px;
       cursor: pointer;
       font-size: 13px;
       color: #333;
@@ -126,6 +128,12 @@
     .recommend-menu .menu-item:last-child {
       border-bottom: none;
     }
+    /* 美化捲軸 */
+    .recommend-menu::-webkit-scrollbar { width: 8px; }
+    .recommend-menu::-webkit-scrollbar-thumb {
+      background: #ccc; border-radius: 4px;
+    }
+    .recommend-menu::-webkit-scrollbar-thumb:hover { background: #999; }
 
     #searchStatus { color: #888; font-size: 14px; margin-top: 10px; min-height: 20px; }
 
@@ -334,7 +342,6 @@
           <button class="btn" id="recommendButton">ʕっ•ᴥ•ʔっ 推薦 ▾</button>
           <div class="recommend-menu">
 
-
             <div class="menu-section">📺 節目 / 解說</div>
             <div class="menu-item" onclick="quickSearch('Emmy追劇時間')">Emmy 追劇時間</div>
             <div class="menu-item" onclick="quickSearch('財經早晨速解讀')">財經早晨速解讀</div>
@@ -354,10 +361,10 @@
             <div class="menu-item" onclick="quickSearch('2026 熱門歌曲')">2026 熱門歌曲</div>
             <div class="menu-item" onclick="quickSearch('華語流行')">華語流行</div>
             <div class="menu-item" onclick="quickSearch('KKBOX 排行榜')">KKBOX 排行榜</div>
-            <div class="menu-item" onclick="quickSearch('JPOP歌曲')">日語歌曲</div>
-            <div class="menu-item" onclick="quickSearch('KPOP歌曲')">韓文歌曲</div>
+            <div class="menu-item" onclick="quickSearch('日語歌曲')">日語歌曲</div>
+            <div class="menu-item" onclick="quickSearch('韓文歌曲')">韓文歌曲</div>
 
-            
+         
 
             <div class="menu-section">🎲 隨機</div>
             <div class="menu-item" onclick="randomSearch()">🔀 給我驚喜！</div>
@@ -394,7 +401,7 @@ let currentApiKeyIndex = 0;
    RapidAPI Key（YouTube → MP3 用）
    預設你的 Key，使用者也可以自行覆蓋
 ════════════════════════════════════════ */
-const DEFAULT_RAPID_KEY = 'f985b7edadmsh141de4112472962p117fa1jsnc781419b1d40';
+const DEFAULT_RAPID_KEY = 'd307b7d223msh0ff24409b3e1745p161d92jsn78d584b64dcd';
 const SAVED_KEY = localStorage.getItem('rapidApiKey') || DEFAULT_RAPID_KEY;
 $('#rapidApiKey').val(SAVED_KEY);
 $('#rapidApiKey').on('change', function() {
@@ -413,19 +420,29 @@ $('#searchButton').click(function () {
   if (q) searchYouTube(q);
 });
 
-$('#recommendButton').click(function () {
-  // 按按鈕本身也觸發隨機搜尋（給直接點擊的人）
-  randomSearch();
+/* 點推薦按鈕：切換選單開關（再點一次或選到項目會關閉）*/
+$('#recommendButton').click(function (e) {
+  e.stopPropagation();
+  $('.recommend-wrap').toggleClass('open');
 });
 
-/* 點下拉選單項目：直接帶入關鍵字並搜尋 */
+/* 點選單外的地方關閉選單（但點選單內部不關閉，讓使用者可以滾動）*/
+$(document).click(function (e) {
+  if (!$(e.target).closest('.recommend-wrap').length) {
+    $('.recommend-wrap').removeClass('open');
+  }
+});
+
+/* 點下拉選單項目：帶入關鍵字並搜尋，同時關閉選單 */
 function quickSearch(keyword) {
+  $('.recommend-wrap').removeClass('open');
   $('#searchQuery').val(keyword);
   searchYouTube(keyword);
 }
 
-/* 隨機推薦：從所有選項裡選一個 */
+/* 隨機推薦 */
 function randomSearch() {
+  $('.recommend-wrap').removeClass('open');
   const all = [
     'lofi hip hop', '古典音樂', '爵士音樂', '鋼琴演奏', '輕音樂 放鬆',
     '2026 熱門歌曲', '華語流行', '日語歌曲', '韓文歌曲',
