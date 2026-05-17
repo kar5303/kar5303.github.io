@@ -81,7 +81,7 @@
 
     #searchStatus { color: #888; font-size: 14px; margin-top: 10px; min-height: 20px; }
 
-    /* ── 後端設定框 ── */
+    /* ── API Key 設定框 ── */
     .api-config {
       background: #fff8e1; border: 1px solid #ffe082;
       border-radius: 8px; padding: 12px 16px; margin-bottom: 16px;
@@ -93,6 +93,10 @@
       padding: 7px 8px; border: 1px solid #ccc;
       border-radius: 6px; font-size: 13px; box-sizing: border-box;
     }
+    .api-config .hint {
+      font-size: 12px; color: #666; margin-top: 6px;
+    }
+    .api-config a { color: #b45309; }
 
     /* ── 結果卡片 ── */
     #results { margin-top: 16px; }
@@ -135,7 +139,6 @@
       margin-top: 6px;
     }
 
-    /* 播放按鈕 */
     .load-mp3-btn {
       display: inline-block;
       background: #1a7a1a; color: #fff;
@@ -146,7 +149,6 @@
     .load-mp3-btn:hover { background: #259025; }
     .load-mp3-btn:disabled { background: #999; cursor: default; }
 
-    /* 載入進度條 */
     .loading-bar-wrap {
       width: 100%; height: 4px;
       background: #eee; border-radius: 2px;
@@ -165,7 +167,6 @@
       100% { width: 20%; opacity: 1; }
     }
 
-    /* 錯誤訊息 */
     .error-msg {
       font-size: 12px; color: #c00;
       margin-top: 4px; display: none;
@@ -261,16 +262,21 @@
     </div>
 
     <!-- ══════════════════════════════════════
-         🎵 音樂搜尋播放器
+         🎵 音樂搜尋播放器（RapidAPI 版本）
     ══════════════════════════════════════ -->
     <div class="search-area">
       <h3>🎵 音樂搜尋播放器</h3>
 
       <div class="api-config">
-        <strong>⚙️ 後端設定：</strong>填入你的 Render 後端網址<br>
-        <input type="text" id="backendUrl"
-               placeholder="https://mp3-stream-backendv1.onrender.com"
-               value="https://mp3-stream-backendv1.onrender.com">
+        <strong>⚙️ RapidAPI Key：</strong>已預設可直接使用
+        <input type="text" id="rapidApiKey"
+               placeholder="貼上你從 RapidAPI 拿到的 X-RapidAPI-Key"
+               value="f985b7edadmsh141de4112472962p117fa1jsnc781419b1d40">
+        <div class="hint">
+          已預設我的 Key（每天 100 次免費）。若用完額度可前往
+          <a href="https://rapidapi.com/ytjar/api/youtube-mp36" target="_blank">RapidAPI</a>
+          註冊自己的 Key 取代。
+        </div>
       </div>
 
       <div class="search-row">
@@ -292,7 +298,9 @@
 </div>
 
 <script>
-/* ── YouTube API 金鑰 ── */
+/* ════════════════════════════════════════
+   YouTube Data API 金鑰（搜尋影片用）
+════════════════════════════════════════ */
 const API_KEYS = [
   'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8',
   'AIzaSyAtDWcQXc8qu_RGqpetnVjaA4yp3iBdaPo',
@@ -301,10 +309,24 @@ const API_KEYS = [
 ];
 let currentApiKeyIndex = 0;
 
-function getBackend() {
-  return ($('#backendUrl').val() || '').replace(/\/$/, '').trim();
+/* ════════════════════════════════════════
+   RapidAPI Key（YouTube → MP3 用）
+   預設你的 Key，使用者也可以自行覆蓋
+════════════════════════════════════════ */
+const DEFAULT_RAPID_KEY = 'f985b7edadmsh141de4112472962p117fa1jsnc781419b1d40';
+const SAVED_KEY = localStorage.getItem('rapidApiKey') || DEFAULT_RAPID_KEY;
+$('#rapidApiKey').val(SAVED_KEY);
+$('#rapidApiKey').on('change', function() {
+  localStorage.setItem('rapidApiKey', $(this).val().trim());
+});
+
+function getRapidKey() {
+  return ($('#rapidApiKey').val() || DEFAULT_RAPID_KEY).trim();
 }
 
+/* ════════════════════════════════════════
+   搜尋按鈕
+════════════════════════════════════════ */
 $('#searchButton').click(function () {
   const q = $('#searchQuery').val().trim();
   if (q) searchYouTube(q);
@@ -320,6 +342,9 @@ document.getElementById('searchQuery').addEventListener('keypress', function (e)
   if (e.key === 'Enter') $('#searchButton').click();
 });
 
+/* ════════════════════════════════════════
+   YouTube 搜尋
+════════════════════════════════════════ */
 function searchYouTube(query) {
   const apiKey = API_KEYS[currentApiKeyIndex];
   $('#results').empty();
@@ -345,7 +370,6 @@ function searchYouTube(query) {
         const videoId = video.id;
         const title   = $('<div>').text(video.snippet.title).html();
         const thumb   = (video.snippet.thumbnails.medium || video.snippet.thumbnails.default).url;
-        const ytUrl   = `https://www.youtube.com/watch?v=${videoId}`;
 
         const cardHtml = `
           <div class="result-card" id="card-${videoId}">
@@ -355,7 +379,7 @@ function searchYouTube(query) {
             <div class="card-info">
               <div class="card-title" title="${title}">${title}</div>
               <button class="load-mp3-btn" id="btn-${videoId}"
-                onclick="loadMp3('${videoId}', '${ytUrl}')">▶ 播放 MP3</button>
+                onclick="loadMp3('${videoId}')">▶ 載入 MP3</button>
               <div class="loading-bar-wrap" id="bar-wrap-${videoId}">
                 <div class="loading-bar"></div>
               </div>
@@ -376,10 +400,15 @@ function searchYouTube(query) {
   });
 }
 
-/* ── 載入 MP3（用 fetch 等後端完成，再用 Blob URL 播放）── */
-function loadMp3(videoId, ytUrl) {
-  const backend = getBackend();
-  if (!backend) { alert('⚠️ 請先填入後端網址！'); return; }
+/* ════════════════════════════════════════
+   載入 MP3（呼叫 RapidAPI youtube-mp36）
+════════════════════════════════════════ */
+function loadMp3(videoId) {
+  const rapidKey = getRapidKey();
+  if (!rapidKey) {
+    alert('⚠️ 請先填入 RapidAPI Key！\n\n前往 https://rapidapi.com/ytjar/api/youtube-mp36 註冊免費 Key。');
+    return;
+  }
 
   const btn      = document.getElementById(`btn-${videoId}`);
   const barWrap  = document.getElementById(`bar-wrap-${videoId}`);
@@ -389,77 +418,81 @@ function loadMp3(videoId, ytUrl) {
   errDiv.style.display  = 'none';
   errDiv.textContent    = '';
   btn.disabled          = true;
-  btn.textContent       = '⏳ 提交任務中…';
+  btn.textContent       = '⏳ 處理中…';
   barWrap.style.display = 'block';
 
-  // Step 1：提交任務，立即取得 job_id（不等待處理）
-  fetch(`${backend}/submit?url=${encodeURIComponent(ytUrl)}`)
-    .then(r => r.json())
-    .then(function(data) {
-      if (!data.job_id) throw new Error(data.error || '提交失敗');
-      btn.textContent = '⏳ 下載中，請稍候…';
-      // Step 2：輪詢狀態
-      pollStatus(data.job_id, backend, btn, barWrap, errDiv, cardInfo, 0);
-    })
-    .catch(function(err) {
-      barWrap.style.display = 'none';
-      btn.disabled    = false;
-      btn.textContent = '▶ 播放 MP3';
-      errDiv.textContent   = `⚠️ 提交失敗：${err.message}`;
-      errDiv.style.display = 'block';
-    });
+  // 呼叫 RapidAPI：youtube-mp36
+  // 文件：https://rapidapi.com/ytjar/api/youtube-mp36
+  fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key':  rapidKey,
+      'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
+    }
+  })
+  .then(r => r.json())
+  .then(handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, 0))
+  .catch(err => showError(btn, barWrap, errDiv, `網路錯誤：${err.message}`));
 }
 
-function pollStatus(jobId, backend, btn, barWrap, errDiv, cardInfo, attempts) {
-  if (attempts > 60) {  // 最多輪詢 60 次（約 2 分鐘）
-    barWrap.style.display = 'none';
-    btn.disabled    = false;
-    btn.textContent = '▶ 播放 MP3';
-    errDiv.textContent   = '⚠️ 處理逾時，請稍後再試';
-    errDiv.style.display = 'block';
-    return;
-  }
+/* 處理 API 回應：可能是 done（直接拿到連結）或 processing（要輪詢）*/
+function handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, attempts) {
+  return function(data) {
+    // 成功取得 MP3 連結
+    if (data.status === 'ok' && data.link) {
+      barWrap.style.display = 'none';
+      btn.remove();
+      const audio = document.createElement('audio');
+      audio.controls = true;
+      audio.src      = data.link;
+      audio.style.cssText = 'width:100%;margin-top:6px;border-radius:20px;';
+      cardInfo.appendChild(audio);
+      audio.play().catch(() => {});
+      return;
+    }
 
-  if (attempts === 10) btn.textContent = '⏳ 轉檔中，快好了…';
-  if (attempts === 20) btn.textContent = '⏳ 即將完成…';
-
-  fetch(`${backend}/status/${jobId}`)
-    .then(r => r.json())
-    .then(function(data) {
-      if (data.status === 'done') {
-        // Step 3：下載 MP3 Blob 並播放
-        btn.textContent = '⏳ 載入音訊…';
-        return fetch(`${backend}/download/${jobId}`)
-          .then(r => { if (!r.ok) throw new Error(`下載失敗 ${r.status}`); return r.blob(); })
-          .then(function(blob) {
-            barWrap.style.display = 'none';
-            btn.remove();
-            const blobUrl = URL.createObjectURL(blob);
-            const audio   = document.createElement('audio');
-            audio.controls = true;
-            audio.src      = blobUrl;
-            audio.style.cssText = 'width:100%;margin-top:6px;border-radius:20px;';
-            audio.addEventListener('ended', () => URL.revokeObjectURL(blobUrl));
-            cardInfo.appendChild(audio);
-            audio.play().catch(() => {});
-          });
-      } else if (data.status === 'error') {
-        throw new Error(data.error || '後端錯誤');
-      } else {
-        // 還在處理，2 秒後再問
-        setTimeout(() => pollStatus(jobId, backend, btn, barWrap, errDiv, cardInfo, attempts + 1), 2000);
+    // 仍在處理中，2 秒後再問
+    if (data.status === 'processing' || data.status === 'CONVERTING') {
+      if (attempts > 60) {
+        showError(btn, barWrap, errDiv, '處理逾時，請稍後再試');
+        return;
       }
-    })
-    .catch(function(err) {
-      barWrap.style.display = 'none';
-      btn.disabled    = false;
-      btn.textContent = '▶ 播放 MP3';
-      errDiv.textContent   = `⚠️ 失敗：${err.message}`;
-      errDiv.style.display = 'block';
-    });
+      if (attempts === 5)  btn.textContent = '⏳ 轉檔中…';
+      if (attempts === 15) btn.textContent = '⏳ 即將完成…';
+      if (attempts === 30) btn.textContent = '⏳ 較長的音訊，請耐心等候…';
+
+      setTimeout(() => {
+        fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
+          method: 'GET',
+          headers: {
+            'X-RapidAPI-Key':  getRapidKey(),
+            'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
+          }
+        })
+        .then(r => r.json())
+        .then(handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, attempts + 1))
+        .catch(err => showError(btn, barWrap, errDiv, `網路錯誤：${err.message}`));
+      }, 2000);
+      return;
+    }
+
+    // 失敗
+    showError(btn, barWrap, errDiv,
+      data.msg || data.message || `API 錯誤（${data.status || 'unknown'}）`);
+  };
 }
 
-/* ── 回到頂部 ── */
+function showError(btn, barWrap, errDiv, msg) {
+  barWrap.style.display = 'none';
+  btn.disabled    = false;
+  btn.textContent = '▶ 載入 MP3';
+  errDiv.textContent   = `⚠️ ${msg}`;
+  errDiv.style.display = 'block';
+}
+
+/* ════════════════════════════════════════
+   回到頂部
+════════════════════════════════════════ */
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 window.onscroll = function () {
   document.getElementById('back-to-top-container').style.display =
