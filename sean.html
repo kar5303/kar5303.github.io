@@ -8,157 +8,64 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     background-color: #f4f4f4;
     color: #333;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
   }
   header {
-    background-color: #333;
-    color: #fff;
-    padding: 8px 0;
-    text-align: center;
-    font-size: 20px;
+    background-color: #333; color: #fff;
+    padding: 8px 0; text-align: center; font-size: 20px;
   }
-  @media (max-width: 600px) {
-    header {
-      padding: 5px 0;
-      font-size: 16px;
-    }
-  }
-  nav {
-    display: flex;
-    justify-content: center;
-    justify-content: flex-end;
-    align-items: center;
-    background-color: #333;
-    padding: 10;
-    position: relative;
-  }
-  nav img {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: auto;
-  }
-  nav input[type="checkbox"] {
-    display: none;
-  }
-  nav .menu-icon {
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    padding: 14px;
-    text-align: center;
-  }
-  nav .menu {
-    display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    background-color: rgba(68, 68, 68, 1);
-    width: 100%;
-    text-align: center;
-  }
-  nav .menu a {
-    display: block;
-    padding: 14px 0;
-    color: #fff;
-    text-decoration: none;
-  }
-  nav .menu a:hover {
-    background-color: #555;
-  }
-  nav input[type="checkbox"]:checked ~ .menu {
-    display: block;
-  }
-  nav a {
-    color: #fff;
-    padding: 14px 10px;
-    text-decoration: none;
-    text-align: center;
-    white-space: nowrap;
-  }
-  nav a:hover {
-    background-color: #555;
-  }
-  .container {
-    width: 80%;
-    max-width: 900px;
-    margin: 10px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding-bottom: 100px;
-    flex: 1;
-  }
-  .section {
-    margin-bottom: 40px;
-  }
-  .section h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-  }
-  .portfolio-item {
-    margin-bottom: 30px;
-  }
-  .portfolio-item h3 {
-    margin-bottom: 10px;
-  }
-  .video-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    overflow: hidden;
-  }
-  .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+  @media (max-width: 600px) { header { padding: 5px 0; font-size: 16px; } }
 
-  /* ── 音樂搜尋播放器區塊 ── */
-  .search-area {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  nav {
+    display: flex; justify-content: flex-end; align-items: center;
+    background-color: #333; padding: 10; position: relative;
   }
-  .search-area h3 {
-    margin: 0 0 14px;
-    font-size: 18px;
-    border-bottom: 2px solid #333;
-    padding-bottom: 8px;
+  nav img { position: absolute; left: 50%; transform: translateX(-50%); width: 100px; height: auto; }
+  nav input[type="checkbox"] { display: none; }
+  nav .menu-icon { font-size: 24px; color: #fff; cursor: pointer; padding: 14px; text-align: center; }
+  nav .menu {
+    display: none; position: absolute; top: 60px; left: 0;
+    background-color: rgba(68,68,68,1); width: 100%; text-align: center;
   }
-  .search-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  nav .menu a { display: block; padding: 14px 0; color: #fff; text-decoration: none; }
+  nav .menu a:hover { background-color: #555; }
+  nav input[type="checkbox"]:checked ~ .menu { display: block; }
+  nav a { color: #fff; padding: 14px 10px; text-decoration: none; text-align: center; white-space: nowrap; }
+  nav a:hover { background-color: #555; }
+
+  .container {
+    width: 80%; max-width: 900px;
+    margin: 10px auto; padding: 20px 20px 100px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    border-radius: 10px; flex: 1;
+  }
+  .section { margin-bottom: 40px; }
+  .section h2 { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+  .portfolio-item { margin-bottom: 30px; }
+  .portfolio-item h3 { margin-bottom: 10px; }
+  .video-container { position: relative; width: 100%; padding-bottom: 56.25%; overflow: hidden; }
+  .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+  /* ── 搜尋列 ── */
+  .search-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 20px; align-items: center;
+  }
   #searchQuery {
-    flex: 1;
-    min-width: 160px;
-    padding: 10px 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 15px;
-    outline: none;
-    transition: border 0.2s;
+    flex: 1; min-width: 160px; padding: 10px 14px;
+    border: 1px solid #ccc; border-radius: 6px;
+    font-size: 15px; outline: none;
   }
   #searchQuery:focus { border-color: #333; }
   .btn {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
+    padding: 10px 18px; border: none; border-radius: 6px;
+    font-size: 14px; cursor: pointer; white-space: nowrap;
     transition: background 0.2s, transform 0.1s;
-    white-space: nowrap;
   }
   .btn:active { transform: scale(0.97); }
   #searchButton    { background: #333; color: #fff; }
@@ -168,247 +75,143 @@
 
   #searchStatus { color: #888; font-size: 14px; margin-top: 10px; min-height: 20px; }
 
-  /* ── RapidAPI Key 設定框 ── */
-  .api-config {
-    background: #fff8e1;
-    border: 1px solid #ffe082;
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 16px;
-    font-size: 13px;
-  }
-  .api-config strong { color: #b45309; }
-  .api-config input {
-    width: 100%;
-    margin-top: 6px;
-    padding: 7px 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 13px;
-    box-sizing: border-box;
-  }
-  .api-config .hint { font-size: 12px; color: #666; margin-top: 6px; }
-  .api-config a { color: #b45309; }
-
-  /* ── 推薦下拉選單（純點擊控制）── */
-  .recommend-wrap {
-    position: relative;
-    display: inline-block;
-  }
+  /* ── 推薦下拉選單 ── */
+  .recommend-wrap { position: relative; display: inline-block; }
   .recommend-menu {
-    display: none;
-    position: absolute;
-    top: calc(100% + 4px);
-    right: 0;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    min-width: 200px;
-    max-height: 400px;
-    overflow-y: auto;
+    display: none; position: absolute;
+    top: calc(100% + 4px); right: 0;
+    background: #fff; border: 1px solid #ddd;
+    border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 200px; max-height: 400px; overflow-y: auto;
     z-index: 1000;
   }
   .recommend-wrap.open .recommend-menu { display: block; }
   .recommend-menu .menu-section {
-    padding: 6px 12px;
-    font-size: 11px;
-    font-weight: bold;
-    color: #888;
-    background: #f5f5f5;
+    padding: 6px 12px; font-size: 11px; font-weight: bold;
+    color: #888; background: #f5f5f5;
     border-bottom: 1px solid #eee;
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    position: sticky; top: 0; z-index: 1;
   }
   .recommend-menu .menu-item {
-    padding: 9px 14px;
-    cursor: pointer;
-    font-size: 13px;
-    color: #333;
-    transition: background 0.15s;
-    border-bottom: 1px solid #f5f5f5;
+    padding: 9px 14px; cursor: pointer; font-size: 13px; color: #333;
+    transition: background 0.15s; border-bottom: 1px solid #f5f5f5;
   }
   .recommend-menu .menu-item:hover { background: #1a7a1a; color: #fff; }
   .recommend-menu .menu-item:last-child { border-bottom: none; }
   .recommend-menu::-webkit-scrollbar { width: 8px; }
   .recommend-menu::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-  .recommend-menu::-webkit-scrollbar-thumb:hover { background: #999; }
 
   /* ── 結果卡片 ── */
   #results { margin-top: 16px; }
   .result-card {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 12px 16px;
+    display: flex; align-items: flex-start; gap: 14px;
+    background: #fff; border: 1px solid #e0e0e0;
+    border-radius: 10px; padding: 12px 16px;
     margin-bottom: 12px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
     transition: box-shadow 0.2s;
   }
   .result-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
 
+  /* ── 縮圖：點擊會變成影片播放 ── */
   .thumb-wrap {
     position: relative;
     flex-shrink: 0;
-    width: 100px;
-    height: 56px;
+    width: 160px;
+    height: 90px;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #000;
   }
   .thumb-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform 0.3s, opacity 0.2s;
+  }
+  .thumb-wrap:hover img { transform: scale(1.05); opacity: 0.85; }
+  /* 播放按鈕圖示 */
+  .play-icon {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px;
+    background: rgba(220,0,0,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .thumb-wrap:hover .play-icon {
+    background: rgba(220,0,0,1);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  .play-icon::after {
+    content: '';
+    display: block;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 8px 0 8px 14px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 3px;
+  }
+
+  /* 影片嵌入時取代縮圖 */
+  .video-player {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    border-radius: 6px;
-    display: block;
+    border: none;
   }
-  .thumb-wrap::after {
-    content: "🎵";
-    position: absolute;
-    bottom: 3px;
-    right: 4px;
-    font-size: 13px;
-    background: rgba(0,0,0,0.55);
-    border-radius: 4px;
-    padding: 1px 4px;
-    pointer-events: none;
-  }
+  .thumb-wrap.playing { cursor: default; }
+  .thumb-wrap.playing img,
+  .thumb-wrap.playing .play-icon { display: none; }
 
   .card-info { flex: 1; min-width: 0; }
   .card-title {
-    font-size: 14px;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 8px;
-  }
-  .card-info audio {
-    width: 100%;
-    height: 36px;
-    border-radius: 20px;
-    outline: none;
-    display: block;
-    margin-top: 6px;
+    font-size: 14px; font-weight: bold;
+    overflow: hidden; display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    line-height: 1.4; margin-bottom: 8px;
   }
 
-  /* 操作按鈕群組 */
-  .action-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 4px;
-  }
-  .action-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    border: none;
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+  /* 下載按鈕 */
+  .download-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #1976d2; color: #fff;
+    border: none; border-radius: 20px;
+    padding: 7px 16px; font-size: 13px;
+    cursor: pointer; transition: background 0.2s, transform 0.1s;
     text-decoration: none;
-    color: #fff;
   }
-  .action-btn:active { transform: scale(0.96); }
-  .action-btn:disabled { background: #999 !important; cursor: default; }
+  .download-btn:hover { background: #2089e8; }
+  .download-btn:active { transform: scale(0.96); }
+  .download-btn:disabled { background: #999; cursor: default; }
 
-  .btn-mp3     { background: #1a7a1a; }
-  .btn-mp3:hover { background: #259025; }
-  .btn-video   { background: #c62828; }
-  .btn-video:hover { background: #e03e3e; }
-  .btn-download{ background: #1976d2; }
-  .btn-download:hover { background: #2089e8; }
-
-  /* 影片嵌入區（展開 / 收合）*/
-  .video-embed {
-    display: none;
-    width: 100%;
-    margin-top: 10px;
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    border-radius: 8px;
-  }
-  .video-embed iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px;
-  }
-  .video-embed.open { display: block; }
-
-  .loading-bar-wrap {
-    width: 100%;
-    height: 4px;
-    background: #eee;
-    border-radius: 2px;
-    margin-top: 8px;
-    overflow: hidden;
-    display: none;
-  }
-  .loading-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #1a7a1a, #5cb85c);
-    border-radius: 2px;
-    animation: loading-pulse 1.5s ease-in-out infinite;
-  }
-  @keyframes loading-pulse {
-    0%   { width: 20%; opacity: 1; }
-    50%  { width: 80%; opacity: 0.7; }
-    100% { width: 20%; opacity: 1; }
-  }
-
-  .error-msg {
-    font-size: 12px;
-    color: #c00;
-    margin-top: 4px;
-    display: none;
-  }
+  .error-msg { font-size: 12px; color: #c00; margin-top: 4px; display: none; }
 
   footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
-    position: relative;
-    bottom: 0;
+    background-color: #333; color: #fff;
+    text-align: center; padding: 10px 0;
+    width: 100%; position: relative; bottom: 0;
   }
   #back-to-top-container {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
+    display: none; position: fixed;
+    bottom: 20px; right: 20px; z-index: 1000;
   }
   #back-to-top {
-    background-color: #444;
-    color: #fff;
-    font-weight: bold;
-    padding: 10px 20px;
-    text-decoration: none;
-    border: 2px solid #444;
-    border-radius: 30px;
-    cursor: pointer;
+    background-color: #444; color: #fff; font-weight: bold;
+    padding: 10px 20px; border: 2px solid #444;
+    border-radius: 30px; cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   #back-to-top:hover {
     transform: scale(1.05) translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
   }
 </style>
 </head>
 <body>
+
 <nav>
   <img src="LOGO.png" alt="Your Logo">
   <input type="checkbox" id="menu-toggle">
@@ -464,52 +267,47 @@
     </div>
 
     <!-- ══════════════════════════════════════
-         🎵 音樂搜尋播放器
+         🎵 YouTube 搜尋（縮圖點擊即播 + MP3 下載）
     ══════════════════════════════════════ -->
-    <div class="search-area">
-      <h3>🎵 音樂搜尋播放器</h3>
+    <input type="hidden" id="rapidApiKey"
+           value="f985b7edadmsh141de4112472962p117fa1jsnc781419b1d40">
 
-      <!-- RapidAPI Key 設定框已隱藏，Key 使用預設值 -->
-      <input type="hidden" id="rapidApiKey"
-             value="f985b7edadmsh141de4112472962p117fa1jsnc781419b1d40">
+    <div class="search-row">
+      <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字…">
+      <button class="btn" id="searchButton">搜尋</button>
+      <div class="recommend-wrap">
+        <button class="btn" id="recommendButton">ʕっ•ᴥ•ʔっ推薦 ▾</button>
+        <div class="recommend-menu">
+          <div class="menu-section">📺 節目 / 解說</div>
+          <div class="menu-item" onclick="quickSearch('Emmy追劇時間')">Emmy 追劇時間</div>
+          <div class="menu-item" onclick="quickSearch('財經早晨速解讀')">財經早晨速解讀</div>
+          <div class="menu-item" onclick="quickSearch('博音')">博音</div>
+          <div class="menu-item" onclick="quickSearch('閱部客')">閱部客</div>
+          <div class="menu-item" onclick="quickSearch('只能喝酒的圖書館')">只能喝酒的圖書館</div>
 
-      <div class="search-row">
-        <input type="text" id="searchQuery" placeholder="輸入搜尋關鍵字…">
-        <button class="btn" id="searchButton">搜尋</button>
-        <div class="recommend-wrap">
-          <button class="btn" id="recommendButton">ʕっ•ᴥ•ʔっ推薦 ▾</button>
-          <div class="recommend-menu">
-            <div class="menu-section">📺 節目 / 解說</div>
-            <div class="menu-item" onclick="quickSearch('Emmy追劇時間')">Emmy 追劇時間</div>
-            <div class="menu-item" onclick="quickSearch('財經早晨速解讀')">財經早晨速解讀</div>
-            <div class="menu-item" onclick="quickSearch('博音')">博音</div>
-            <div class="menu-item" onclick="quickSearch('閱部客')">閱部客</div>
-            <div class="menu-item" onclick="quickSearch('只能喝酒的圖書館')">只能喝酒的圖書館</div>
+          <div class="menu-section">🎵 音樂類型</div>
+          <div class="menu-item" onclick="quickSearch('音樂')">音樂</div>
+          <div class="menu-item" onclick="quickSearch('lofi hip hop')">lofi hip hop</div>
+          <div class="menu-item" onclick="quickSearch('音樂JPOP')">音樂JPOP</div>
+          <div class="menu-item" onclick="quickSearch('爵士音樂')">爵士音樂</div>
+          <div class="menu-item" onclick="quickSearch('鋼琴演奏')">鋼琴演奏</div>
+          <div class="menu-item" onclick="quickSearch('輕音樂 放鬆')">輕音樂 放鬆</div>
+          <div class="menu-item" onclick="quickSearch('白噪音 讀書')">白噪音 讀書</div>
 
-            <div class="menu-section">🎵 音樂類型</div>
-            <div class="menu-item" onclick="quickSearch('音樂')">音樂</div>
-            <div class="menu-item" onclick="quickSearch('lofi hip hop')">lofi hip hop</div>
-            <div class="menu-item" onclick="quickSearch('音樂JPOP')">音樂JPOP</div>
-            <div class="menu-item" onclick="quickSearch('爵士音樂')">爵士音樂</div>
-            <div class="menu-item" onclick="quickSearch('鋼琴演奏')">鋼琴演奏</div>
-            <div class="menu-item" onclick="quickSearch('輕音樂 放鬆')">輕音樂 放鬆</div>
-            <div class="menu-item" onclick="quickSearch('白噪音 讀書')">白噪音 讀書</div>
+          <div class="menu-section">🎤 流行 / 華語</div>
+          <div class="menu-item" onclick="quickSearch('2026 熱門歌曲')">2026 熱門歌曲</div>
+          <div class="menu-item" onclick="quickSearch('華語流行')">華語流行</div>
+          <div class="menu-item" onclick="quickSearch('KKBOX 排行榜')">KKBOX 排行榜</div>
+          <div class="menu-item" onclick="quickSearch('日語歌曲')">日語歌曲</div>
+          <div class="menu-item" onclick="quickSearch('韓文歌曲')">韓文歌曲</div>
 
-            <div class="menu-section">🎤 流行 / 華語</div>
-            <div class="menu-item" onclick="quickSearch('2026 熱門歌曲')">2026 熱門歌曲</div>
-            <div class="menu-item" onclick="quickSearch('華語流行')">華語流行</div>
-            <div class="menu-item" onclick="quickSearch('KKBOX 排行榜')">KKBOX 排行榜</div>
-            <div class="menu-item" onclick="quickSearch('日語歌曲')">日語歌曲</div>
-            <div class="menu-item" onclick="quickSearch('韓文歌曲')">韓文歌曲</div>
-
-            <div class="menu-section">🎲 隨機</div>
-            <div class="menu-item" onclick="randomSearch()">🔀 給我驚喜！</div>
-          </div>
+          <div class="menu-section">🎲 隨機</div>
+          <div class="menu-item" onclick="randomSearch()">🔀 給我驚喜！</div>
         </div>
       </div>
-      <div id="searchStatus"></div>
-      <div id="results"></div>
     </div>
+    <div id="searchStatus"></div>
+    <div id="results"></div>
 
   </section>
 </div>
@@ -522,7 +320,7 @@
 
 <script>
 /* ════════════════════════════════════════
-   YouTube Data API 金鑰（搜尋影片用，4 把輪換）
+   YouTube Data API 金鑰（搜尋用）
 ════════════════════════════════════════ */
 const API_KEYS = [
   'AIzaSyBr-sdbGNR6zd0irk251xHguuKyQVDg6q8',
@@ -532,57 +330,41 @@ const API_KEYS = [
 ];
 let currentApiKeyIndex = 0;
 
-/* ════════════════════════════════════════
-   RapidAPI Key（YouTube → MP3 用）
-   儲存在 localStorage，使用者可自行覆蓋
-════════════════════════════════════════ */
-const DEFAULT_RAPID_KEY = 'f985b7edadmsh141de4112472962p117fa1jsnc781419b1d40';
-const SAVED_KEY = localStorage.getItem('rapidApiKey') || DEFAULT_RAPID_KEY;
-$('#rapidApiKey').val(SAVED_KEY);
-$('#rapidApiKey').on('change', function() {
-  localStorage.setItem('rapidApiKey', $(this).val().trim());
-});
+/* RapidAPI Key（MP3 下載）*/
 function getRapidKey() {
-  return ($('#rapidApiKey').val() || DEFAULT_RAPID_KEY).trim();
+  return document.getElementById('rapidApiKey').value.trim();
 }
 
 /* ════════════════════════════════════════
-   搜尋按鈕
+   搜尋
 ════════════════════════════════════════ */
 $('#searchButton').click(function() {
-  const query = $('#searchQuery').val().trim();
-  if (query) searchYouTube(query);
+  const q = $('#searchQuery').val().trim();
+  if (q) searchYouTube(q);
 });
 
 document.getElementById('searchQuery').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    document.getElementById('searchButton').click();
-  }
+  if (e.key === 'Enter') document.getElementById('searchButton').click();
 });
 
-/* ════════════════════════════════════════
-   推薦下拉選單（點擊控制）
-════════════════════════════════════════ */
+/* 推薦下拉選單 */
 $('#recommendButton').click(function(e) {
   e.stopPropagation();
   $('.recommend-wrap').toggleClass('open');
 });
 
-/* 點選單以外的地方就關閉選單（點選單內部不關閉，方便捲動）*/
 $(document).click(function(e) {
   if (!$(e.target).closest('.recommend-wrap').length) {
     $('.recommend-wrap').removeClass('open');
   }
 });
 
-/* 點選單項目：帶入關鍵字並搜尋，同時關閉選單 */
 function quickSearch(keyword) {
   $('.recommend-wrap').removeClass('open');
   $('#searchQuery').val(keyword);
   searchYouTube(keyword);
 }
 
-/* 隨機推薦 */
 function randomSearch() {
   $('.recommend-wrap').removeClass('open');
   const all = [
@@ -595,9 +377,6 @@ function randomSearch() {
   searchYouTube(pick);
 }
 
-/* ════════════════════════════════════════
-   YouTube 搜尋
-════════════════════════════════════════ */
 function searchYouTube(query) {
   const apiKey = API_KEYS[currentApiKeyIndex];
   $('#results').empty();
@@ -621,29 +400,20 @@ function searchYouTube(query) {
 
       videoData.items.forEach(function(video) {
         const videoId = video.id;
-        const title   = $('<div>').text(video.snippet.title).html();
-        const thumb   = (video.snippet.thumbnails.medium || video.snippet.thumbnails.default).url;
+        const title = $('<div>').text(video.snippet.title).html();
+        const thumb = (video.snippet.thumbnails.medium || video.snippet.thumbnails.default).url;
 
         const cardHtml = `
-          <div class="result-card" id="card-${videoId}">
-            <div class="thumb-wrap">
+          <div class="result-card">
+            <div class="thumb-wrap" id="thumb-${videoId}" onclick="playVideo('${videoId}')">
               <img src="${thumb}" alt="縮圖" loading="lazy">
+              <div class="play-icon"></div>
             </div>
             <div class="card-info">
               <div class="card-title" title="${title}">${title}</div>
-              <div class="action-row">
-                <button class="action-btn btn-mp3" id="btn-${videoId}"
-                  onclick="loadMp3('${videoId}')">▶ 播放 MP3</button>
-                <button class="action-btn btn-video"
-                  onclick="toggleVideo('${videoId}')">📺 看影片</button>
-                <button class="action-btn btn-download" id="dl-${videoId}"
-                  onclick="downloadMp3('${videoId}', this)">⬇ 下載 MP3</button>
-              </div>
-              <div class="loading-bar-wrap" id="bar-wrap-${videoId}">
-                <div class="loading-bar"></div>
-              </div>
+              <button class="download-btn" id="dl-${videoId}"
+                onclick="downloadMp3('${videoId}', this)">⬇ 下載 MP3</button>
               <div class="error-msg" id="err-${videoId}"></div>
-              <div class="video-embed" id="video-${videoId}"></div>
             </div>
           </div>`;
         $('#results').append(cardHtml);
@@ -661,125 +431,35 @@ function searchYouTube(query) {
 }
 
 /* ════════════════════════════════════════
-   載入 MP3（呼叫 RapidAPI youtube-mp36）
+   🎬 點縮圖 → 播放影片（取代縮圖位置）
 ════════════════════════════════════════ */
-function loadMp3(videoId) {
-  const rapidKey = getRapidKey();
-  if (!rapidKey) {
-    alert('⚠️ 請先填入 RapidAPI Key！');
-    return;
-  }
-
-  const btn      = document.getElementById(`btn-${videoId}`);
-  const barWrap  = document.getElementById(`bar-wrap-${videoId}`);
-  const errDiv   = document.getElementById(`err-${videoId}`);
-  const cardInfo = btn.parentElement;
-
-  errDiv.style.display  = 'none';
-  errDiv.textContent    = '';
-  btn.disabled          = true;
-  btn.textContent       = '⏳ 處理中…';
-  barWrap.style.display = 'block';
-
-  fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key':  rapidKey,
-      'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
-    }
-  })
-  .then(r => r.json())
-  .then(handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, 0))
-  .catch(err => showError(btn, barWrap, errDiv, `網路錯誤：${err.message}`));
-}
-
-/* 處理 API 回應：可能是 done（直接拿到連結）或 processing（要輪詢）*/
-function handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, attempts) {
-  return function(data) {
-    if (data.status === 'ok' && data.link) {
-      barWrap.style.display = 'none';
-      // 保留按鈕群組，只把這顆 MP3 按鈕隱藏，讓使用者還能點「看影片」「下載」
-      btn.style.display = 'none';
-      const audio = document.createElement('audio');
-      audio.controls = true;
-      audio.src      = data.link;
-      audio.style.cssText = 'width:100%;margin-top:6px;border-radius:20px;';
-      // 把播放器插在按鈕群組上方，不覆蓋其他按鈕
-      cardInfo.insertBefore(audio, btn.parentElement);
-      audio.play().catch(() => {});
-      return;
-    }
-
-    if (data.status === 'processing' || data.status === 'CONVERTING') {
-      if (attempts > 60) {
-        showError(btn, barWrap, errDiv, '處理逾時，請稍後再試');
-        return;
-      }
-      if (attempts === 5)  btn.textContent = '⏳ 轉檔中…';
-      if (attempts === 15) btn.textContent = '⏳ 即將完成…';
-      if (attempts === 30) btn.textContent = '⏳ 較長的音訊，請耐心等候…';
-
-      setTimeout(() => {
-        fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
-          method: 'GET',
-          headers: {
-            'X-RapidAPI-Key':  getRapidKey(),
-            'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
-          }
-        })
-        .then(r => r.json())
-        .then(handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, attempts + 1))
-        .catch(err => showError(btn, barWrap, errDiv, `網路錯誤：${err.message}`));
-      }, 2000);
-      return;
-    }
-
-    showError(btn, barWrap, errDiv,
-      data.msg || data.message || `API 錯誤（${data.status || 'unknown'}）`);
-  };
-}
-
-function showError(btn, barWrap, errDiv, msg) {
-  barWrap.style.display = 'none';
-  btn.disabled    = false;
-  btn.textContent = '▶ 播放 MP3';
-  errDiv.textContent   = `⚠️ ${msg}`;
-  errDiv.style.display = 'block';
+function playVideo(videoId) {
+  const thumb = document.getElementById(`thumb-${videoId}`);
+  if (!thumb || thumb.classList.contains('playing')) return;
+  thumb.classList.add('playing');
+  thumb.innerHTML = `
+    <iframe class="video-player"
+      src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>`;
 }
 
 /* ════════════════════════════════════════
-   📺 看影片：展開 / 收合 YouTube 嵌入
-════════════════════════════════════════ */
-function toggleVideo(videoId) {
-  const box = document.getElementById(`video-${videoId}`);
-  if (!box) return;
-  if (box.classList.contains('open')) {
-    box.classList.remove('open');
-    box.innerHTML = '';   // 停止播放
-  } else {
-    box.innerHTML = `
-      <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>`;
-    box.classList.add('open');
-  }
-}
-
-/* ════════════════════════════════════════
-   ⬇ 下載 MP3：取得 API 連結後觸發瀏覽器下載
+   ⬇ 下載 MP3：取得連結後用新分頁觸發下載
+   （最穩定的跨網域下載方式）
 ════════════════════════════════════════ */
 function downloadMp3(videoId, btn) {
-  const rapidKey = getRapidKey();
-  if (!rapidKey) { alert('⚠️ 沒有可用的 API Key'); return; }
+  const errDiv = document.getElementById(`err-${videoId}`);
+  errDiv.style.display = 'none';
+  errDiv.textContent = '';
 
-  const originalText = btn.textContent;
   btn.disabled = true;
-  btn.textContent = '⏳ 準備下載…';
+  btn.textContent = '⏳ 取得連結…';
 
-  pollForDownload(videoId, btn, originalText, 0);
+  pollForMp3(videoId, btn, errDiv, 0);
 }
 
-function pollForDownload(videoId, btn, originalText, attempts) {
+function pollForMp3(videoId, btn, errDiv, attempts) {
   fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
     method: 'GET',
     headers: {
@@ -789,64 +469,57 @@ function pollForDownload(videoId, btn, originalText, attempts) {
   })
   .then(r => r.json())
   .then(function(data) {
+    /* 狀態：ok → 拿到 MP3 直接連結 */
     if (data.status === 'ok' && data.link) {
-      // 用 fetch 把 MP3 拉成 blob，觸發真實的下載
-      btn.textContent = '⏳ 下載中…';
-      fetch(data.link)
-        .then(r => {
-          if (!r.ok) throw new Error(`HTTP ${r.status}`);
-          return r.blob();
-        })
-        .then(blob => {
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          const safeName = (data.title || `youtube_${videoId}`)
-            .replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
-          a.download = `${safeName}.mp3`;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
-          btn.textContent = '✅ 已下載';
-          setTimeout(() => {
-            btn.disabled = false;
-            btn.textContent = originalText;
-          }, 2500);
-        })
-        .catch(err => {
-          // 若瀏覽器因 CORS 擋住 blob，退而求其次：直接開新分頁
-          window.open(data.link, '_blank');
-          btn.textContent = '↗ 已開啟連結';
-          setTimeout(() => {
-            btn.disabled = false;
-            btn.textContent = originalText;
-          }, 2500);
-        });
+      btn.textContent = '✅ 開始下載';
+
+      // 最穩定的跨網域下載：建立隱藏 <a> 並點擊
+      // RapidAPI 的 MP3 連結通常有 Content-Disposition: attachment，瀏覽器會自動下載
+      const a = document.createElement('a');
+      a.href = data.link;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      // download 屬性在同源才有效，但不會造成錯誤
+      const safeName = (data.title || `youtube_${videoId}`)
+        .replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
+      a.download = `${safeName}.mp3`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = '⬇ 下載 MP3';
+      }, 3000);
       return;
     }
 
+    /* 狀態：processing / CONVERTING → 要繼續輪詢 */
     if (data.status === 'processing' || data.status === 'CONVERTING') {
       if (attempts > 60) {
         btn.disabled = false;
-        btn.textContent = originalText;
-        alert('⚠️ 轉檔逾時，請稍後再試');
+        btn.textContent = '⬇ 下載 MP3';
+        errDiv.textContent = '⚠️ 伺服器轉檔逾時，請稍後再試';
+        errDiv.style.display = 'block';
         return;
       }
       if (attempts === 5)  btn.textContent = '⏳ 伺服器轉檔中…';
       if (attempts === 20) btn.textContent = '⏳ 即將完成…';
-      setTimeout(() => pollForDownload(videoId, btn, originalText, attempts + 1), 2000);
+      setTimeout(() => pollForMp3(videoId, btn, errDiv, attempts + 1), 2000);
       return;
     }
 
+    /* 失敗 */
     btn.disabled = false;
-    btn.textContent = originalText;
-    alert(`⚠️ 下載失敗：${data.msg || data.message || data.status || 'unknown'}`);
+    btn.textContent = '⬇ 下載 MP3';
+    errDiv.textContent = `⚠️ ${data.msg || data.message || `錯誤：${data.status || 'unknown'}`}`;
+    errDiv.style.display = 'block';
   })
   .catch(err => {
     btn.disabled = false;
-    btn.textContent = originalText;
-    alert(`⚠️ 網路錯誤：${err.message}`);
+    btn.textContent = '⬇ 下載 MP3';
+    errDiv.textContent = `⚠️ 網路錯誤：${err.message}`;
+    errDiv.style.display = 'block';
   });
 }
 
@@ -859,11 +532,9 @@ function scrollToTop() {
 
 window.onscroll = function() {
   var btnContainer = document.getElementById("back-to-top-container");
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    btnContainer.style.display = "block";
-  } else {
-    btnContainer.style.display = "none";
-  }
+  btnContainer.style.display =
+    (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20)
+      ? 'block' : 'none';
 };
 
 document.addEventListener("DOMContentLoaded", function() {
