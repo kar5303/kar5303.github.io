@@ -174,18 +174,32 @@
     line-height: 1.4; margin-bottom: 8px;
   }
 
-  /* 下載按鈕 */
-  .download-btn {
+  /* 按鈕群組 */
+  .action-row {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .action-btn {
     display: inline-flex; align-items: center; gap: 4px;
-    background: #1976d2; color: #fff;
-    border: none; border-radius: 20px;
+    color: #fff; border: none; border-radius: 20px;
     padding: 7px 16px; font-size: 13px;
     cursor: pointer; transition: background 0.2s, transform 0.1s;
     text-decoration: none;
   }
+  .action-btn:active { transform: scale(0.96); }
+  .action-btn:disabled { background: #999 !important; cursor: default; }
+
+  .play-mp3-btn { background: #1a7a1a; }
+  .play-mp3-btn:hover { background: #259025; }
+
+  .download-btn { background: #1976d2; }
   .download-btn:hover { background: #2089e8; }
-  .download-btn:active { transform: scale(0.96); }
-  .download-btn:disabled { background: #999; cursor: default; }
+
+  /* 音訊播放器 */
+  .card-info audio {
+    width: 100%; height: 36px;
+    border-radius: 20px; outline: none;
+    display: block; margin-top: 8px;
+  }
 
   .error-msg { font-size: 12px; color: #c00; margin-top: 4px; display: none; }
 
@@ -409,10 +423,14 @@ function searchYouTube(query) {
               <img src="${thumb}" alt="縮圖" loading="lazy">
               <div class="play-icon"></div>
             </div>
-            <div class="card-info">
+            <div class="card-info" id="info-${videoId}">
               <div class="card-title" title="${title}">${title}</div>
-              <button class="download-btn" id="dl-${videoId}"
-                onclick="downloadMp3('${videoId}', this)">⬇ 下載 MP3</button>
+              <div class="action-row">
+                <button class="action-btn play-mp3-btn" id="play-${videoId}"
+                  onclick="loadMp3('${videoId}', this)">▶ 播放 MP3</button>
+                <button class="action-btn download-btn" id="dl-${videoId}"
+                  onclick="downloadMp3('${videoId}', this)">⬇ 下載 MP3</button>
+              </div>
               <div class="error-msg" id="err-${videoId}"></div>
             </div>
           </div>`;
@@ -445,8 +463,77 @@ function playVideo(videoId) {
 }
 
 /* ════════════════════════════════════════
-   ⬇ 下載 MP3：取得連結後用新分頁觸發下載
-   （最穩定的跨網域下載方式）
+   共用：向 RapidAPI 要 MP3 連結（輪詢直到完成）
+   callback(data) 會被呼叫，data.link 是 MP3 的直接網址
+════════════════════════════════════════ */
+function requestMp3(videoId, btn, errDiv, originalText, onDone) {
+  function poll(attempts) {
+    fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key':  getRapidKey(),
+        'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
+      }
+    })
+    .then(r => r.json())
+    .then(function(data) {
+      if (data.status === 'ok' && data.link) {
+        onDone(data);
+        return;
+      }
+      if (data.status === 'processing' || data.status === 'CONVERTING') {
+        if (attempts > 60) {
+          btn.disabled = false;
+          btn.textContent = originalText;
+          errDiv.textContent = '⚠️ 伺服器轉檔逾時，請稍後再試';
+          errDiv.style.display = 'block';
+          return;
+        }
+        if (attempts === 5)  btn.textContent = '⏳ 伺服器轉檔中…';
+        if (attempts === 20) btn.textContent = '⏳ 即將完成…';
+        setTimeout(() => poll(attempts + 1), 2000);
+        return;
+      }
+      btn.disabled = false;
+      btn.textContent = originalText;
+      errDiv.textContent = `⚠️ ${data.msg || data.message || `錯誤：${data.status || 'unknown'}`}`;
+      errDiv.style.display = 'block';
+    })
+    .catch(err => {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      errDiv.textContent = `⚠️ 網路錯誤：${err.message}`;
+      errDiv.style.display = 'block';
+    });
+  }
+  poll(0);
+}
+
+/* ════════════════════════════════════════
+   ▶ 播放 MP3：拿到連結後建立 <audio> 元素播放
+════════════════════════════════════════ */
+function loadMp3(videoId, btn) {
+  const errDiv = document.getElementById(`err-${videoId}`);
+  const cardInfo = document.getElementById(`info-${videoId}`);
+  errDiv.style.display = 'none';
+  errDiv.textContent = '';
+
+  btn.disabled = true;
+  btn.textContent = '⏳ 取得連結…';
+
+  requestMp3(videoId, btn, errDiv, '▶ 播放 MP3', function(data) {
+    btn.style.display = 'none';  // 隱藏自己，保留下載按鈕
+    const audio = document.createElement('audio');
+    audio.controls = true;
+    audio.src      = data.link;
+    audio.autoplay = true;
+    cardInfo.appendChild(audio);
+    audio.play().catch(() => {});
+  });
+}
+
+/* ════════════════════════════════════════
+   ⬇ 下載 MP3：拿到連結後觸發瀏覽器下載
 ════════════════════════════════════════ */
 function downloadMp3(videoId, btn) {
   const errDiv = document.getElementById(`err-${videoId}`);
@@ -456,70 +543,23 @@ function downloadMp3(videoId, btn) {
   btn.disabled = true;
   btn.textContent = '⏳ 取得連結…';
 
-  pollForMp3(videoId, btn, errDiv, 0);
-}
+  requestMp3(videoId, btn, errDiv, '⬇ 下載 MP3', function(data) {
+    btn.textContent = '✅ 開始下載';
+    const a = document.createElement('a');
+    a.href = data.link;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    const safeName = (data.title || `youtube_${videoId}`)
+      .replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
+    a.download = `${safeName}.mp3`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 
-function pollForMp3(videoId, btn, errDiv, attempts) {
-  fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key':  getRapidKey(),
-      'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
-    }
-  })
-  .then(r => r.json())
-  .then(function(data) {
-    /* 狀態：ok → 拿到 MP3 直接連結 */
-    if (data.status === 'ok' && data.link) {
-      btn.textContent = '✅ 開始下載';
-
-      // 最穩定的跨網域下載：建立隱藏 <a> 並點擊
-      // RapidAPI 的 MP3 連結通常有 Content-Disposition: attachment，瀏覽器會自動下載
-      const a = document.createElement('a');
-      a.href = data.link;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      // download 屬性在同源才有效，但不會造成錯誤
-      const safeName = (data.title || `youtube_${videoId}`)
-        .replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
-      a.download = `${safeName}.mp3`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.textContent = '⬇ 下載 MP3';
-      }, 3000);
-      return;
-    }
-
-    /* 狀態：processing / CONVERTING → 要繼續輪詢 */
-    if (data.status === 'processing' || data.status === 'CONVERTING') {
-      if (attempts > 60) {
-        btn.disabled = false;
-        btn.textContent = '⬇ 下載 MP3';
-        errDiv.textContent = '⚠️ 伺服器轉檔逾時，請稍後再試';
-        errDiv.style.display = 'block';
-        return;
-      }
-      if (attempts === 5)  btn.textContent = '⏳ 伺服器轉檔中…';
-      if (attempts === 20) btn.textContent = '⏳ 即將完成…';
-      setTimeout(() => pollForMp3(videoId, btn, errDiv, attempts + 1), 2000);
-      return;
-    }
-
-    /* 失敗 */
-    btn.disabled = false;
-    btn.textContent = '⬇ 下載 MP3';
-    errDiv.textContent = `⚠️ ${data.msg || data.message || `錯誤：${data.status || 'unknown'}`}`;
-    errDiv.style.display = 'block';
-  })
-  .catch(err => {
-    btn.disabled = false;
-    btn.textContent = '⬇ 下載 MP3';
-    errDiv.textContent = `⚠️ 網路錯誤：${err.message}`;
-    errDiv.style.display = 'block';
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = '⬇ 下載 MP3';
+    }, 3000);
   });
 }
 
