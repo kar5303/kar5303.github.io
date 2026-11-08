@@ -294,19 +294,57 @@
     margin-top: 6px;
   }
 
-  .load-mp3-btn {
-    display: inline-block;
-    background: #1a7a1a;
-    color: #fff;
+  /* 操作按鈕群組 */
+  .action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     border: none;
     border-radius: 20px;
-    padding: 7px 18px;
-    font-size: 13px;
+    padding: 6px 14px;
+    font-size: 12px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s;
+    text-decoration: none;
+    color: #fff;
   }
-  .load-mp3-btn:hover { background: #259025; }
-  .load-mp3-btn:disabled { background: #999; cursor: default; }
+  .action-btn:active { transform: scale(0.96); }
+  .action-btn:disabled { background: #999 !important; cursor: default; }
+
+  .btn-mp3     { background: #1a7a1a; }
+  .btn-mp3:hover { background: #259025; }
+  .btn-video   { background: #c62828; }
+  .btn-video:hover { background: #e03e3e; }
+  .btn-download{ background: #1976d2; }
+  .btn-download:hover { background: #2089e8; }
+
+  /* 影片嵌入區（展開 / 收合）*/
+  .video-embed {
+    display: none;
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .video-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+  }
+  .video-embed.open { display: block; }
 
   .loading-bar-wrap {
     width: 100%;
@@ -593,12 +631,19 @@ function searchYouTube(query) {
             </div>
             <div class="card-info">
               <div class="card-title" title="${title}">${title}</div>
-              <button class="load-mp3-btn" id="btn-${videoId}"
-                onclick="loadMp3('${videoId}')">▶ 載入 MP3</button>
+              <div class="action-row">
+                <button class="action-btn btn-mp3" id="btn-${videoId}"
+                  onclick="loadMp3('${videoId}')">▶ 播放 MP3</button>
+                <button class="action-btn btn-video"
+                  onclick="toggleVideo('${videoId}')">📺 看影片</button>
+                <button class="action-btn btn-download" id="dl-${videoId}"
+                  onclick="downloadMp3('${videoId}', this)">⬇ 下載 MP3</button>
+              </div>
               <div class="loading-bar-wrap" id="bar-wrap-${videoId}">
                 <div class="loading-bar"></div>
               </div>
               <div class="error-msg" id="err-${videoId}"></div>
+              <div class="video-embed" id="video-${videoId}"></div>
             </div>
           </div>`;
         $('#results').append(cardHtml);
@@ -653,12 +698,14 @@ function handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, attempts) {
   return function(data) {
     if (data.status === 'ok' && data.link) {
       barWrap.style.display = 'none';
-      btn.remove();
+      // 保留按鈕群組，只把這顆 MP3 按鈕隱藏，讓使用者還能點「看影片」「下載」
+      btn.style.display = 'none';
       const audio = document.createElement('audio');
       audio.controls = true;
       audio.src      = data.link;
       audio.style.cssText = 'width:100%;margin-top:6px;border-radius:20px;';
-      cardInfo.appendChild(audio);
+      // 把播放器插在按鈕群組上方，不覆蓋其他按鈕
+      cardInfo.insertBefore(audio, btn.parentElement);
       audio.play().catch(() => {});
       return;
     }
@@ -695,9 +742,112 @@ function handleApiResponse(videoId, btn, barWrap, errDiv, cardInfo, attempts) {
 function showError(btn, barWrap, errDiv, msg) {
   barWrap.style.display = 'none';
   btn.disabled    = false;
-  btn.textContent = '▶ 載入 MP3';
+  btn.textContent = '▶ 播放 MP3';
   errDiv.textContent   = `⚠️ ${msg}`;
   errDiv.style.display = 'block';
+}
+
+/* ════════════════════════════════════════
+   📺 看影片：展開 / 收合 YouTube 嵌入
+════════════════════════════════════════ */
+function toggleVideo(videoId) {
+  const box = document.getElementById(`video-${videoId}`);
+  if (!box) return;
+  if (box.classList.contains('open')) {
+    box.classList.remove('open');
+    box.innerHTML = '';   // 停止播放
+  } else {
+    box.innerHTML = `
+      <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>`;
+    box.classList.add('open');
+  }
+}
+
+/* ════════════════════════════════════════
+   ⬇ 下載 MP3：取得 API 連結後觸發瀏覽器下載
+════════════════════════════════════════ */
+function downloadMp3(videoId, btn) {
+  const rapidKey = getRapidKey();
+  if (!rapidKey) { alert('⚠️ 沒有可用的 API Key'); return; }
+
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = '⏳ 準備下載…';
+
+  pollForDownload(videoId, btn, originalText, 0);
+}
+
+function pollForDownload(videoId, btn, originalText, attempts) {
+  fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key':  getRapidKey(),
+      'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
+    }
+  })
+  .then(r => r.json())
+  .then(function(data) {
+    if (data.status === 'ok' && data.link) {
+      // 用 fetch 把 MP3 拉成 blob，觸發真實的下載
+      btn.textContent = '⏳ 下載中…';
+      fetch(data.link)
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.blob();
+        })
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          const safeName = (data.title || `youtube_${videoId}`)
+            .replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
+          a.download = `${safeName}.mp3`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          btn.textContent = '✅ 已下載';
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }, 2500);
+        })
+        .catch(err => {
+          // 若瀏覽器因 CORS 擋住 blob，退而求其次：直接開新分頁
+          window.open(data.link, '_blank');
+          btn.textContent = '↗ 已開啟連結';
+          setTimeout(() => {
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }, 2500);
+        });
+      return;
+    }
+
+    if (data.status === 'processing' || data.status === 'CONVERTING') {
+      if (attempts > 60) {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        alert('⚠️ 轉檔逾時，請稍後再試');
+        return;
+      }
+      if (attempts === 5)  btn.textContent = '⏳ 伺服器轉檔中…';
+      if (attempts === 20) btn.textContent = '⏳ 即將完成…';
+      setTimeout(() => pollForDownload(videoId, btn, originalText, attempts + 1), 2000);
+      return;
+    }
+
+    btn.disabled = false;
+    btn.textContent = originalText;
+    alert(`⚠️ 下載失敗：${data.msg || data.message || data.status || 'unknown'}`);
+  })
+  .catch(err => {
+    btn.disabled = false;
+    btn.textContent = originalText;
+    alert(`⚠️ 網路錯誤：${err.message}`);
+  });
 }
 
 /* ════════════════════════════════════════
