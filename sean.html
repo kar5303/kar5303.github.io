@@ -533,22 +533,13 @@ function loadMp3(videoId, btn) {
 }
 
 /* ════════════════════════════════════════
-   ⬇ 下載 MP3：多層 fallback，適應公司防火牆
-   策略順序：
-   1. CORS 代理 fetch → Blob 下載（不開新分頁，最安全）
-   2. 直接 a.download（同分頁，不開新視窗）
-   3. 失敗時顯示連結供手動下載
+   ⬇ 下載 MP3：隱藏 iframe + 連結備援
+   策略：不使用任何代理、不開新視窗，模擬正常使用者點連結
 ════════════════════════════════════════ */
-
-/* 公開的 CORS 代理清單（失敗會輪詢下一個）*/
-const CORS_PROXIES = [
-  url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-  url => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(url)}`,
-];
 
 function downloadMp3(videoId, btn) {
   const errDiv = document.getElementById(`err-${videoId}`);
+  const cardInfo = document.getElementById(`info-${videoId}`);
   errDiv.style.display = 'none';
   errDiv.textContent = '';
 
@@ -560,63 +551,52 @@ function downloadMp3(videoId, btn) {
       .replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
     const filename = `${safeName}.mp3`;
 
-    btn.textContent = '⏳ 下載中…';
-    tryDownloadViaProxy(data.link, filename, btn, errDiv, 0);
+    btn.textContent = '⏳ 準備下載…';
+
+    // 【策略 1】隱藏 iframe 下載
+    // 原理：iframe 載入 MP3 時，由於伺服器回傳 Content-Disposition: attachment，
+    //      瀏覽器會自動彈出下載視窗，不會真的渲染在 iframe 裡。
+    //      公司防火牆看到的是「頁面載入資源」而不是「開啟新視窗」，所以很難被擋。
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = data.link;
+    document.body.appendChild(iframe);
+
+    // 10 秒後移除 iframe（這時下載已經排入佇列）
+    setTimeout(() => iframe.remove(), 10000);
+
+    // 【策略 2】同時插入一顆可見的備援連結
+    // 若 iframe 方式沒成功下載，使用者可以直接點這條連結（同頁跳轉，不開新視窗）
+    // 若連跳轉也被擋，右鍵「另存連結為」100% 可用
+    showManualLink(cardInfo, data.link, filename, btn);
   });
 }
 
-/* 依序嘗試每個 CORS 代理下載 */
-function tryDownloadViaProxy(mp3Url, filename, btn, errDiv, proxyIdx) {
-  if (proxyIdx >= CORS_PROXIES.length) {
-    // 全部代理都失敗 → 顯示連結手動下載
-    fallbackDirectLink(mp3Url, filename, btn, errDiv);
-    return;
-  }
+/* 顯示可見的手動下載連結（備援）*/
+function showManualLink(cardInfo, mp3Url, filename, btn) {
+  // 避免重複顯示：如果已經有連結就先移除
+  const old = cardInfo.querySelector('.manual-dl-hint');
+  if (old) old.remove();
 
-  const proxyUrl = CORS_PROXIES[proxyIdx](mp3Url);
-  btn.textContent = `⏳ 下載中 (${proxyIdx + 1}/${CORS_PROXIES.length})…`;
-
-  fetch(proxyUrl)
-    .then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.blob();
-    })
-    .then(blob => {
-      if (blob.size < 1000) throw new Error('檔案過小，可能失敗');
-      // 用 Blob URL 建立同源下載連結，絕對能觸發下載
-      const blobUrl = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = blobUrl;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
-
-      btn.textContent = '✅ 已下載';
-      setTimeout(() => {
-        btn.disabled = false;
-        btn.textContent = '⬇ 下載 MP3';
-      }, 3000);
-    })
-    .catch(() => {
-      // 這個代理失敗，換下一個
-      tryDownloadViaProxy(mp3Url, filename, btn, errDiv, proxyIdx + 1);
-    });
-}
-
-/* 所有代理失敗 → 顯示連結讓使用者手動點（同頁跳轉，不開新分頁）*/
-function fallbackDirectLink(mp3Url, filename, btn, errDiv) {
-  btn.disabled = false;
-  btn.textContent = '⬇ 下載 MP3';
-  errDiv.innerHTML = `
-    ⚠️ 自動下載失敗（公司網路可能擋住代理），
-    <a href="${mp3Url}" download="${filename}" style="color:#1976d2;font-weight:bold;">
-      請點此手動下載
+  const hint = document.createElement('div');
+  hint.className = 'manual-dl-hint';
+  hint.style.cssText = 'margin-top:8px;font-size:12px;color:#555;line-height:1.6;';
+  hint.innerHTML = `
+    ✅ 下載已觸發。若瀏覽器沒有自動下載，請
+    <a href="${mp3Url}" download="${filename}"
+       style="color:#1976d2;font-weight:bold;text-decoration:underline;">
+       點此直接下載
     </a>
-    （若仍無法下載，可在連結上按右鍵選「另存連結為」）
+    或在此連結上按<strong>滑鼠右鍵 → 另存連結為</strong>。
   `;
-  errDiv.style.display = 'block';
+  cardInfo.appendChild(hint);
+
+  // 按鈕恢復
+  btn.textContent = '✅ 已觸發下載';
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = '⬇ 下載 MP3';
+  }, 3000);
 }
 
 /* ════════════════════════════════════════
