@@ -570,94 +570,132 @@ function stopAudio(videoId) {
 }
 
 /* ════════════════════════════════════════
-   ⬇ 下載 MP3：用 ytstream API 取得 YouTube 自家 CDN
+   ⬇ 下載 MP3：全程 fetch，不開新分頁
 
-   原理：googlevideo.com 是 YouTube 影片真正的放檔位置。
-   既然公司允許 YouTube 嵌入播放，就等於允許 googlevideo.com，
-   因為影片播放過程本身就是從那裡載入位元組。
+   嘗試順序：
+   ① cobalt.tools API（開源下載服務，CORS 友善）
+   ② 現有 RapidAPI youtube-mp36
+   任一成功就 fetch → blob → 觸發下載，整個過程留在當前分頁
 ════════════════════════════════════════ */
-function downloadMp3(videoId, btn) {
+
+async function downloadMp3(videoId, btn) {
   const errDiv = document.getElementById(`err-${videoId}`);
   errDiv.style.display = 'none';
   errDiv.textContent = '';
 
   btn.disabled = true;
-  btn.textContent = '⏳ 取得 YouTube 直連…';
+  btn.textContent = '⏳ 取得連結…';
 
-  fetch(`https://ytstream-download-youtube-videos.p.rapidapi.com/dl?id=${videoId}`, {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key':  getRapidKey(),
-      'X-RapidAPI-Host': 'ytstream-download-youtube-videos.p.rapidapi.com'
-    }
-  })
-  .then(r => r.json())
-  .then(function(data) {
-    if (!data.formats && !data.adaptiveFormats) {
-      throw new Error(data.message || 'API 回應異常');
-    }
+  const youtubeUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
-    // 從所有格式裡挑音訊最好的一條
-    const allFormats = [].concat(data.formats || [], data.adaptiveFormats || []);
-    const audioFormats = allFormats
-      .filter(f => f.mimeType && f.mimeType.startsWith('audio/'))
-      .sort((a, b) => (b.bitrate || 0) - (a.bitrate || 0));
+  // 準備要嘗試的來源
+  const sources = [
+    { name: 'cobalt.tools', fn: () => fetchFromCobalt(youtubeUrl) },
+    { name: 'youtube-mp36', fn: () => fetchFromMp36(videoId) },
+  ];
 
-    const pick = audioFormats.find(f => f.mimeType.includes('mp4')) || audioFormats[0];
-    if (!pick || !pick.url) throw new Error('找不到可用的音訊串流');
-
-    btn.textContent = '⏳ 下載中…';
-
-    const safeName = (data.title || `youtube_${videoId}`)
-      .replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
-    const ext = pick.mimeType.includes('mp4') ? 'm4a'
-              : pick.mimeType.includes('webm') ? 'webm' : 'mp3';
-    const filename = `${safeName}.${ext}`;
-
-    // 直接 fetch googlevideo.com（和 YouTube 影片播放同源，公司允許）
-    return fetch(pick.url)
-      .then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.blob();
-      })
-      .then(blob => {
-        if (blob.size < 1000) throw new Error('檔案太小，可能失敗');
-        const blobUrl = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = blobUrl;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
-
-        btn.textContent = '✅ 已下載';
-        setTimeout(() => {
-          btn.disabled = false;
-          btn.textContent = '⬇ 下載 MP3';
-        }, 3000);
-      })
-      .catch(err => {
-        // Fetch 失敗 → 給連結手動下載
-        errDiv.innerHTML = `
-          ⚠️ 自動下載失敗，請<strong>右鍵另存</strong>：
-          <a href="${pick.url}" download="${filename}"
-             style="color:#1976d2;font-weight:bold;" target="_blank">
-            🎵 YouTube 音訊直連
-          </a>
-        `;
-        errDiv.style.display = 'block';
+  for (let i = 0; i < sources.length; i++) {
+    const src = sources[i];
+    btn.textContent = `⏳ 嘗試 ${src.name}…`;
+    try {
+      const info = await src.fn();           // { mp3Url, title }
+      btn.textContent = '⏳ 下載中…';
+      const blob = await fetchAsBlob(info.mp3Url);
+      triggerBlobDownload(blob, info.title || videoId);
+      btn.textContent = '✅ 已下載';
+      setTimeout(() => {
         btn.disabled = false;
         btn.textContent = '⬇ 下載 MP3';
-      });
-  })
-  .catch(err => {
-    btn.disabled = false;
-    btn.textContent = '⬇ 下載 MP3';
-    errDiv.textContent = `⚠️ ${err.message}`;
-    errDiv.style.display = 'block';
-  });
+      }, 2500);
+      return;
+    } catch (err) {
+      console.warn(`${src.name} 失敗：`, err);
+      // 試下一個
+    }
+  }
+
+  // 全部來源都失敗
+  btn.disabled = false;
+  btn.textContent = '⬇ 下載 MP3';
+  errDiv.innerHTML = `
+    ⚠️ 所有來源都被公司網路擋下來了。
+    唯一剩下的解法：架設自己的 Cloudflare Worker 代理（免費、5 分鐘）。
+    回家下載則一切正常。
+  `;
+  errDiv.style.display = 'block';
 }
+
+/* ── 來源 1：cobalt.tools API ── */
+async function fetchFromCobalt(youtubeUrl) {
+  const r = await fetch('https://api.cobalt.tools/', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      url: youtubeUrl,
+      downloadMode: 'audio',
+      audioFormat: 'mp3',
+      filenameStyle: 'basic',
+    }),
+  });
+  if (!r.ok) throw new Error(`cobalt HTTP ${r.status}`);
+  const data = await r.json();
+  if (data.status !== 'tunnel' && data.status !== 'redirect') {
+    throw new Error(data.text || `cobalt status: ${data.status}`);
+  }
+  return { mp3Url: data.url, title: data.filename };
+}
+
+/* ── 來源 2：RapidAPI youtube-mp36 ── */
+async function fetchFromMp36(videoId) {
+  // 輪詢直到轉檔完成
+  for (let i = 0; i < 30; i++) {
+    const r = await fetch(`https://youtube-mp36.p.rapidapi.com/dl?id=${videoId}`, {
+      headers: {
+        'X-RapidAPI-Key':  getRapidKey(),
+        'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com',
+      },
+    });
+    if (!r.ok) throw new Error(`mp36 HTTP ${r.status}`);
+    const data = await r.json();
+    if (data.status === 'ok' && data.link) {
+      return { mp3Url: data.link, title: data.title };
+    }
+    if (data.status === 'processing' || data.status === 'CONVERTING') {
+      await sleep(2000);
+      continue;
+    }
+    throw new Error(data.msg || `mp36 status: ${data.status}`);
+  }
+  throw new Error('mp36 轉檔逾時');
+}
+
+/* 工具：fetch 一個 URL 轉成 Blob */
+async function fetchAsBlob(url) {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`下載 HTTP ${r.status}`);
+  const blob = await r.blob();
+  if (blob.size < 1000) throw new Error('檔案過小');
+  return blob;
+}
+
+/* 工具：把 Blob 當檔案下載 */
+function triggerBlobDownload(blob, title) {
+  const safeName = String(title).replace(/[\\/:*?"<>|]/g, '_').slice(0, 80);
+  const filename = safeName.endsWith('.mp3') ? safeName : `${safeName}.mp3`;
+  const blobUrl = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = blobUrl;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 /* ════════════════════════════════════════
    回到頂部
